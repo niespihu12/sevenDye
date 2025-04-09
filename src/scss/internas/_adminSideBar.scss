@@ -1,15 +1,85 @@
 @use '../base/variables' as v;
 @use '../base/mixins' as m;
-.sidebar-admin{
-    width: 260px;
-    background-color: v.$azul;
-    img{
-        margin: 0 auto;
-        width: 50px;
-    }
-}
 
-.navegacion-admin{
+
+.admin-sidebar {
+    background-color: v.$azul;
+    width: 20rem; 
+    min-height: 100vh;
+    padding: 2rem 0;
     display: flex;
     flex-direction: column;
+    border-right: 1px solid rgba(v.$violeta, 0.2);
+
+    &__logo {
+        padding: 0 2rem;
+        margin-bottom: 4rem;
+        text-align: center;
+
+        img {
+            max-width: 100%;
+            width: auto;
+            max-height: 6rem;
+            margin: 0 auto;
+        }
+    }
+
+    &__menu {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 0 1rem;
+    }
+
+    &__nav-link {
+        display: flex;
+        align-items: center;
+        padding: 1.2rem 2rem;
+        color: v.$blanco;
+        transition: all 0.3s;
+        font-family: v.$fuente-principal;
+        text-transform: uppercase;
+        border-radius: 0.8rem;
+        font-size: 1.6rem;
+        letter-spacing: 0.1rem;
+        
+        svg, i {
+            width: 2rem;
+            height: 2rem;
+            margin-right: 1.5rem;
+            fill: v.$blanco;
+            flex-shrink: 0;
+        }
+
+        &:hover, &.is-active {
+            background-color: v.$violeta;
+            color: v.$blanco;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        &.is-active {
+            background-color: v.$violeta;
+        }
+    }
+
+    &__separator {
+        height: 1px;
+        background-color: rgba(v.$blanco, 0.2);
+        margin: 3rem 2rem;
+        margin-top: auto;
+    }
+    
+    &__extras {
+        padding: 1.5rem 1rem;
+        
+        .admin-sidebar__nav-link {
+            display: flex;
+            align-items: center;
+            
+            svg, i {
+                margin-right: 1.5rem;
+            }
+        }
+    }
 }
