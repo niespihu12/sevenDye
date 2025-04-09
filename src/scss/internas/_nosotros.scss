@@ -1,0 +1,205 @@
+@use '../base/mixins' as m;
+@use '../base/variables' as v;
+@use 'sass:color';
+
+.nosotros {
+    background: linear-gradient(v.$violeta, #FF77E5);
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 7rem 2rem 0 2rem;
+
+    &-titulo {
+        text-align: center;
+    }
+}
+
+.creemos {
+    display: grid;
+    grid-template-columns: 1fr;
+
+    @include m.desktop{
+        grid-template-columns: 20% 30% 50%;
+    }
+    
+
+    &-texto {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        margin: 0 2rem;
+    }
+
+    &-derecha {
+        background-image: url('../../build/img/nosotros.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
+        margin: 0;
+        padding: 0;
+    }
+
+    &-izquierda {
+        background-image: url('../../build/img/nosotros2.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
+        margin: 0;
+        padding: 0;
+    }
+}
+
+.compromiso {
+
+    &-derecha {
+        background-color: v.$azul;
+        display: flex;
+        flex-direction: column-reverse;
+
+
+        @include m.desktop{
+            display: grid;
+            grid-template-columns: 1fr .3fr;
+
+        }
+    }
+
+    &-izquierda {
+        
+        display: flex;
+        flex-direction: column;
+
+        @include m.desktop{
+            display: grid;
+            grid-template-columns: .3fr 1fr;
+        }
+    }
+
+    &-texto {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 0;
+        text-align: center;
+        margin: 2rem 5rem;
+
+        @include m.desktop{
+            margin: 0 20rem;
+            text-align: left;
+        }
+    }
+}
+
+.nosotros-redes {
+    
+    margin: 5rem 1rem ;
+    
+    .wrapper {
+        display: inline-flex;
+        gap: 10rem;
+        list-style: none;
+        height: auto;
+        width: 100%;
+        padding: 0;
+        font-family: "Poppins", sans-serif;
+        justify-content: center;
+        flex-wrap: wrap;
+        .icon {
+            position: relative;
+            background: #fff;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            font-size: 18px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        .tooltip {
+            position: absolute;
+            top: 0;
+            font-size: 14px;
+            background: #fff;
+            color: #fff;
+            padding: 5px 8px;
+            border-radius: 5px;
+            box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            &::before {
+                position: absolute;
+                content: "";
+                height: 8px;
+                width: 8px;
+                background: #fff;
+                bottom: -3px;
+                left: 50%;
+                transform: translate(-50%) rotate(45deg);
+                transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            }
+        
+        }
+    }
+
+    
+
+    
+
+    
+    .wrapper .icon:hover .tooltip {
+        top: -45px;
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+    .wrapper .icon:hover span,
+    .wrapper .icon:hover .tooltip {
+        text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.1);
+    }
+
+    .wrapper .facebook:hover,
+    .wrapper .facebook:hover .tooltip,
+    .wrapper .facebook:hover .tooltip::before {
+        background: #1877f2;
+        color: #fff;
+    }
+
+    .wrapper .tiktok:hover,
+    .wrapper .tiktok:hover .tooltip,
+    .wrapper .tiktok:hover .tooltip::before {
+        background: v.$negro;
+        color: #fff;
+    }
+
+    .wrapper .instagram:hover,
+    .wrapper .instagram:hover .tooltip,
+    .wrapper .instagram:hover .tooltip::before {
+        background: #e4405f;
+        color: #fff;
+    }
+
+    .wrapper .email:hover,
+    .wrapper .email:hover .tooltip,
+    .wrapper .email:hover .tooltip::before {
+        background: red;
+        color: #fff;
+    }
+    .nosotros-redes__descripcion{
+        font-family: v.$fuente-principal;
+        font-size: 1.8rem;
+        font-weight: bold;
+    }
+    
+
+
+}
+

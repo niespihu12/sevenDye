@@ -1,0 +1,86 @@
+@use 'variables' as v;
+
+html{
+    font-size: 62.5%;
+    box-sizing: border-box;
+    scroll-padding-top: 0rem;
+}
+
+*,
+*:before,
+*:after{
+    box-sizing: inherit;
+    
+}
+
+body{
+    font-optical-sizing: auto;
+    font-size: normal;
+    color: v.$negro;
+    font-size: 2rem;
+
+    &.overflow-hidden{
+        overflow: hidden;
+        
+    }
+}
+
+p{
+    font-family: v.$fuente-secundaria;
+    color: v.$negro;
+    line-height: 1.5;
+    font-size: 1.6rem;
+}
+
+.contenedor{
+    width: 95%;
+    max-height: 120rem;
+    margin: 0 auto;
+}
+
+a{
+    font-family: v.$fuente-secundaria;
+    text-decoration: none;
+    color: v.$negro;
+}
+
+h1,h2,h3{
+    font-family: v.$fuente-principal;
+}
+
+h1{
+    font-size: 6rem;
+}
+
+h2{
+    font-size: 4.6rem;
+}
+
+h3{
+    font-size: 4rem;
+}
+
+
+img{
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    display: block;
+}
+ul{
+    list-style: none;
+}
+label{
+    font-size: 1.6rem;
+    font-family: v.$fuente-secundaria;
+}
+.centrar-texto{
+    text-align: center;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    }
+input[type=number] { -moz-appearance:textfield; }

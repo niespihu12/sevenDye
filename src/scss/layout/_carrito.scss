@@ -1,0 +1,655 @@
+@use '../base/variables' as v;
+@use '../base/mixins' as m;
+@use 'sass:color';
+
+
+.cart-main {
+    @include m.contenedor;
+    font-family: v.$fuente-secundaria;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 7rem 1rem 4rem 1rem;
+
+    @include m.tablet {
+
+        padding: 7rem 1rem 4rem 1rem;
+    }
+
+    @include m.desktop {
+        padding: 7rem 1rem 4rem 1rem;
+    }
+
+    &__title {
+        font-size: 2.8rem;
+        margin-bottom: 3rem;
+        font-weight: 700;
+        font-family: v.$fuente-principal;
+        position: relative;
+        display: inline-block;
+        color: v.$negro;
+
+        @include m.tablet {
+            font-size: 3.5rem;
+            margin-bottom: 4rem;
+        }
+
+        @include m.desktop {
+            font-size: 4.5rem;
+            margin-bottom: 6rem;
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, v.$azulClaro, v.$violeta);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        &:hover::after {
+            transform: scaleX(1);
+        }
+    }
+
+    &__grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+
+        @include m.desktop {
+            grid-template-columns: 2fr 1fr;
+            gap: 4rem;
+        }
+    }
+}
+
+.cart-item {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border-radius: 1.5rem;
+    background: v.$blanco;
+    border: 1px solid rgba(v.$azulClaro, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+
+    @include m.tablet {
+        flex-direction: row;
+        align-items: center;
+        padding: 2.5rem;
+        gap: 2rem;
+    }
+
+    @include m.desktop {
+        padding: 3rem;
+        gap: 2.5rem;
+    }
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(v.$azulClaro, 0.1);
+
+        .cart-item__image img {
+            transform: scale(1.1);
+        }
+    }
+
+    &__image {
+        width: 100%;
+        height: 300px;
+        margin-bottom: 2rem;
+        border-radius: 1rem;
+        overflow: hidden;
+
+        @include m.tablet {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 0;
+        }
+
+        img {
+            width: auto;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.5s ease;
+        }
+    }
+
+    &__info {
+        flex: 1;
+
+        h3 {
+            font-family: v.$fuente-principal;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: v.$negro;
+
+            @include m.tablet {
+                font-size: 2rem;
+            }
+
+            @include m.desktop {
+                font-size: 2.2rem;
+            }
+        }
+
+        .cart-item__details {
+            p {
+                font-size: 1.4rem;
+                color: v.$gris;
+                margin: 0.5rem 0;
+
+                @include m.tablet {
+                    font-size: 1.5rem;
+                }
+
+                @include m.desktop {
+                    font-size: 1.6rem;
+                }
+
+                &.price {
+                    font-size: 1.6rem;
+                    color: v.$azulClaro;
+                    font-weight: 600;
+                    margin-top: 1rem;
+
+                    @include m.tablet {
+                        font-size: 1.7rem;
+                    }
+
+                    @include m.desktop {
+                        font-size: 1.8rem;
+                    }
+                }
+            }
+        }
+    }
+
+    &__quantity {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 2rem;
+
+        @include m.tablet {
+            justify-content: flex-start;
+            margin-top: 0;
+        }
+
+        .quantity-btn {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            border: 1px solid rgba(v.$azulClaro, 0.2);
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: v.$fuente-secundaria;
+
+            @include m.tablet {
+                width: 3rem;
+                height: 3rem;
+            }
+
+            &:hover {
+                background: v.$azulClaro;
+                color: v.$blanco;
+                transform: scale(1.1);
+            }
+        }
+
+        input {
+            width: 3.5rem;
+            text-align: center;
+            border: none;
+            background: transparent;
+            font-size: 1.4rem;
+            font-family: v.$fuente-secundaria;
+
+            @include m.tablet {
+                width: 4rem;
+                font-size: 1.6rem;
+            }
+        }
+    }
+
+    &__remove {
+        background: transparent;
+        border: none;
+        color: v.$rojo;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        padding: 1rem;
+        align-self: center;
+        margin-top: 1rem;
+
+        @include m.tablet {
+            align-self: flex-start;
+            margin-top: 0;
+        }
+
+        &:hover {
+            transform: scale(1.2);
+            color: color.adjust(v.$rojo, $lightness: 10%);
+        }
+    }
+}
+
+.cart-summary {
+    padding: 2rem;
+    border-radius: 2rem;
+    background: v.$blanco;
+    border: 1px solid rgba(v.$azulClaro, 0.1);
+    height: fit-content;
+
+    @include m.tablet {
+        padding: 2.5rem;
+    }
+
+    @include m.desktop {
+        padding: 3rem;
+    }
+
+    h3 {
+        font-family: v.$fuente-principal;
+        font-size: 1.8rem;
+        margin-bottom: 2rem;
+        color: v.$negro;
+
+        @include m.tablet {
+            font-size: 2rem;
+            margin-bottom: 3rem;
+        }
+    }
+
+    .summary-row {
+        display: flex;
+        justify-content: space-between;
+        margin: 1.2rem 0;
+        font-size: 1.4rem;
+
+        @include m.tablet {
+            margin: 1.5rem 0;
+            font-size: 1.6rem;
+        }
+
+        &.discount {
+            .discount-amount {
+                color: v.$rojo;
+            }
+        }
+
+        &.total {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(v.$azulClaro, 0.1);
+            font-weight: 700;
+            font-size: 1.6rem;
+
+            @include m.tablet {
+                font-size: 1.8rem;
+            }
+        }
+    }
+
+    .promo-code {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin: 2rem 0;
+
+        @include m.tablet {
+            flex-direction: row;
+            margin: 3rem 0;
+        }
+
+        input {
+            flex: 1;
+            padding: 1.2rem;
+            border: 1px solid rgba(v.$azulClaro, 0.2);
+            border-radius: 1rem;
+            background: v.$grisClaro;
+            font-size: 1.3rem;
+            font-family: v.$fuente-secundaria;
+
+            @include m.tablet {
+                padding: 1.5rem;
+                font-size: 1.4rem;
+            }
+
+            &:focus {
+                outline: none;
+                border-color: v.$azulClaro;
+            }
+        }
+
+        &__btn {
+            padding: 1.2rem 2rem;
+            background: v.$azulClaro;
+            color: v.$blanco;
+            border: none;
+            border-radius: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: v.$fuente-principal;
+
+            @include m.tablet {
+                padding: 1.5rem 3rem;
+            }
+            &:hover {
+                background: v.$azulOscuro;
+                transform: translateY(-2px);
+            }
+        }
+    }
+
+    .checkout-btn {
+        width: 100%;
+        padding: 1.3rem;
+        font-size: 1.4rem;
+        background: v.$violeta;
+        color: v.$blanco;
+        border: none;
+        border-radius: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        font-family: v.$fuente-principal;
+
+        @include m.tablet {
+            padding: 1.5rem;
+            font-size: 1.6rem;
+        }
+
+        .arrow {
+            margin-left: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        &:hover {
+            background: color.adjust(v.$violeta, $lightness: -5%);
+
+            .arrow {
+                transform: translateX(5px);
+            }
+        }
+    }
+}
+
+.favourites,
+.recommendations {
+    margin: 2rem 1rem;
+
+    @include m.tablet {
+        margin: 2rem;
+    }
+}
+
+.favourites {
+    margin-top: 3rem;
+
+    @include m.tablet {
+        margin-top: 4rem;
+    }
+
+    &__title {
+        font-family: v.$fuente-principal;
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+        color: v.$negro;
+
+        @include m.tablet {
+            font-size: 2rem;
+        }
+    }
+
+    &__empty {
+        font-size: 1.3rem;
+        color: v.$gris;
+        margin-bottom: 3rem;
+
+        @include m.tablet {
+            font-size: 1.4rem;
+            margin-bottom: 4rem;
+        }
+    }
+}
+
+.recommendations {
+    margin-top: 2rem;
+    position: relative;
+
+    &__header {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 2rem;
+
+        @include m.tablet {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+    }
+
+    &__title {
+        font-family: v.$fuente-principal;
+        font-size: 1.8rem;
+        color: v.$negro;
+
+        @include m.tablet {
+            font-size: 2rem;
+        }
+    }
+
+    &__controls {
+        display: flex;
+        gap: 1rem;
+        justify-content: space-between;
+
+        @include m.tablet {
+            justify-content: flex-start;
+        }
+
+        .control-btn {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            border: none;
+            background: v.$grisClaro;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            @include m.tablet {
+                width: 3.5rem;
+                height: 3.5rem;
+            }
+
+            i {
+                color: v.$negro;
+                font-size: 1.2rem;
+
+                @include m.tablet {
+                    font-size: 1.4rem;
+                }
+            }
+
+            &:hover {
+                background: v.$azulClaro;
+
+                i {
+                    color: v.$blanco;
+                }
+            }
+
+            &.prev {
+                background: v.$grisClaro;
+            }
+
+            &.next {
+                background: v.$azulClaro;
+
+                i {
+                    color: v.$blanco;
+                }
+            }
+        }
+    }
+
+    &__slider {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+        gap: 2rem;
+
+        @include m.tablet {
+            grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+            gap: 2.5rem;
+        }
+
+        @include m.desktop {
+            grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
+            gap: 3rem;
+        }
+    }
+
+    .product-card {
+        background: v.$blanco;
+        transition: all 0.3s ease;
+        position: relative;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+        &:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+
+            img {
+                transform: scale(1.05);
+            }
+        }
+
+        &__image {
+            width: 100%;
+            height: 18rem;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+
+            @include m.tablet {
+                height: 22rem;
+            }
+
+            @include m.desktop {
+                height: 25rem;
+            }
+
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.3s ease;
+            }
+        }
+
+        &__info {
+            padding: 1rem;
+            text-align: center;
+
+            h3 {
+                font-family: v.$fuente-principal;
+                font-size: 1.4rem;
+                margin-bottom: 0.5rem;
+                color: v.$negro;
+
+                @include m.tablet {
+                    font-size: 1.6rem;
+                }
+            }
+
+            p {
+                font-size: 1.2rem;
+                color: v.$gris;
+                margin-bottom: 0.5rem;
+
+                @include m.tablet {
+                    font-size: 1.4rem;
+                }
+            }
+
+            .price {
+                font-size: 1.3rem;
+                color: v.$negro;
+
+                @include m.tablet {
+                    font-size: 1.4rem;
+                }
+
+                &::before {
+                    content: '$';
+                    margin-right: 0.2rem;
+                }
+            }
+        }
+    }
+}
+
+@keyframes titleLine {
+    to {
+        transform: scaleX(1);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.cart-item {
+    animation: fadeIn 0.6s ease-out forwards;
+
+    @for $i from 1 through 10 {
+        &:nth-child(#{$i}) {
+            animation-delay: #{$i * 0.1}s;
+        }
+    }
+}
+
+.product-card {
+    animation: slideIn 0.4s ease-out forwards;
+
+    @for $i from 1 through 5 {
+        &:nth-child(#{$i}) {
+            animation-delay: #{$i * 0.1}s;
+        }
+    }
+}

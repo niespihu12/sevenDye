@@ -1,0 +1,15 @@
+@use '../base/variables' as v;
+@use '../base/mixins' as m;
+.sidebar-admin{
+    width: 260px;
+    background-color: v.$azul;
+    img{
+        margin: 0 auto;
+        width: 50px;
+    }
+}
+
+.navegacion-admin{
+    display: flex;
+    flex-direction: column;
+}

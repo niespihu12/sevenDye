@@ -1,0 +1,8 @@
+@use 'variables' as v;
+@use 'mixins' as m;
+
+
+.boton-primario{
+    @include m.boton(v.$violeta);
+    
+}

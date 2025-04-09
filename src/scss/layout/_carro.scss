@@ -1,0 +1,566 @@
+@use '../base/variables' as v;
+@use '../base/mixins' as m;
+@use "sass:color";
+
+.promo-banner {
+    background-color: v.$azulClaro;
+    border-radius: 2rem;
+    margin-bottom: 3rem;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+
+    &__content {
+        padding: 2rem;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+
+        @include m.tablet {
+            padding: 2.5rem;
+            grid-template-columns: 1.2fr 1fr;
+        }
+    }
+
+    &__text {
+        color: v.$blanco;
+        padding-right: 1rem;
+    }
+
+    &__title {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 2.5rem;
+        font-weight: 400;
+        line-height: 1;
+        margin-bottom: 0.5rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+
+        @include m.tablet {
+            font-size: 3.5rem;
+        }
+    }
+
+    &__subtitle {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 2rem;
+        font-weight: 400;
+        margin-bottom: 1.5rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+
+        @include m.tablet {
+            font-size: 2.8rem;
+        }
+    }
+
+    &__description {
+        font-family: v.$fuente-secundaria;
+        font-size: 1.2rem;
+        line-height: 1.4;
+        margin-bottom: 2rem;
+        max-width: 45ch;
+        letter-spacing: 0.2px;
+
+        @include m.tablet {
+            font-size: 1.3rem;
+        }
+    }
+
+    &__button {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+        background: none;
+        color: v.$blanco;
+        padding: 0;
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 2rem;
+        font-weight: 400;
+        text-decoration: none;
+        text-transform: uppercase;
+        border: none;
+        width: fit-content;
+        letter-spacing: 1px;
+
+        @include m.tablet {
+            font-size: 2.2rem;
+        }
+    
+        &::after {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: v.$blanco;
+            margin-top: -0.5rem;
+        }
+    }
+
+    &__image {
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+        @include m.tablet {
+            text-align: right;
+            justify-content: flex-end;
+        }
+        
+        img {
+            max-height: 180px;
+            width: auto;
+            object-fit: contain;
+
+            @include m.tablet {
+                max-height: 220px;
+            }
+        }
+    }
+}
+
+.shop {
+    padding: 0;
+    background-color: v.$blanco;
+    margin-bottom: 3rem;
+}
+
+.shop-container {
+    padding-top: 9rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+
+    @include m.tablet {
+        grid-template-columns: 1fr 2fr;
+        gap: 3rem;
+    }
+
+    @include m.desktop {
+        grid-template-columns: 350px 1fr;
+        gap: 4rem;
+    }
+}
+
+.sidebar-wrapper {
+    @include m.tablet {
+        
+        top: 2rem;
+    }
+}
+
+.sidebar {
+    background-color: v.$grisClaro;
+    border-radius: 2rem;
+    padding: 2rem;
+    width: 100%;
+
+    @include m.tablet {
+        padding: 3rem;
+    }
+}
+
+.hot-deals {
+    &__title {
+        font-family: v.$fuente-principal;
+        font-size: 1.8rem;
+        color: v.$violeta;
+        margin-bottom: 2rem;
+        text-transform: uppercase;
+        font-weight: bold;
+
+        @include m.tablet {
+            font-size: 2rem;
+            margin-bottom: 2.5rem;
+        }
+    }
+}
+
+.categories {
+    &__item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.8rem 0;
+        font-family: v.$fuente-secundaria;
+        cursor: pointer;
+        
+        .name {
+            color: v.$negro;
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+
+            @include m.tablet {
+                font-size: 1.4rem;
+            }
+        }
+        
+        .count {
+            color: v.$negro;
+            font-size: 1.3rem;
+
+            @include m.tablet {
+                font-size: 1.4rem;
+            }
+        }
+
+        &.active, &:hover {
+            .name, .count {
+                color: v.$azulClaro;
+            }
+        }
+    }
+}
+
+.prices {
+    margin-top: 3rem;
+
+    &__title {
+        font-family: v.$fuente-principal;
+        color: v.$negro;
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        text-transform: uppercase;
+
+        @include m.tablet {
+            font-size: 1.6rem;
+            margin-bottom: 2rem;
+        }
+    }
+
+    &__range {
+        font-family: v.$fuente-secundaria;
+        color: v.$negro;
+        font-size: 1.3rem;
+        margin-bottom: 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        @include m.tablet {
+            font-size: 1.4rem;
+        }
+    }
+
+    &__slider {
+        width: 100%;
+        height: 2px;
+        background-color: color.adjust(v.$gris, $lightness: 50%);
+        margin: 1.5rem 0;
+
+        &::before {
+            content: '';
+            left: 0;
+            width: 30%;
+            height: 100%;
+            background-color: v.$azulClaro;
+        }
+
+        &::after {
+            content: '';
+            left: 30%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 15px;
+            height: 15px;
+            background-color: v.$azulClaro;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+    }
+}
+
+.colors {
+    margin-top: 3rem;
+
+    &__title {
+        font-family: v.$fuente-principal;
+        color: v.$negro;
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        text-transform: uppercase;
+
+        @include m.tablet {
+            font-size: 1.6rem;
+            margin-bottom: 2rem;
+        }
+    }
+
+    &__grid {
+        display: flex;
+        gap: 1.2rem;
+        flex-wrap: wrap;
+
+        @include m.tablet {
+            gap: 1.5rem;
+        }
+    }
+
+    &__dot {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+
+        @include m.tablet {
+            width: 30px;
+            height: 30px;
+        }
+
+        &:hover {
+            transform: scale(1.1);
+        }
+
+        &--blue { background-color: v.$azul; }
+        &--red { background-color: v.$rojo; }
+        &--black { background-color: v.$negro; }
+        &--yellow { background-color: v.$amarillo; }
+        &--pink { background-color: v.$violeta; }
+        &--white {
+            background-color: v.$blanco;
+            border: 1px solid v.$gris;
+        }
+    }
+}
+
+.more {
+    background-color: v.$grisClaro;
+    border-radius: .5rem;
+    margin-top: 2rem;
+    padding: 1.5rem;
+    text-align: center;
+
+    .more-btn {
+        width: 100%;
+        background: none;
+        border: none;
+        font-family: v.$fuente-principal;
+        font-size: 1.5rem;
+        color: v.$negro;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: color 0.3s ease;
+
+        @include m.tablet {
+            font-size: 1.6rem;
+        }
+
+        &:hover {
+            color: v.$azulClaro;
+        }
+    }
+}
+
+.producto-card {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    @include m.tablet {
+        gap: 3rem;
+    }
+}
+
+.products {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-top: 3rem;
+
+    @include m.tablet {
+        grid-template-columns: repeat(2, 1fr);
+        margin-top: 4rem;
+    }
+
+    @include m.desktop {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2.5rem;
+    }
+}
+
+.products__card {
+    background-color: v.$blanco;
+    border-radius: 1rem;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+
+    &:hover {
+        transform: translateY(-5px);
+
+        .products__image img {
+            transform: scale(1.05);
+        }
+    }
+}
+
+.products__hot {
+    top: 1rem;
+    right: 1rem;
+    background-color: v.$violeta;
+    color: v.$blanco;
+    padding: .3rem .8rem;
+    border-radius: .3rem;
+    font-size: .9rem;
+    z-index: 1;
+}
+
+.products__image {
+    overflow: hidden;
+
+    img {
+        width: 100%;
+        height: auto;
+        transition: transform .3s ease;
+    }
+}
+
+.products__actions {
+    top: 1rem;
+    right: 4rem;
+    display: flex;
+    gap: .5rem;
+
+    .action-btn {
+        background: none;
+        border: none;
+        color: v.$gris;
+        font-size: 1.4rem;
+        cursor: pointer;
+        transition: color 0.3s ease;
+
+        &:hover {
+            color: v.$azulClaro;
+        }
+    }
+}
+
+.products__info {
+    padding: 1.5rem;
+}
+
+.products__title {
+    font-family: v.$fuente-secundaria;
+    font-size: 1.1rem;
+    color: v.$negro;
+    margin-bottom: .5rem;
+    text-transform: uppercase;
+
+    @include m.tablet {
+        font-size: 1.2rem;
+    }
+}
+
+.products__subtitle {
+    font-size: 0.9rem;
+    color: v.$gris;
+    margin-bottom: .8rem;
+    text-transform: uppercase;
+
+    @include m.tablet {
+        font-size: 1rem;
+    }
+}
+
+.products__rating {
+    color: v.$amarillo;
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+
+    @include m.tablet {
+        font-size: 1.8rem;
+    }
+}
+
+.products__prices {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.products__current-price {
+    font-size: 1.2rem;
+    color: v.$azulClaro;
+    font-weight: bold;
+
+    @include m.tablet {
+        font-size: 1.3rem;
+    }
+}
+
+.products__original-price {
+    font-size: 1rem;
+    color: v.$gris;
+    text-decoration: line-through;
+
+    @include m.tablet {
+        font-size: 1.1rem;
+    }
+}
+
+.products__discount {
+    font-size: 0.9rem;
+    color: v.$rojo;
+
+    @include m.tablet {
+        font-size: 1rem;
+    }
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.8rem;
+    margin-top: 2rem;
+    background-color: v.$violeta;
+    border-radius: 3rem;
+    padding: 0.5rem 1rem;
+    width: 100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    @include m.tablet {
+        gap: 1rem;
+        margin-top: 3rem;
+        padding: 1rem 2rem;
+    }
+
+    &__number {
+        min-width: 3rem;
+        height: 3rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        color: v.$blanco;
+        border-radius: 50%;
+        font-weight: 500;
+
+        @include m.tablet {
+            min-width: 4rem;
+            height: 4rem;
+            font-size: 1.6rem;
+        }
+
+        &:hover:not(.active) {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        &.active {
+            background-color: v.$blanco;
+            color: v.$violeta;
+            font-weight: 700;
+            transform: scale(1.1);
+        }
+    }
+}

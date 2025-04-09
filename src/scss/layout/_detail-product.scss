@@ -1,0 +1,249 @@
+@use '../base/variables' as v;
+@use '../base/mixins' as m;
+@use 'sass:color';
+
+.producto-contenedor {
+    padding-top: 10rem;
+    display: flex;
+    gap: 2rem;
+
+    .producto-gallery {
+        flex: .5;
+    }
+
+    .producto-imagen-centro {
+        flex: 1.4;
+    }
+
+    .producto-descripcion {
+        flex: 1;
+
+        h3 {
+            margin: 0;
+        }
+    }
+
+}
+
+.producto-extrellas {
+    display: flex;
+
+    p {
+        margin: 0;
+    }
+
+    .producto-extrella {
+        display: flex;
+        border-right: 1px solid v.$gris;
+        padding-right: 1rem;
+
+        ul {
+            display: flex;
+            padding: 0;
+            margin: 0;
+
+        }
+
+    }
+
+    .producto-estado {
+        padding-left: 1rem;
+
+        p {
+            color: v.$azul;
+        }
+    }
+}
+
+.producto-descripcion-larga {
+    border-bottom: 1px solid v.$negro;
+    padding-bottom: 2rem;
+
+}
+
+.product-single-form {
+    .product-single-apartado {
+
+        .product-single-label {
+            margin-right: 1rem;
+        }
+
+    }
+}
+
+.producto-radio-inputs{
+    position: relative;
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+    border-radius: 0.5rem;
+    box-sizing: border-box;
+    padding: 0.25rem;
+    font-size: 14px;
+    margin-bottom: 2rem;
+    .producto-radio {
+        width: 32px;
+        height: 32px;
+        text-align: center;
+        input {
+            display: none;
+        }
+        .producto-size {
+            display: flex;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.5rem;
+            border: 1px solid v.$negro;
+            padding: .5rem 0;
+            color: #000000;
+            transition: all .15s ease-in-out;
+        }
+        input:checked+.producto-size {
+            background-color: v.$azul;
+            color: v.$blanco;
+            font-weight: 600;
+        }
+
+    }
+}
+
+.producto-footer{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+
+
+    .producto-contador{
+        display: inline-flex;
+        align-items: center;
+        overflow: hidden;
+        height: 4.4rem;
+    }
+
+    .contador-boton-incremento{
+        width: 3rem;
+        height: 3.4rem;
+        background-color: v.$azul;
+        color: v.$blanco;
+        border: none;
+        &:active{
+            background-color: v.$violeta;
+        }
+    
+
+    }
+
+    .contador-boton-decremento{
+        width: 3rem;
+        height: 3.4rem;
+        background-color: v.$blanco;
+        border: .1rem solid v.$negro;
+        &:active{
+            background-color: v.$violeta;
+        }
+    
+
+    }
+    
+    .contador-input{
+        width: 80px;
+        height: 34px;
+        text-align: center;
+        outline: none;
+    }
+
+    
+}
+
+.producto-solo-checkout{
+    input{
+        background-color: v.$violeta;
+        border: none;
+        padding: .5rem 2rem .5rem 2rem;
+        color: v.$blanco;
+        border-radius: .5rem;
+        font-family: v.$fuente-secundaria;
+
+        &:hover{
+            background-color: color.adjust(v.$violeta,$lightness:-10%);
+        }
+
+    }
+    
+}
+
+.producto-solo-megusta{
+    
+    
+    button{
+        background-color: v.$blanco;
+        padding: .5rem 1rem;
+        border: .1rem solid v.$negro;
+        border-radius: 1rem;
+        font-family: v.$fuente-secundaria;
+    }
+}
+
+.producto-incluidos{
+    margin-top: 2rem;
+    .producto-incluido{
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        border: 1px solid v.$negro;
+        img{
+            width: 4rem;
+            height: 4rem;
+        }
+
+        &__titulo{
+            font-weight: 600;
+        }
+        &__contenido{
+            font-size: 1.2rem;
+        }
+    }
+}
+
+.producto-gallery{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    
+    .image-box{
+        background-color: v.$grisClaro;
+        width: 122px;
+        height: 140px;
+        img{
+            width: 130px;
+            height: 140px;
+        }
+
+    }
+}
+
+.producto-imagen-centro{
+    background-color: v.$grisClaro;
+    height: 751px;
+    display: flex;
+    justify-content: center;
+    img{
+        height: 686px;
+        width: 446px;
+    }
+}
+
+.productos-interes{
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+    h2{
+        text-align: center;
+    }
+
+}
+ 
+

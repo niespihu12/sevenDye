@@ -1,0 +1,275 @@
+@use '../base/variables' as v;
+@use '../base/mixins' as m;
+
+.logo {
+    width: 20%;
+}
+
+.header {
+    background-color: v.$blanco;
+    padding: 1rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+
+    .logo {
+        img {
+            max-width: 10rem;
+        }
+
+    }
+
+    .carrito {
+        font-size: 1.7rem;
+
+        @include m.desktop {
+            padding: 1rem;
+            border-radius: 1rem;
+            color: v.$blanco;
+            background-color: v.$violeta;
+
+
+        }
+
+    }
+
+
+
+
+
+}
+
+.navegacion-principal {
+    display: none;
+
+    @include m.desktop {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 2rem;
+
+        a {
+            &:hover {
+                color: v.$azul;
+            }
+        }
+    }
+
+    ;
+}
+
+
+.navegacion-secundaria {
+    display: none;
+
+    @include m.desktop {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+
+        img {
+            width: 50px;
+            height: 20px;
+        }
+    }
+
+    .container {
+        position: relative;
+        --size-button: 40px;
+        color: v.$violeta;
+    }
+
+    .input {
+        padding-left: var(--size-button);
+        height: var(--size-button);
+        font-size: 15px;
+        border: none;
+        color: v.$violeta;
+        outline: none;
+        width: var(--size-button);
+        transition: all ease 0.3s;
+        background-color: transparent;
+        border-radius: 50px;
+        cursor: pointer;
+
+    }
+
+    .input:focus,
+    .input:not(:invalid) {
+        width: 200px;
+        cursor: text;
+        box-shadow: 0px 0px 0px v.$violeta, 0px 0px 0px rgb(95 94 94 / 25%), inset 1.5px 1.5px 3px v.$violeta, inset -1.5px -1.5px 3px v.$violeta;
+    }
+
+    .input:focus+.icon,
+    .input:not(:invalid)+.icon {
+        pointer-events: all;
+        cursor: pointer;
+    }
+
+    .container .icon {
+        position: absolute;
+        width: var(--size-button);
+        height: var(--size-button);
+        top: 0;
+        left: 0;
+        padding: 8px;
+        pointer-events: none;
+    }
+
+    .container .icon svg {
+        width: 100%;
+        height: 100%;
+    }
+
+    .favoritos{
+        
+        min-width: 2rem;
+    }
+
+}
+
+
+.sign-in-button {
+    border: none;
+    color: v.$blanco;
+    background-color: v.$violeta;
+    border-radius: 55px;
+    padding: 12px 30px;
+    font-size: 16px;
+    font-weight: 500;
+    width: 100%;
+    max-width: 200px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+        background-color: v.$rojo;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8;
+    }
+
+    &:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px;
+    }
+}
+
+
+
+.abrir-menu {
+    display: block;
+    padding: 0;
+
+
+    @include m.desktop {
+
+
+        display: none;
+    }
+}
+
+.abrir-menu,
+.cerrar-menu {
+    background-color: transparent;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.navegacion-mobile {
+    opacity: 0;
+    visibility: hidden;
+    background-color: v.$blanco;
+    padding: 2rem;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    gap: 1rem;
+    box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease-out;
+
+    .container {
+        position: relative;
+        --size-button: 40px;
+        color: v.$violeta;
+    }
+
+    .input {
+        padding-left: var(--size-button);
+        height: var(--size-button);
+        font-size: 15px;
+        border: none;
+        color: v.$violeta;
+        outline: none;
+        width: var(--size-button);
+        transition: all ease 0.3s;
+        background-color: transparent;
+        border-radius: 50px;
+        cursor: pointer;
+
+    }
+
+    .input:focus,
+    .input:not(:invalid) {
+        width: 200px;
+        cursor: text;
+        box-shadow: 0px 0px 0px v.$violeta, 0px 0px 0px rgb(95 94 94 / 25%), inset 1.5px 1.5px 3px v.$violeta, inset -1.5px -1.5px 3px v.$violeta;
+    }
+
+    .input:focus+.icon,
+    .input:not(:invalid)+.icon {
+        pointer-events: all;
+        cursor: pointer;
+    }
+
+    .container .icon {
+        position: absolute;
+        width: var(--size-button);
+        height: var(--size-button);
+        top: 0;
+        left: 0;
+        padding: 8px;
+        pointer-events: none;
+    }
+
+    .container .icon svg {
+        width: 100%;
+        height: 100%;
+    }
+
+    @include m.desktop {
+        display: none;
+    }
+
+    &.mostrar {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+.barra-mobile {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    @include m.desktop {
+        display: none;
+    }
+
+    .profile {
+        font-size: 1.8rem;
+    }
+
+    .like {
+        font-size: 1.8rem;
+    }
+}

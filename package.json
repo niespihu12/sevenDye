@@ -1,0 +1,51 @@
+{
+  "name": "sevendye",
+  "version": "1.0.0",
+  "description": "Una tienda virtual de camisas TyeDye",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "sass": "sass --watch build/scss:dist/css",
+    "dev": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/niespihu12/Seven-Dye.git"
+  },
+  "keywords": [
+    "Tie-dye",
+    "clothing",
+    "Handmade",
+    "tie-dye",
+    "Tie-dye",
+    "fashion",
+    "Boho",
+    "style",
+    "Tie-dye",
+    "shirts",
+    "Colorful",
+    "outfits",
+    "Custom",
+    "tie-dye",
+    "Sustainable",
+    "fashion",
+    "Tie-dye",
+    "hoodies",
+    "Trendy",
+    "tie-dye."
+  ],
+  "author": "Nicolas Pinzon y Juan Nuñez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/niespihu12/Seven-Dye/issues"
+  },
+  "homepage": "https://github.com/niespihu12/Seven-Dye#readme",
+  "devDependencies": {
+    "glob": "^11.0.1",
+    "gulp": "^5.0.0",
+    "gulp-sass": "^6.0.0",
+    "gulp-terser": "^2.1.0",
+    "sass": "^1.83.1",
+    "sharp": "^0.33.5"
+  }
+}

@@ -1,0 +1,29 @@
+@use '../base/variables' as v;
+@use '../base/mixins' as m;
+
+.carrusel-container {
+  background-color: #0099FF;
+  padding: 0.8rem 0;
+  width: 100%;
+  
+  marquee {
+      width: 100%;
+  }
+
+  .texto-wrapper {
+      display: flex;
+      gap: 30rem; 
+      padding: 0 6rem;
+  }
+  
+  .texto {
+      font-family: v.$fuente-principal;
+      color: v.$blanco;
+      font-size: 4.5rem;
+      text-transform: uppercase;
+      font-weight: 900;
+      letter-spacing: 16px; 
+      white-space: nowrap;
+      padding: 0 10rem; 
+  }
+}

@@ -1,0 +1,276 @@
+@use '../base/variables' as v;
+@use '../base/mixins' as m;
+@use "sass:color";
+
+
+.ultimate-sale {
+    padding-top: 7rem;
+    display: flex;
+    justify-content: center;
+    
+
+    @include m.tablet {
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 5rem;
+    }
+    .sale-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .sale-text {
+            place-items: center;
+        }
+    }
+
+    .sale__image--right {
+        display: none;
+        
+        @include m.tablet {
+            display: block;
+            flex:1;
+            background-image: url('../../build/img/todo-negro.jpg');
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+        }
+
+    }
+    .sale__image--left {
+        display: none;
+        
+        @include m.tablet {
+            display: block;
+            flex:1;
+            background-image: url("../../build/img/modelo-arcoiris.png");
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+        }
+
+    }
+
+}
+
+// .ultimate-sale {
+//     width: 100%;
+//     height: 100vh;
+//     margin: 0;
+//     padding: 0;
+//     overflow: hidden;
+//     display: flex;
+//     flex-direction: column;
+//     position: relative;
+
+//     .sale-grid {
+//         display: grid;
+//         grid-template-columns: 450px 1fr 450px;
+//         gap: 0;
+//         height: calc(100vh - 6rem);
+//         width: 100%;
+//     }
+
+//     .sale-image {
+//         position: relative;
+//         height: 850px;
+//         width: 450px;
+//         overflow: hidden;
+
+//         img {
+//             width: 100%;
+//             height: 100%;
+//             object-fit: cover;
+//             object-position: center;
+//         }
+
+//         &.left {
+//             .discount-badge {
+//                 position: absolute;
+//                 left: 2rem;
+//                 bottom: 2rem;
+//                 background-color: v.$violeta;
+//                 border-radius: 50%;
+//                 width: 8rem;
+//                 height: 8rem;
+//                 display: flex;
+//                 flex-direction: column;
+//                 align-items: center;
+//                 justify-content: center;
+//                 color: v.$blanco;
+//                 font-family: v.$fuente-secundaria;
+//                 font-weight: bold;
+//                 animation: pulse 2s infinite;
+
+//                 span {
+//                     line-height: 1;
+//                     &:first-child {
+//                         font-size: 2rem;
+//                     }
+//                     &:last-child {
+//                         font-size: 2.5rem;
+//                     }
+//                 }
+//             }
+//         }
+//     }
+
+//     .sale-content {
+//         display: flex;
+//         flex-direction: column;
+//         justify-content: space-between;
+//         height: 100%;
+//         width: 400px;
+//         margin: 0 auto;
+//         padding: 0;
+//         background-color: v.$blanco;
+
+//         .top-images {
+//             width: 400px;
+//             height: 200px;
+//             margin: 0 auto;
+//             margin-top: 0;
+//             overflow: hidden;
+
+//             img {
+//                 width: 100%;
+//                 height: 100%;
+//                 object-fit: cover;
+//                 object-position: center;
+//             }
+//         }
+
+.sale-text {
+
+    .sale-title {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 2rem;
+
+        .ultimate {
+            font-size: 10rem;
+            color: v.$azul;
+            font-weight: 700;
+            letter-spacing: 2px;
+            line-height: 0.8;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .sale {
+            font-size: 15rem;
+            color: v.$rojo;
+            font-weight: 900;
+            letter-spacing: 3px;
+            line-height: 1;
+            animation: fadeInUp 1s ease-out;
+        }
+    }
+
+    .collection-text {
+        font-family: v.$fuente-secundaria;
+        font-size: 1.8rem;
+        letter-spacing: 4px;
+        color: v.$negro;
+        margin: 1rem 0 2rem;
+        font-weight: 500;
+        text-transform: uppercase;
+    }
+
+    .shop-button {
+        font-family: v.$fuente-secundaria;
+        background-color: v.$violeta;
+        color: v.$blanco;
+        border: none;
+        padding: 1.5rem 5rem; // Reduced padding for smaller size
+        border-radius: 8px;
+        font-size: 1rem; // Smaller font size
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        display: block; // Makes the button a block element
+        margin: 0 auto; // Centers the button horizontally
+        width: fit-content; // Makes the button only as wide as its content
+        min-width: 120px; // Ensures a minimum width
+        text-align: center; // Centers the text inside the button
+        margin-bottom: 2rem;
+
+        &:hover {
+            transform: scale(1.05);
+            background-color: color.adjust(v.$violeta, $lightness: 10%);
+        }
+    }
+}
+
+.bottom-image {
+    height: 200px;
+    margin: 0 auto;
+    margin-bottom: 0;
+    overflow: hidden;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top center;
+    }
+}
+
+.carrusel-container {
+    background-color: v.$azul;
+    height: 6rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+
+    .texto-wrapper {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+
+        .texto {
+            font-family: v.$fuente-principal;
+            color: v.$blanco;
+            font-size: 3rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+    }
+}
+
+// Animaciones
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}

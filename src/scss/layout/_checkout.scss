@@ -1,0 +1,136 @@
+@use '../base/variables' as v;
+@use '../base/mixins' as m;
+@use 'sass:color';
+.titulo-checkout{
+    margin: 0;
+    padding-top: 9rem;
+
+}
+.formCheckout{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
+
+    @include m.tablet{
+        flex-direction: row;
+        justify-content: space-evenly;
+
+    }
+    .formLeft{
+        .checkoutCampo{
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 3.2rem;
+
+            &__field{
+                width: 470px;
+                height: 40px;
+                border: none;
+                background-color: v.$grisClaro;
+            }
+
+        }
+        .checkoutCampoFinal{
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 5rem;
+            &__checkbox{
+                width: 24px;
+                height: 24px;
+            }
+        }
+        
+
+    }
+    .formRight{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        .checkoutProductos{
+            .checkoutProduct{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+        
+                &__image{
+                    display: flex;
+                    align-items: center;
+                    gap: 2rem;
+                    img{
+                        width: 54px;
+                        height: 54px;
+                    }
+                }
+            }
+        
+            
+        }
+        .checkoutSubtotal{
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid v.$gris;
+        
+        }
+        .checkoutShipping{
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid v.$gris;
+        
+        }
+        .checkoutTotal{
+            display: flex;
+            justify-content: space-between;
+        }
+        .checkoutRadio{
+            margin-top: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            img{
+
+                width: 220px;
+                height: 28px;
+            }
+        }
+        .checkoutCupon{
+            display: flex;
+            gap: 2rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            &__field{
+                width: 300px;
+                height: 56px;
+                border: 0.5px solid v.$gris;
+
+
+            }
+
+            &__boton{
+                background-color: v.$amarillo;
+                border: none;
+                font-family: v.$fuente-secundaria;
+                border-radius: 1rem;
+            }
+
+        }
+        .checkoutEnviar{
+            margin-top: 1rem;
+            &__boton{
+                background-color: v.$violeta;
+                border: none;
+                padding: 2rem 4rem;
+                color: white;
+                font-family: v.$fuente-secundaria;
+
+                &:hover{
+                    background-color: color.adjust(v.$violeta, $lightness: -5%);
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+    
+}
+
