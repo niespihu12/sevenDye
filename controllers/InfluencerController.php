@@ -17,7 +17,7 @@ class InfluencerController{
     }
     public static function crear(Router $router){
         $influencer = new Influencer;
-        $errores = Influencer::getErrores();
+        $alertas = Influencer::getAlertas();
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $influencer = new Influencer($_POST['influencer']);
             $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
@@ -26,8 +26,8 @@ class InfluencerController{
                 $image = $manager->read($_FILES['influencer']['tmp_name']['imagen'])->cover(600, 800);
                 $influencer->setImagen($nombreImagen);
             }
-            $errores = $influencer->validar();
-            if (empty($errores)) {
+            $alertas = $influencer->validar();
+            if (empty($alertas)) {
 
 
                 if (!is_dir(CARPETA_IMAGENES)) {
@@ -46,18 +46,18 @@ class InfluencerController{
 
         $router->render('/influencers/crear', [
             'influencer' => $influencer,
-            'errores' => $errores
+            'alertas' => $alertas
         ]);
     }
     public static function actualizar(Router $router){
         $id = validarORedireccionar('/influencers/admin');
         $influencer = Influencer::find($id);
-        $errores = Influencer::getErrores();
+        $alertas = Influencer::getAlertas();
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $args = $_POST['influencer'];
 
             $influencer->sincronizar($args);
-            $errores = $influencer->validar();
+            $alertas = $influencer->validar();
             $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
             if ($_FILES['influencer']['tmp_name']['imagen']) {
                 $manager = new Image(Driver::class); // el gd que viene nativo con php
@@ -66,7 +66,7 @@ class InfluencerController{
             }
 
 
-            if (empty($errores)) {
+            if (empty($alertas)) {
                 if ($_FILES['influencer']['tmp_name']['imagen']) {
                     $imagen->save(CARPETA_IMAGENES . $nombreImagen);
                 }
@@ -81,7 +81,7 @@ class InfluencerController{
         }
         $router->render('/influencers/actualizar', [
             'influencer' => $influencer,
-            'errores' => $errores
+            'alertas' => $alertas
         ]);
     }
     public static function eliminar(Router $router){

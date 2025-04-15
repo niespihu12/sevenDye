@@ -37,7 +37,7 @@
                     </svg>
                 </div>
             </div>
-            <a class="sign-in-button" href="login.php">Sign In</a>
+            <a class="sign-in-button" href="/login">Sign In</a>
             <a class="favoritos" href="#">
                 <picture>
                     <source srcset="/build/img/favorite.avif" type="image/avif">

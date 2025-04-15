@@ -2,11 +2,13 @@
 
 require_once __DIR__ . '/../includes/app.php';
 
-use Controllers\InfluencerController;
+
 use MVC\Router;
+use Controllers\InfluencerController;
 use Controllers\TestimonioController;
 use Controllers\PaginasController;
-use Model\Influencer;
+use Controllers\LoginController;
+use Controllers\DashboardController;
 
 $router = new Router();
 
@@ -27,14 +29,33 @@ $router->post('/influencers/eliminar', [InfluencerController::class, 'eliminar']
 
 
 // Login 
+$router->get('/login', [LoginController::class, 'login']);
 $router->post('/login', [LoginController::class, 'login']);
+$router->get('/register',[LoginController::class, 'registro']);
 $router->post('/register',[LoginController::class, 'registro']);
+
+
+//recuperar password
+$router->get('/olvide', [LoginController::class, 'olvide']);
+$router->post('/olvide', [LoginController::class, 'olvide']);
+$router->get('/recuperar', [LoginController::class, 'recuperar']);
+$router->post('/recuperar', [LoginController::class, 'recuperar']);
+
+// Confirmar cuenta
+$router->get('/confirmar-cuenta', [LoginController::class, 'confirmar']);
+$router->get('/mensaje', [LoginController::class, 'mensaje']);
+
+$router->get('/logout', [LoginController::class, 'logout']);
 
 // Zona publica
 $router->get('/', [PaginasController::class, 'index']);
 $router->get('/nosotros', [PaginasController::class, 'nosotros']);
 $router->get('/contacto', [PaginasController::class, 'contacto']);
 $router->post('/contacto', [PaginasController::class, 'contacto']);
+
+// dashboard-general
+$router->get('/admin', [DashboardController::class, 'index']);
+
 
 $router->comprobarRutas();
 

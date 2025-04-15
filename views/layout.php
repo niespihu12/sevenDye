@@ -31,7 +31,7 @@
 </head>
 
 <body>
-    
+
 
     <?php echo $contenido; ?>
 

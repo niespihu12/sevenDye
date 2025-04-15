@@ -1,0 +1,41 @@
+@use '../base/variables' as v;
+@use 'sass:color';
+
+.login__contenido--general{
+    margin-left: 2rem;
+    margin-right: 2rem;
+    .nombre-pagina{
+        text-align: center;
+        color: v.$blanco;
+    }
+    .descripcion-pagina{
+        text-align: center;
+        color: v.$blanco;
+    }
+
+    .acciones{
+        margin-top: 2rem;
+        display: flex;
+        gap: 10rem;
+        a{
+            font-size: 1.6rem;
+            color: v.$blanco;
+        }
+    }
+
+    .boton-general{
+        background-color: v.$violeta;
+        font-family: v.$fuente-secundaria;
+        color: v.$blanco;
+        font-weight: bold;
+        border: none;
+        border-radius: 2rem;
+        width: 100%;
+        padding: 1.4rem;
+        &:hover{
+            cursor: pointer;
+            background-color: color.adjust(v.$violeta, $lightness: -10%);
+        }
+    }
+
+}

@@ -1,8 +1,39 @@
 @use '../base/variables' as v;
 @use '../base/mixins' as m;
+@use 'sass:color';
 
+.influencer-dashboard {
+    display: flex;
+    width: 100vw;
+
+}
+
+.dashboard {
+    &__content {
+
+        width: 100%;
+    }
+
+    &__breadcrumb{
+        p{
+            
+            font-family: v.$fuente-principal;
+        }
+        span{
+            padding-right: 0.5rem;
+            font-size: 1.6rem;
+        }
+        a{
+            padding-right: 0.5rem;
+            font-family: v.$fuente-secundaria;
+            color: v.$gris;
+            font-size: 1.6rem;
+        }
+    }
+}
 
 .influencers {
+    flex: 2;
     padding: 2rem 3rem;
 
     &__header {
@@ -27,7 +58,7 @@
         align-items: center;
         gap: 1rem;
         font-family: v.$fuente-secundaria;
-        
+
         svg {
             width: 1.8rem;
             height: 1.8rem;
@@ -40,6 +71,7 @@
         border-collapse: collapse;
         margin-top: 2rem;
         background-color: v.$blanco;
+        width: 100%;
         border-radius: 1rem;
         overflow: hidden;
         box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.1);
@@ -68,11 +100,11 @@
 
         tbody {
             tr {
-                border-bottom: 1px solid lighten(v.$grisClaro, 5%);
+                border-bottom: 1px solid color.adjust(v.$grisClaro, $lightness: 5%);
                 transition: background-color 0.3s ease;
 
                 &:hover {
-                    background-color: lighten(v.$grisClaro, 7%);
+                    background-color: color.adjust(v.$grisClaro, $lightness: 7%);
                 }
 
                 &:last-child {
@@ -100,7 +132,7 @@
     &__acciones {
         display: flex;
         gap: 1rem;
-        
+
         .boton-eliminar {
             @include m.boton(v.$rojo);
             padding: 0.7rem 1.5rem;
@@ -108,7 +140,7 @@
             height: auto;
             font-size: 1.3rem;
         }
-        
+
         .boton-actualizar {
             @include m.boton(v.$amarillo);
             padding: 0.7rem 1.5rem;
@@ -116,7 +148,7 @@
             height: auto;
             font-size: 1.3rem;
             color: v.$negro;
-            
+
             &:hover {
                 color: v.$blanco;
             }
@@ -126,16 +158,16 @@
     &__social {
         display: flex;
         gap: 1rem;
-        
+
         a {
             color: v.$azulOscuro;
             transition: all 0.3s ease;
-            
+
             &:hover {
                 color: v.$azul;
                 transform: translateY(-2px);
             }
-            
+
             svg {
                 width: 2rem;
                 height: 2rem;
@@ -143,7 +175,7 @@
             }
         }
     }
-    
+
     &__descripcion {
         max-width: 20rem;
         overflow: hidden;
@@ -153,7 +185,7 @@
 }
 
 // Estilos para el formulario
-.formulario {
+.formulario__influencer {
     background-color: v.$blanco;
     padding: 3rem;
     border-radius: 1rem;
@@ -161,10 +193,10 @@
     width: 100%;
     max-width: 80rem;
     margin: 0 auto;
-    
+
     &__campo {
         margin-bottom: 2.5rem;
-        
+
         label {
             display: block;
             font-family: v.$fuente-principal;
@@ -172,7 +204,7 @@
             font-size: 1.8rem;
             color: v.$negro;
         }
-        
+
         input,
         textarea {
             width: 100%;
@@ -181,26 +213,26 @@
             border-radius: 0.5rem;
             font-family: v.$fuente-secundaria;
             font-size: 1.6rem;
-            
+
             &:focus {
                 outline: none;
                 border-color: v.$azul;
                 box-shadow: 0 0 0 0.2rem rgba(v.$azul, 0.25);
             }
         }
-        
+
         textarea {
             height: 15rem;
             resize: vertical;
         }
-        
+
         input[type="file"] {
             padding: 1rem;
             background-color: v.$grisClaro;
-            border: 2px dashed darken(v.$grisClaro, 10%);
+            border: 2px dashed color.adjust(v.$grisClaro, $lightness: -10%);
             border-radius: 0.5rem;
             cursor: pointer;
-            
+
             &::-webkit-file-upload-button {
                 background-color: v.$azul;
                 color: v.$blanco;
@@ -211,21 +243,21 @@
                 font-family: v.$fuente-secundaria;
                 cursor: pointer;
                 transition: background-color 0.3s ease;
-                
+
                 &:hover {
-                    background-color: darken(v.$azul, 10%);
+                    background-color: color.adjust(v.$azul, $lightness: -10%);
                 }
             }
         }
     }
-    
+
     &__botones {
         display: flex;
         justify-content: flex-end;
         gap: 1.5rem;
         margin-top: 3rem;
     }
-    
+
     &__boton {
         display: inline-flex;
         align-items: center;
@@ -238,31 +270,31 @@
         text-transform: uppercase;
         transition: all 0.3s ease;
         cursor: pointer;
-        
+
         svg {
             width: 1.8rem;
             height: 1.8rem;
         }
-        
+
         &--cancelar {
             background-color: v.$grisClaro;
             color: v.$negro;
             border: none;
-            
+
             &:hover {
-                background-color: darken(v.$grisClaro, 5%);
+                background-color: color.adjust(v.$grisClaro, $lightness: -5%);
                 transform: translateY(-2px);
                 box-shadow: 0 0.3rem 0.6rem rgba(0, 0, 0, 0.1);
             }
         }
-        
+
         &--guardar {
             background-color: v.$azul;
             color: v.$blanco;
             border: none;
-            
+
             &:hover {
-                background-color: darken(v.$azul, 5%);
+                background-color: color.adjust(v.$azul, $lightness: -5%);
                 transform: translateY(-2px);
                 box-shadow: 0 0.3rem 0.6rem rgba(v.$azul, 0.3);
             }
@@ -270,26 +302,3 @@
     }
 }
 
-// Estilos para alertas
-.alerta {
-    padding: 1.5rem;
-    border-radius: 0.5rem;
-    margin-bottom: 2rem;
-    font-family: v.$fuente-secundaria;
-    
-    &.error {
-        background-color: lighten(v.$rojo, 35%);
-        border-left: 5px solid v.$rojo;
-        color: darken(v.$rojo, 15%);
-    }
-    
-    &.exito {
-        background-color: #e6f7e6;
-        border-left: 5px solid #28a745;
-        color: darken(#28a745, 15%);
-    }
-    
-    p {
-        margin: 0.5rem 0;
-    }
-}

@@ -20,7 +20,7 @@ class TestimonioController
     public static function crear(Router $router)
     {
         $testimonio = new Testimonio;
-        $errores = Testimonio::getErrores();
+        $alertas = Testimonio::getAlertas();
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $testimonio = new Testimonio($_POST['testimonio']);
             $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
@@ -29,8 +29,8 @@ class TestimonioController
                 $image = $manager->read($_FILES['testimonio']['tmp_name']['imagen'])->cover(600, 800);
                 $testimonio->setImagen($nombreImagen);
             }
-            $errores = $testimonio->validar();
-            if (empty($errores)) {
+            $alertas = $testimonio->validar();
+            if (empty($alertas)) {
 
 
                 if (!is_dir(CARPETA_IMAGENES)) {
@@ -49,19 +49,19 @@ class TestimonioController
 
         $router->render('/testimonios/crear', [
             'testimonio' => $testimonio,
-            'errores' => $errores
+            'alertas' => $alertas
         ]);
     }
     public static function actualizar(Router $router)
     {
         $id = validarORedireccionar('/testimonios/admin');
         $testimonio = Testimonio::find($id);
-        $errores = Testimonio::getErrores();
+        $alertas = Testimonio::getAlertas();
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $args = $_POST['testimonio'];
 
             $testimonio->sincronizar($args);
-            $errores = $testimonio->validar();
+            $alertas = $testimonio->validar();
             $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
             if ($_FILES['testimonio']['tmp_name']['imagen']) {
                 $manager = new Image(Driver::class); // el gd que viene nativo con php
@@ -70,7 +70,7 @@ class TestimonioController
             }
 
 
-            if (empty($errores)) {
+            if (empty($alertas)) {
                 if ($_FILES['testimonio']['tmp_name']['imagen']) {
                     $imagen->save(CARPETA_IMAGENES . $nombreImagen);
                 }
@@ -85,7 +85,7 @@ class TestimonioController
         }
         $router->render('/testimonios/actualizar', [
             'testimonio' => $testimonio,
-            'errores' => $errores
+            'alertas' => $alertas
         ]);
     }
 

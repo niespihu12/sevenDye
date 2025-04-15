@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-  if (window.location.pathname !== "/login.php" && window.location.pathname !== "/register.php" && window.location.pathname !== "/blog.php") {
+  if (window.location.pathname !== "/login" && window.location.pathname !== "/register" && window.location.pathname !== "/blog") {
     header();
   }
   if (window.location.pathname === "/") {
@@ -10,11 +10,11 @@ document.addEventListener('DOMContentLoaded', function () {
     testimoniales();
     weekle_categories();
     slider();
-  } else if (window.location.pathname === "/carro.php") {
+  } else if (window.location.pathname === "/carro") {
     carro();
-  } else if (window.location.pathname === "/detail-product.php") {
+  } else if (window.location.pathname === "/detail-product") {
     incremento();
-  } else if (window.location.pathname === "/register.php" || window.location.pathname === "/login.php") {
+  } else if (window.location.pathname === "/register" || window.location.pathname === "/login") {
     login();
   }
 })

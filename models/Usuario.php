@@ -14,10 +14,12 @@ class Usuario extends ActiveRecord
         'contraseña',
         'telefono',
         'direccion',
-        'rol',
+        'rolId',
         'avatar',
         'creado',
-        'actualizado'
+        'actualizado',
+        'confirmado', 
+        'token'
     ];
 
     public $id;
@@ -27,62 +29,103 @@ class Usuario extends ActiveRecord
     public $contraseña;
     public $telefono;
     public $direccion;
-    public $rol;
+    public $rolId;
     public $avatar;
     public $creado;
     public $actualizado;
+    public $confirmado;
+    public $token;
 
     public function __construct($args = [])
     {
         $this->id = $args['id'] ?? null;
         $this->referencia = $args['referencia'] ?? '';
-        $this->referencia = $args['nombre'] ?? '';
+        $this->nombre = $args['nombre'] ?? '';
         $this->email = $args['email'] ?? '';
         $this->contraseña = $args['contraseña'] ?? '';
         $this->telefono = $args['telefono'] ?? '';
         $this->direccion = $args['direccion'] ?? '';
-        $this->rol = $args['rol'] ?? '';
+        $this->rolId = $args['rolId'] ?? 1;
         $this->avatar = $args['avatar'] ?? '';
-        $this->creado = $args['creado'] ?? '';
-        $this->actualizado = $args['actualizado'] ?? '';
+        $this->creado =  date('Y/m/d');
+        $this->actualizado =  date('Y/m/d');
+        $this->confirmado = $args['confirmado'] ?? 0;
+        $this->token = $args['token'] ?? '';
     }
 
-    public function validar(){
+    public function validarRegistro($contraseña_repetida){
         if(!$this->email){
-            self::$errores[] = "El email es obligatorio";
+            self::$alertas['error'][] = "El email es obligatorio";
         }
-
         if(!$this->contraseña){
-            self::$errores[] = "La contraseña es obligatoria";
+            self::$alertas['error'][] = "El password es obligatorio";
+        }
+        if($this->contraseña !== $contraseña_repetida){
+            self::$alertas['error'][] = "El password es distinto";
+        }
+        return self::$alertas;
+    }
+
+    // validar login
+    public function validarLogin(){
+        if(!$this->email){
+            self::$alertas['error'][] = "El email es obligatorio";
+        }
+        if(!$this->contraseña){
+            self::$alertas['error'][] = "El password es obligatorio";
+        }
+        return self::$alertas;
+    }
+
+    public function validarEmail() {
+        if(!$this->email) {
+            self::$alertas['error'][] = 'El email es Obligatorio';
+        }
+        return self::$alertas;
+    }
+
+    public function validarPassword() {
+        if(!$this->contraseña) {
+            self::$alertas['error'][] = 'El Password es obligatorio';
+        }
+        if(strlen($this->contraseña) < 6) {
+            self::$alertas['error'][] = 'El Password debe tener al menos 6 caracteres';
         }
 
-        return self::$errores;
-
+        return self::$alertas;
     }
 
     public function existeUsuario(){
-
-        $query = "SELECT * FROM " . self::$tabla . " WHERE email = '" . $this->email . "' LIMIT 1";
+        $query = " SELECT * FROM " . self::$tabla . " WHERE email = '" . $this->email . "' LIMIT 1";
         $resultado = self::$db->query($query);
-        if(!$resultado->num_rows){
-            self::$errores[] = "El Usuario no Existe";
-            return;
+
+        if($resultado->num_rows) {
+            self::$alertas['error'][] = 'El Usuario ya esta registrado';
         }
 
         return $resultado;
-
     }
 
-    public function comprobarPassword($resultado){
-        $usuario = $resultado->fetch_object();
+    public function hashPassword() {
+        $this->contraseña = password_hash($this->contraseña, PASSWORD_BCRYPT);
+    }
 
-        $autenticado = password_verify($this->contraseña, $usuario->contraseña);
+    public function crearToken() {
+        $this->token = uniqid();
+    } 
 
-        if(!$autenticado){
-            self::$errores[] = "El Password es Incorrecto";
+    public function crearReferencia(){
+        $this->referencia = uniqid();
+    }
+
+    public function comprobarPasswordAndVerificado($password) {
+        $resultado = password_verify($password, $this->contraseña);
+        
+        if(!$resultado || !$this->confirmado) {
+            self::$alertas['error'][] = 'Password Incorrecto o tu cuenta no ha sido confirmada';
+        } else {
+            return true;
         }
-        return $autenticado;
-
     }
 
     

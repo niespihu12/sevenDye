@@ -6,12 +6,26 @@ class ActiveRecord
     protected static $db;
     protected static $columnasDB = [];
     protected static $tabla = '';
-    protected static $errores = [];
+    protected static $alertas = [];
     public static function setDB($database)
     {
         self::$db = $database;
     }
 
+    public static function setAlerta($tipo,$mensaje) {
+        static::$alertas[$tipo][] = $mensaje;
+    }
+
+    public static function getAlertas()
+    {
+        return static::$alertas;
+    }
+
+    public function validar()
+    {
+        static::$alertas = [];
+        return static::$alertas;
+    }
 
     
     public function guardar()
@@ -37,6 +51,7 @@ class ActiveRecord
         $resultado = self::$db->query($query);
         return $resultado;
     }
+    
     public function actualizar()
     {
         $atributos = $this->sanitizarAtributos();
@@ -85,16 +100,9 @@ class ActiveRecord
         return $sanitizado;
     }
 
-    public static function getErrores()
-    {
-        return static::$errores;
-    }
+    
 
-    public function validar()
-    {
-        static::$errores = [];
-        return static::$errores;
-    }
+    
 
     public function setImagen($imagen)
     {
@@ -125,6 +133,11 @@ class ActiveRecord
         $query = "SELECT * FROM " . static::$tabla . " LIMIT " . $cantidad;
         $resultado = self::consultarSQL($query);
         return $resultado;
+    }
+    public static function where($columna, $valor) {
+        $query = "SELECT * FROM " . static::$tabla  ." WHERE {$columna} = '{$valor}'";
+        $resultado = self::consultarSQL($query);
+        return array_shift( $resultado ) ;
     }
     public static function find($id)
     {

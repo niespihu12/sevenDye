@@ -32,18 +32,18 @@ class Testimonio extends ActiveRecord{
 
     public function validar(){
         if (!$this->imagen) {
-            self::$errores[] = "La imagen es obligatoria";
+            self::$alertas['error'][] = "La imagen es obligatoria";
         }
         if(!$this->nombre){
-            self::$errores[] = "El nombre es obligatorio";
+            self::$alertas['error'][] = "El nombre es obligatorio";
         }
         if(!$this->rol){
-            self::$errores[] = "El rol es obligatorio";
+            self::$alertas['error'][] = "El rol es obligatorio";
         }
         if (strlen($this->mensaje) < 50){
-            self::$errores[] = "El mensaje es obligatorio y debe tener al menos 90 caracteres";
+            self::$alertas['error'][] = "El mensaje es obligatorio y debe tener al menos 90 caracteres";
         }
-        return self::$errores; 
+        return self::$alertas; 
     }
 
 }

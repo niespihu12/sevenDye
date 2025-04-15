@@ -39,23 +39,23 @@ class Influencer extends ActiveRecord
     public function validar()
     {
         if (!$this->nombre) {
-            self::$errores[] = "El nombre es obligatorio";
+            self::$alertas['error'][] = "El nombre es obligatorio";
         }
         if (!$this->youtube) {
-            self::$errores[] = "El youtube es obligatorio";
+            self::$alertas['error'][] = "El youtube es obligatorio";
         }
         if (!$this->tiktok) {
-            self::$errores[] = "El tiktok es obligatorio";
+            self::$alertas['error'][] = "El tiktok es obligatorio";
         }
         if (!$this->instagram) {
-            self::$errores[] = "El instagram es obligatorio";
+            self::$alertas['error'][] = "El instagram es obligatorio";
         }
         if (!$this->imagen) {
-            self::$errores[] = "La imagen es obligatoria";
+            self::$alertas['error'][] = "La imagen es obligatoria";
         }
         if (strlen($this->descripcion) < 50) {
-            self::$errores[] = "La descripcion es obligatoria y debe tener al menos 90 caracteres";
+            self::$alertas['error'][] = "La descripcion es obligatoria y debe tener al menos 90 caracteres";
         }
-        return self::$errores;
+        return self::$alertas;
     }
 }
