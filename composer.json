@@ -10,7 +10,8 @@
     ],
     "require": {
         "intervention/image": "^3.11",
-        "phpmailer/phpmailer": "^6.9"
+        "phpmailer/phpmailer": "^6.9",
+        "google/apiclient": "^2.18"
     },
     "autoload":{
         "psr-4": {
@@ -19,6 +20,8 @@
             "Controllers\\": "./controllers",
             "Classes\\": "./classes"
         }
+    },
+    "config": {
+        "process-timeout": 3600
     }
-
 }
