@@ -1,5 +1,5 @@
-<?php 
-    include_once __DIR__ . "/../templates/alertas.php";
+<?php
+include_once __DIR__ . "/../templates/alertas.php";
 ?>
 <main class="register">
     <div class="register__fondo">
@@ -16,7 +16,7 @@
                 <form class="formulario" method="post" action="/register">
                     <div class="campo">
                         <label class="campo__label" for="email">E-mail</label>
-                        <input class="campo__field" type="email" placeholder="username@gmail.com" id="email" name="email" value="<?php echo s($usuario->email)?>">
+                        <input class="campo__field" type="email" placeholder="username@gmail.com" id="email" name="email" value="<?php echo s($usuario->email) ?>">
                     </div>
                     <div class="campo">
                         <label class="campo__label" for="password">Password (6 characters minimum)</label>
@@ -40,21 +40,13 @@
                 <div class="login__footer">
                     <p class="">or contine with</p>
                     <div class="login__redes">
-                        <button>
+                        <a href="/google/login">
                             <picture>
                                 <source srcset="build/img/logo_google.avif" type="image/avif">
                                 <source srcset="build/img/logo_google.webp" type="image/webp">
                                 <img loading="lazy" width="100" height="100" src="build/img/logo_google.png" alt="">
                             </picture>
-                        </button>
-                        <button>
-                            <picture>
-                                <source srcset="build/img/logo_facebook.avif" type="image/avif">
-                                <source srcset="build/img/logo_facebook.webp" type="image/webp">
-                                <img loading="lazy" width="100" height="100" src="build/img/logo_facebook.png" alt="">
-                            </picture>
-
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>

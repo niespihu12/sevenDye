@@ -9,6 +9,7 @@ use Controllers\TestimonioController;
 use Controllers\PaginasController;
 use Controllers\LoginController;
 use Controllers\DashboardController;
+use Controllers\GoogleController;
 
 $router = new Router();
 
@@ -33,6 +34,11 @@ $router->get('/login', [LoginController::class, 'login']);
 $router->post('/login', [LoginController::class, 'login']);
 $router->get('/register',[LoginController::class, 'registro']);
 $router->post('/register',[LoginController::class, 'registro']);
+$router->get('/logout', [LoginController::class, 'logout']);
+
+// Autenticacion con google Oauth2
+$router->get('/google/login', [GoogleController::class, 'login']);
+$router->get('/google/callback', [GoogleController::class, 'callback']);
 
 
 //recuperar password
@@ -45,7 +51,6 @@ $router->post('/recuperar', [LoginController::class, 'recuperar']);
 $router->get('/confirmar-cuenta', [LoginController::class, 'confirmar']);
 $router->get('/mensaje', [LoginController::class, 'mensaje']);
 
-$router->get('/logout', [LoginController::class, 'logout']);
 
 // Zona publica
 $router->get('/', [PaginasController::class, 'index']);
@@ -55,6 +60,7 @@ $router->post('/contacto', [PaginasController::class, 'contacto']);
 
 // dashboard-general
 $router->get('/admin', [DashboardController::class, 'index']);
+
 
 
 $router->comprobarRutas();

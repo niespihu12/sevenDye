@@ -35,21 +35,13 @@
                 <div class="login__footer">
                     <p class="">or contine with</p>
                     <div class="login__redes">
-                        <button>
+                        <a href="/google/login">
                             <picture>
                                 <source srcset="build/img/logo_google.avif" type="image/avif">
                                 <source srcset="build/img/logo_google.webp" type="image/webp">
                                 <img loading="lazy" width="100" height="100" src="build/img/logo_google.png" alt="">
                             </picture>
-                        </button>
-                        <button>
-                            <picture>
-                                <source srcset="build/img/logo_facebook.avif" type="image/avif">
-                                <source srcset="build/img/logo_facebook.webp" type="image/webp">
-                                <img loading="lazy" width="100" height="100" src="build/img/logo_facebook.png" alt="">
-                            </picture>
-
-                        </button>
+                        </a>
                     </div>
                     <p>Don't have an account yet?<a class="negrilla" href="/register" class=""> Register for
                             free</a></p>

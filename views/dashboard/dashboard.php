@@ -40,23 +40,23 @@ $pedidos_recientes = [
 ];
 ?>
 
-<div class="contenido">
-    <header class="header">
-        <div class="header__texto">
+<div class="dashboard">
+    <header class="dashboard-header">
+        <div class="dashboard-header__texto">
             <h2>Dashboard</h2>
             <p>Admin</p>
         </div>
     </header>
 
     <div class="estadisticas">
-        <div class="card">
-            <div class="card__header">
+        <div class="dashboard-card">
+            <div class="dashboard-card__header">
                 <h3>Ventas totales</h3>
                 <p>ESTE MES</p>
             </div>
-            <p class="card__cantidad">$<?php echo number_format($ventas_totales, 2); ?></p>
-            <div class="card__grafica">
-                <div class="card__grafica--barras">
+            <p class="dashboard-card__cantidad">$<?php echo number_format($ventas_totales, 2); ?></p>
+            <div class="dashboard-card__grafica">
+                <div class="dashboard-card__grafica--barras">
                     <?php for($i = 0; $i < 30; $i++) { 
                         $height = rand(20, 100);
                     ?>
@@ -66,14 +66,14 @@ $pedidos_recientes = [
             </div>
         </div>
 
-        <div class="card">
-            <div class="card__header">
+        <div class="dashboard-card">
+            <div class="dashboard-card__header">
                 <h3>Clientes</h3>
                 <p>ESTE MES</p>
             </div>
-            <p class="card__cantidad"><?php echo number_format($clientes); ?></p>
-            <div class="card__grafica">
-                <svg class="card__grafica--linea" viewBox="0 0 300 100" preserveAspectRatio="none">
+            <p class="dashboard-card__cantidad"><?php echo number_format($clientes); ?></p>
+            <div class="dashboard-card__grafica">
+                <svg class="dashboard-card__grafica--linea" viewBox="0 0 300 100" preserveAspectRatio="none">
                     <path d="M0,50 C50,30 100,70 150,50 C200,30 250,70 300,50" fill="none"/>
                 </svg>
             </div>
