@@ -1,4 +1,4 @@
-<?php include __DIR__ . "/influencer-header.php"; ?>
+<?php include __DIR__ . "/../templates/admin-header.php"; ?>
 
 <main class="dashboard__content">
 
@@ -6,9 +6,9 @@
         <div class="dashboard__breadcrumb">
 
             <p>
-                <a href="/dashboard">Admin</a>
+                <a href="/admin">Admin</a>
                 <span>></span>
-                <!-- <?php echo $pageTitle; ?> -->
+                <?php echo $pageTitle; ?>
             </p>
         </div>
         <div class="influencers__header">
@@ -99,4 +99,4 @@
 </main>
 
 
-<?php include __DIR__ . "/influencer-footer.php"; ?>
+<?php include __DIR__ . "/../templates/admin-footer.php"; ?>

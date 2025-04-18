@@ -12,6 +12,7 @@ class InfluencerController{
         $influencers = Influencer::all();
         $router->render('/influencers/admin',[
             'influencers' => $influencers, 
+            'pageTitle' => 'usuarios'
         ]);
 
     }
@@ -46,7 +47,8 @@ class InfluencerController{
 
         $router->render('/influencers/crear', [
             'influencer' => $influencer,
-            'alertas' => $alertas
+            'alertas' => $alertas,
+            'pageTitle' => 'usuarios'
         ]);
     }
     public static function actualizar(Router $router){
@@ -81,7 +83,8 @@ class InfluencerController{
         }
         $router->render('/influencers/actualizar', [
             'influencer' => $influencer,
-            'alertas' => $alertas
+            'alertas' => $alertas,
+            'pageTitle' => 'usuarios'
         ]);
     }
     public static function eliminar(Router $router){

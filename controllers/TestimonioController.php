@@ -14,6 +14,7 @@ class TestimonioController
         $testimonios = Testimonio::all();
         $router->render('/testimonios/admin', [
             'testimonios' => $testimonios,
+            'pageTitle' => 'testimonios'
         ]);
     }
 
@@ -49,7 +50,8 @@ class TestimonioController
 
         $router->render('/testimonios/crear', [
             'testimonio' => $testimonio,
-            'alertas' => $alertas
+            'alertas' => $alertas,
+            'pageTitle' => 'testimonios'
         ]);
     }
     public static function actualizar(Router $router)
@@ -85,7 +87,8 @@ class TestimonioController
         }
         $router->render('/testimonios/actualizar', [
             'testimonio' => $testimonio,
-            'alertas' => $alertas
+            'alertas' => $alertas,
+            'pageTitle' => 'testimonios'
         ]);
     }
 

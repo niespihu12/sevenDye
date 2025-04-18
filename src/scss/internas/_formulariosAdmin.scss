@@ -1,0 +1,63 @@
+@use '../base/variables' as v;
+
+.formularios-admin {
+    padding: 2rem 3rem;
+}
+
+.seccion-admin {
+    background-color: v.$blanco;
+    margin: 2rem 6rem 0 0rem;
+    border-radius: 1rem;
+    -webkit-box-shadow: 10px 10px 17px 5px rgba(0, 0, 0, 0.48);
+    -moz-box-shadow: 10px 10px 17px 5px rgba(0, 0, 0, 0.48);
+    box-shadow: 10px 10px 17px 5px rgba(0, 0, 0, 0.48);
+
+    h1 {
+        padding: 2rem;
+        font-size: 3rem;
+        border-bottom: 1px solid v.$grisClaro ;
+    }
+
+    form {
+
+        padding: 2rem 3rem;
+    }
+
+}
+
+.formulario-admin {
+    display: flex;
+    gap: 2rem;
+}
+
+.campo-admin {
+    display: flex;
+    flex-direction: column;
+
+    &__label {
+        margin-bottom: 1rem;
+    }
+
+    &__field {
+        border-radius: 0.5rem;
+        border: 1px solid v.$grisClaro;
+        width: 40rem;
+        padding: 1rem 0;
+        margin-bottom: 2rem;
+    }
+
+    &__field--textarea {
+        height: 20rem;
+    }
+
+    &__field--archi {
+        border: 1px solid v.$grisClaro;
+        padding: 2rem 0;
+        margin-bottom: 2rem;
+    }
+
+    &__image{
+        width: 15rem;
+        margin-bottom: 2rem;
+    }
+}

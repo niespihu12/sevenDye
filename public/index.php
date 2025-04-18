@@ -10,10 +10,12 @@ use Controllers\PaginasController;
 use Controllers\LoginController;
 use Controllers\DashboardController;
 use Controllers\GoogleController;
+use Controllers\CategoriaController;
 
 $router = new Router();
 
 // Zona privada
+$router->get('/admin', [DashboardController::class, 'index']);
 $router->get('/testimonios/admin', [TestimonioController::class, 'index']);
 $router->get('/testimonios/crear', [TestimonioController::class, 'crear']);
 $router->post('/testimonios/crear', [TestimonioController::class, 'crear']);
@@ -27,6 +29,13 @@ $router->post('/influencers/crear', [InfluencerController::class, 'crear']);
 $router->get('/influencers/actualizar', [InfluencerController::class, 'actualizar']);
 $router->post('/influencers/actualizar', [InfluencerController::class, 'actualizar']);
 $router->post('/influencers/eliminar', [InfluencerController::class, 'eliminar']);
+
+$router->get('/categorias/admin', [CategoriaController::class, 'index']);
+$router->get('/categorias/crear', [CategoriaController::class, 'crear']);
+$router->post('/categorias/crear', [CategoriaController::class, 'crear']);
+$router->get('/categorias/actualizar', [CategoriaController::class, 'actualizar']);
+$router->post('/categorias/actualizar', [CategoriaController::class, 'actualizar']);
+$router->post('/categorias/eliminar', [CategoriaController::class, 'eliminar']);
 
 
 // Login 
@@ -58,8 +67,8 @@ $router->get('/nosotros', [PaginasController::class, 'nosotros']);
 $router->get('/contacto', [PaginasController::class, 'contacto']);
 $router->post('/contacto', [PaginasController::class, 'contacto']);
 
-// dashboard-general
-$router->get('/admin', [DashboardController::class, 'index']);
+
+
 
 
 

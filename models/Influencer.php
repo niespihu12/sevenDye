@@ -54,7 +54,7 @@ class Influencer extends ActiveRecord
             self::$alertas['error'][] = "La imagen es obligatoria";
         }
         if (strlen($this->descripcion) < 50) {
-            self::$alertas['error'][] = "La descripcion es obligatoria y debe tener al menos 90 caracteres";
+            self::$alertas['error'][] = "La descripcion es obligatoria y debe tener al menos 50 caracteres";
         }
         return self::$alertas;
     }
