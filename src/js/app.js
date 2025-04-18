@@ -16,8 +16,18 @@ document.addEventListener('DOMContentLoaded', function () {
     incremento();
   } else if (window.location.pathname === "/register" || window.location.pathname === "/login") {
     login();
+  }else if(window.location.pathname === "/categorias/admin" || window.location.pathname === "/influencers/admin" || window.location.pathname === "/testimonios/admin"){
+    // logica de javaScript
+    admin();
   }
 })
+
+function admin(){
+
+}
+
+
+
 
 function incremento() {
   const decremento = document.getElementById('decremento')

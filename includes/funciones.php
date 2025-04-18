@@ -38,7 +38,7 @@ function s($html): string
 // Validar tipo de Contenido
 function validarTipoContenido($tipo)
 {
-    $tipos = ['testimonio', 'influencer'];
+    $tipos = ['testimonio', 'influencer','categoria'];
 
     return in_array($tipo, $tipos);
 }

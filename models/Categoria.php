@@ -51,5 +51,7 @@ class Categoria extends ActiveRecord
         if(!$this->imagen){
             self::$alertas['error'][] = "La imagen es obligatoria";
         }
+
+        return self::$alertas;
     }
 }
