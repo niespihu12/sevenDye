@@ -11,6 +11,9 @@ class TestimonioController
 {
     public static function index(Router $router)
     {
+        session_start();
+
+        isAdmin();
         $testimonios = Testimonio::all();
         $router->render('/testimonios/admin', [
             'testimonios' => $testimonios,
@@ -20,6 +23,9 @@ class TestimonioController
 
     public static function crear(Router $router)
     {
+        session_start();
+
+        isAdmin();
         $testimonio = new Testimonio;
         $alertas = Testimonio::getAlertas();
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -56,6 +62,9 @@ class TestimonioController
     }
     public static function actualizar(Router $router)
     {
+        session_start();
+
+        isAdmin();
         $id = validarORedireccionar('/testimonios/admin');
         $testimonio = Testimonio::find($id);
         $alertas = Testimonio::getAlertas();
@@ -93,6 +102,9 @@ class TestimonioController
     }
 
     public static function eliminar(){
+        session_start();
+
+        isAdmin();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id = $_POST['id'];
             $id = filter_var($id, FILTER_VALIDATE_INT);

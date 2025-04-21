@@ -12,6 +12,9 @@ class CategoriaController
 {
     public static function index(Router $router)
     {
+        session_start();
+
+        isAdmin();
         $categorias = Categoria::all();
         $router->render('categorias/admin', [
             'categorias' => $categorias,
@@ -20,6 +23,9 @@ class CategoriaController
     }
     public static function crear(Router $router)
     {
+        session_start();
+
+        isAdmin();
         $categoria = new Categoria;
         $alertas = Categoria::getAlertas();
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -52,6 +58,9 @@ class CategoriaController
 
     public static function actualizar(Router $router)
     {
+        session_start();
+
+        isAdmin();
         $id = validarORedireccionar('/categorias/admin');
         $categoria = Categoria::find($id);
         $alertas = Categoria::getAlertas();
@@ -89,6 +98,9 @@ class CategoriaController
     }
     public static function eliminar(Router $router)
     {
+        session_start();
+
+        isAdmin();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id = $_POST['id'];
             $id = filter_var($id, FILTER_VALIDATE_INT);

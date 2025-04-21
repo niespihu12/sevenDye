@@ -8,7 +8,7 @@
     </a>
 
     <nav class="admin-sidebar__menu">
-        <a href="/dashboard" class="admin-sidebar__nav-link">
+        <a href="/admin" class="admin-sidebar__nav-link">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M4 13h6V3H4v10zm0 8h6v-6H4v6zm8 0h6V11h-6v10zm0-18v6h6V3h-6z" />
             </svg>

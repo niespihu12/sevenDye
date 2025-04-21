@@ -70,10 +70,6 @@
         align-items: center;
         gap: 2rem;
 
-        img {
-            width: 50px;
-            height: 20px;
-        }
     }
 
     .container {
@@ -125,9 +121,16 @@
         height: 100%;
     }
 
-    .favoritos{
-        
-        min-width: 2rem;
+    .perfil {
+        width: 2.5rem;
+        border-radius: 50%;
+
+
+    }
+
+    .favoritos {
+
+        width: 2.5rem;
     }
 
 }

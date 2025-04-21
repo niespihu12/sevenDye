@@ -13,6 +13,7 @@ class PaginasController{
     public static function index(Router $router){
         $testimonios = Testimonio::all();
         $influencers = Influencer::get(3);
+
         $router->render('paginas/index', [
             'testimonios' => $testimonios,
             'influencers' => $influencers

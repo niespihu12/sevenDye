@@ -1,4 +1,4 @@
-<?php include_once __DIR__  . '/header-principal.php' ?>
+<?php include_once __DIR__ . "/../templates/header-principal.php"; ?>
 
 <section class="ultimate-sale">
     <div class="sale__image--left">
@@ -888,4 +888,4 @@
     </section>
 </section>
 
-<?php include_once __DIR__ . '/footer-principal.php' ?>
+<?php include_once __DIR__ . "/../templates/footer-principal.php"; ?>

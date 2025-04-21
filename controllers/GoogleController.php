@@ -44,13 +44,19 @@ class GoogleController {
             $usuario->hashPassword();
             $usuario->guardar();
         }
+        session_start();
 
         // Iniciar sesión
         $_SESSION['id'] = $usuario->id;
         $_SESSION['email'] = $usuario->email;
         $_SESSION['login'] = true;
-        $_SESSION['rolId'] = $usuario->rolId;
 
-        header('Location: /');
+        if($usuario->rolId === "2"){
+            $_SESSION['rolId'] = $usuario->rolId ?? null;
+            header('Location: /admin');
+
+        }else{
+            header('Location: /');
+        }
     }
 }

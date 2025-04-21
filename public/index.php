@@ -11,6 +11,8 @@ use Controllers\LoginController;
 use Controllers\DashboardController;
 use Controllers\GoogleController;
 use Controllers\CategoriaController;
+use Controllers\ProductoController;
+use Controllers\UsuarioController;
 
 $router = new Router();
 
@@ -38,6 +40,17 @@ $router->post('/categorias/actualizar', [CategoriaController::class, 'actualizar
 $router->post('/categorias/eliminar', [CategoriaController::class, 'eliminar']);
 
 
+$router->get('/productos/admin', [ProductoController::class, 'index']);
+$router->get('/productos/crear', [ProductoController::class, 'crear']);
+$router->post('/productos/crear', [ProductoController::class, 'crear']);
+$router->get('/productos/actualizar', [ProductoController::class, 'actualizar']);
+$router->post('/productos/actualizar', [ProductoController::class, 'actualizar']);
+$router->post('/productos/eliminar', [ProductoController::class, 'eliminar']);
+
+
+
+
+
 // Login 
 $router->get('/login', [LoginController::class, 'login']);
 $router->post('/login', [LoginController::class, 'login']);
@@ -60,12 +73,18 @@ $router->post('/recuperar', [LoginController::class, 'recuperar']);
 $router->get('/confirmar-cuenta', [LoginController::class, 'confirmar']);
 $router->get('/mensaje', [LoginController::class, 'mensaje']);
 
+// Zona usuario
+$router->get('/perfil', [UsuarioController::class, 'actualizar']);
+$router->post('/perfil', [UsuarioController::class, 'actualizar']);
+
 
 // Zona publica
 $router->get('/', [PaginasController::class, 'index']);
 $router->get('/nosotros', [PaginasController::class, 'nosotros']);
 $router->get('/contacto', [PaginasController::class, 'contacto']);
 $router->post('/contacto', [PaginasController::class, 'contacto']);
+
+
 
 
 

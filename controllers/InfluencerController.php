@@ -9,6 +9,9 @@ use Intervention\Image\ImageManager as Image;
 
 class InfluencerController{
     public static function index(Router $router){
+        session_start();
+
+        isAdmin();
         $influencers = Influencer::all();
         $router->render('/influencers/admin',[
             'influencers' => $influencers, 
@@ -17,6 +20,9 @@ class InfluencerController{
 
     }
     public static function crear(Router $router){
+        session_start();
+
+        isAdmin();
         $influencer = new Influencer;
         $alertas = Influencer::getAlertas();
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -52,6 +58,9 @@ class InfluencerController{
         ]);
     }
     public static function actualizar(Router $router){
+        session_start();
+
+        isAdmin();
         $id = validarORedireccionar('/influencers/admin');
         $influencer = Influencer::find($id);
         $alertas = Influencer::getAlertas();
@@ -88,6 +97,9 @@ class InfluencerController{
         ]);
     }
     public static function eliminar(Router $router){
+        session_start();
+
+        isAdmin();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id = $_POST['id'];
             $id = filter_var($id, FILTER_VALIDATE_INT);

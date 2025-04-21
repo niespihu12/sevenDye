@@ -1,4 +1,4 @@
-<?php include_once __DIR__  . '/header-principal.php' ?>
+<?php include_once __DIR__ . "/../templates/header-principal.php"; ?>
 <div class="nosotros">
   <h1 class="nosotros-titulo">Welcome to Seven Dye: Where Fashion <br>Tells Your Story in Color</h1>
 
@@ -165,4 +165,4 @@
   </p>
 
 </section>
-<?php include_once __DIR__  . '/footer-principal.php' ?>
+<?php include_once __DIR__ . "/../templates/footer-principal.php"; ?>

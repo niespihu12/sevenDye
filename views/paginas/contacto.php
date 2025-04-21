@@ -1,4 +1,4 @@
-<?php include_once __DIR__  . '/header-principal.php' ?>
+<?php include_once __DIR__ . "/../templates/header-principal.php"; ?>
 <section class="contact-section">
     <h2 class="section-title">Contact Us</h2>
 
@@ -81,4 +81,4 @@
         </div>
     </div>
 </section>
-<?php include_once __DIR__  . '/footer-principal.php' ?>
+<?php include_once __DIR__ . "/../templates/footer-principal.php"; ?>

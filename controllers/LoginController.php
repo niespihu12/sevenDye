@@ -28,7 +28,7 @@ class LoginController{
 
                         if($usuario->rolId === "2"){
                             $_SESSION['rolId'] = $usuario->rolId ?? null;
-                            header('Location: /influencers/admin');
+                            header('Location: /admin');
 
                         }else{
                             header('Location: /');

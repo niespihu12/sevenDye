@@ -76,3 +76,15 @@ function validarORedireccionar(string $url)
 
     return $id;
 }
+
+function isAuth() : void {
+    if(!isset($_SESSION['login'])) {
+        header('Location: /');
+    }
+}
+
+function isAdmin() : void {
+    if(!isset($_SESSION['rolId']) || $_SESSION['rolId'] === '1') {
+        header('Location: /');
+    }
+}

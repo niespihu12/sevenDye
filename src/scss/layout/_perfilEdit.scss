@@ -2,16 +2,42 @@
 @use '../base/mixins' as m;
 @use "sass:color";
 
-.profile-fuera{
+.profile-principal {
+
     padding-top: 9rem;
     padding-bottom: 5rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+
 }
+
+.profile-logout {
+    padding-right: 2rem;
+    padding-left: 2rem;
+    background-color: v.$violeta;
+    border-radius: 1rem 0 0 1rem;
+    height: 100;
+
+    a {
+        color: v.$blanco;
+
+        &:hover{
+            color: v.$azul;
+        }
+    }
+}
+
+.profile-enlaces{
+    margin-top: 5rem;
+}
+
 
 .profile-container {
     background-color: #0095ff;
     padding: 3rem 4rem;
-    border-radius: 1rem;
     max-width: 1000px;
+    border-radius: 0 1rem 1rem 0;
     margin: 0 auto;
 
     h2 {
@@ -46,9 +72,18 @@
                 border-radius: 0.5rem;
                 font-size: 1.4rem;
                 background-color: #fff;
-                
+
                 &::placeholder {
                     color: #666;
+                }
+            }
+
+            &__imagen {
+                margin: 0 auto;
+
+                img {
+                    border-radius: 50%;
+                    width: 10rem;
                 }
             }
         }
@@ -71,7 +106,7 @@
                 border-radius: 0.5rem;
                 font-size: 1.4rem;
                 background-color: #fff;
-                
+
                 &::placeholder {
                     color: #666;
                 }

@@ -15,7 +15,7 @@ class Usuario extends ActiveRecord
         'telefono',
         'direccion',
         'rolId',
-        'avatar',
+        'imagen',
         'creado',
         'actualizado',
         'confirmado', 
@@ -30,7 +30,7 @@ class Usuario extends ActiveRecord
     public $telefono;
     public $direccion;
     public $rolId;
-    public $avatar;
+    public $imagen;
     public $creado;
     public $actualizado;
     public $confirmado;
@@ -46,12 +46,13 @@ class Usuario extends ActiveRecord
         $this->telefono = $args['telefono'] ?? '';
         $this->direccion = $args['direccion'] ?? '';
         $this->rolId = $args['rolId'] ?? 1;
-        $this->avatar = $args['avatar'] ?? '';
+        $this->imagen = $args['imagen'] ?? '';
         $this->creado =  date('Y/m/d');
         $this->actualizado =  date('Y/m/d');
         $this->confirmado = $args['confirmado'] ?? 0;
         $this->token = $args['token'] ?? '';
     }
+
 
     public function validarRegistro($contraseña_repetida){
         if(!$this->email){
@@ -60,6 +61,13 @@ class Usuario extends ActiveRecord
         if(!$this->contraseña){
             self::$alertas['error'][] = "El password es obligatorio";
         }
+        if(strlen($this->contraseña) < 8){
+            self::$alertas['error'][] = "El password debe tener al menos 8 caracteres";
+        }
+        if(!$contraseña_repetida){
+            self::$alertas['error'][] = "Repetir password es obligatorio";
+        }
+
         if($this->contraseña !== $contraseña_repetida){
             self::$alertas['error'][] = "El password es distinto";
         }
@@ -88,8 +96,8 @@ class Usuario extends ActiveRecord
         if(!$this->contraseña) {
             self::$alertas['error'][] = 'El Password es obligatorio';
         }
-        if(strlen($this->contraseña) < 6) {
-            self::$alertas['error'][] = 'El Password debe tener al menos 6 caracteres';
+        if(strlen($this->contraseña) < 8) {
+            self::$alertas['error'][] = 'El Password debe tener al menos 8 caracteres';
         }
 
         return self::$alertas;
