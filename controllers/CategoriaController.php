@@ -29,11 +29,11 @@ class CategoriaController
         $categoria = new Categoria;
         $alertas = Categoria::getAlertas();
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
-            $categoria = new Categoria($_POST['categoria']);
+            $categoria = new Categoria($_POST);
             $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
-            if ($_FILES['categoria']['tmp_name']['imagen']) {
+            if ($_FILES['tmp_name']['imagen']) {
                 $manager = new Image(Driver::class); // el gd que viene nativo con php
-                $image = $manager->read($_FILES['categoria']['tmp_name']['imagen'])->cover(600, 800);
+                $image = $manager->read($_FILES['tmp_name']['imagen'])->cover(600, 800);
                 $categoria->setImagen($nombreImagen);
             }
             $alertas = $categoria->validar();
@@ -65,19 +65,19 @@ class CategoriaController
         $categoria = Categoria::find($id);
         $alertas = Categoria::getAlertas();
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
-            $args = $_POST['categoria'];
+            $args = $_POST;
 
             $categoria->sincronizar($args);
             $alertas = $categoria->validar();
             $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
-            if ($_FILES['categoria']['tmp_name']['imagen']) {
+            if ($_FILES['tmp_name']['imagen']) {
                 $manager = new Image(Driver::class); // el gd que viene nativo con php
-                $imagen = $manager->read($_FILES['categoria']['tmp_name']['imagen'])->cover(800, 600);
+                $imagen = $manager->read($_FILES['tmp_name']['imagen'])->cover(800, 600);
                 $categoria->setImagen($nombreImagen);
             }
 
             if(empty($alertas)){
-                if ($_FILES['categoria']['tmp_name']['imagen']) {
+                if ($_FILES['tmp_name']['imagen']) {
                     $imagen->save(CARPETA_IMAGENES . $nombreImagen);
                 }
 
@@ -106,18 +106,14 @@ class CategoriaController
             $id = filter_var($id, FILTER_VALIDATE_INT);
 
             if ($id) {
-
-                $tipo = $_POST['tipo'];
-
-                if (validarTipoContenido($tipo)) {
-                    $categoria = Categoria::find($id);
-                    $resultado = $categoria->eliminar();
-                    if ($resultado) {
-                        $categoria->borrarImagen();
-                        header('location: /categorias/admin?resultado=3');
-                    }
+                $categoria = Categoria::find($id);
+                $resultado = $categoria->eliminar();
+                if ($resultado) {
+                    $categoria->borrarImagen();
+                    header('location: /categorias/admin?resultado=3');
                 }
             }
         }
     }
 }
+

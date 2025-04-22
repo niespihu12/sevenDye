@@ -26,11 +26,11 @@ class InfluencerController{
         $influencer = new Influencer;
         $alertas = Influencer::getAlertas();
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
-            $influencer = new Influencer($_POST['influencer']);
+            $influencer = new Influencer($_POST);
             $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
-            if ($_FILES['influencer']['tmp_name']['imagen']) {
+            if ($_FILES['tmp_name']['imagen']) {
                 $manager = new Image(Driver::class); 
-                $image = $manager->read($_FILES['influencer']['tmp_name']['imagen'])->cover(600, 800);
+                $image = $manager->read($_FILES['tmp_name']['imagen'])->cover(600, 800);
                 $influencer->setImagen($nombreImagen);
             }
             $alertas = $influencer->validar();
@@ -65,20 +65,20 @@ class InfluencerController{
         $influencer = Influencer::find($id);
         $alertas = Influencer::getAlertas();
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
-            $args = $_POST['influencer'];
+            $args = $_POST;
 
             $influencer->sincronizar($args);
             $alertas = $influencer->validar();
             $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
-            if ($_FILES['influencer']['tmp_name']['imagen']) {
+            if ($_FILES['tmp_name']['imagen']) {
                 $manager = new Image(Driver::class); // el gd que viene nativo con php
-                $imagen = $manager->read($_FILES['influencer']['tmp_name']['imagen'])->cover(800, 600);
+                $imagen = $manager->read($_FILES['tmp_name']['imagen'])->cover(800, 600);
                 $influencer->setImagen($nombreImagen);
             }
 
 
             if (empty($alertas)) {
-                if ($_FILES['influencer']['tmp_name']['imagen']) {
+                if ($_FILES['tmp_name']['imagen']) {
                     $imagen->save(CARPETA_IMAGENES . $nombreImagen);
                 }
 
@@ -105,17 +105,13 @@ class InfluencerController{
             $id = filter_var($id, FILTER_VALIDATE_INT);
 
             if ($id) {
-
-                $tipo = $_POST['tipo'];
-
-                if (validarTipoContenido($tipo)) {
-                    $influencer = Influencer::find($id);
-                    $resultado = $influencer->eliminar();
-                    if ($resultado) {
-                        $influencer->borrarImagen();
-                        header('location: /influencers/admin?resultado=3');
-                    }
+                $influencer = Influencer::find($id);
+                $resultado = $influencer->eliminar();
+                if ($resultado) {
+                    $influencer->borrarImagen();
+                    header('location: /influencers/admin?resultado=3');
                 }
+                
             }
         }
     }

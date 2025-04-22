@@ -124,7 +124,7 @@ class ActiveRecord
     }
     public static function all()
     {
-        $query = "SELECT * FROM " . static::$tabla;
+        $query = "SELECT * FROM " . static::$tabla . " ORDER BY id ASC ";
         $resultado = self::consultarSQL($query);
         return $resultado;
     }

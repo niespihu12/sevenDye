@@ -16,12 +16,12 @@ class UsuarioController{
         $usuario = Usuario::find($id);
 
         if($_SERVER['REQUEST_METHOD'] === "POST"){
-            $args = $_POST['usuario'];
+            $args = $_POST;
             $usuario->sincronizar($args);
             $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
-            if ($_FILES['usuario']['tmp_name']['imagen']) {
+            if ($_FILES['tmp_name']['imagen']) {
                 $manager = new Image(Driver::class); // el gd que viene nativo con php
-                $imagen = $manager->read($_FILES['usuario']['tmp_name']['imagen'])->cover(800, 600);
+                $imagen = $manager->read($_FILES['tmp_name']['imagen'])->cover(800, 600);
                 $usuario->setImagen($nombreImagen);
                 $imagen->save(CARPETA_IMAGENES . $nombreImagen);
             }

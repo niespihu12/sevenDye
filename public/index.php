@@ -11,8 +11,9 @@ use Controllers\LoginController;
 use Controllers\DashboardController;
 use Controllers\GoogleController;
 use Controllers\CategoriaController;
-use Controllers\ProductoController;
 use Controllers\UsuarioController;
+use Controllers\ColorController;
+use Controllers\TallaController;
 
 $router = new Router();
 
@@ -39,16 +40,19 @@ $router->get('/categorias/actualizar', [CategoriaController::class, 'actualizar'
 $router->post('/categorias/actualizar', [CategoriaController::class, 'actualizar']);
 $router->post('/categorias/eliminar', [CategoriaController::class, 'eliminar']);
 
+$router->get('/colores/admin', [ColorController::class, 'index']);
+$router->get('/colores/crear', [ColorController::class, 'crear']);
+$router->post('/colores/crear', [ColorController::class, 'crear']);
+$router->get('/colores/actualizar', [ColorController::class, 'actualizar']);
+$router->post('/colores/actualizar', [ColorController::class, 'actualizar']);
+$router->post('/colores/eliminar', [ColorController::class, 'eliminar']);
 
-$router->get('/productos/admin', [ProductoController::class, 'index']);
-$router->get('/productos/crear', [ProductoController::class, 'crear']);
-$router->post('/productos/crear', [ProductoController::class, 'crear']);
-$router->get('/productos/actualizar', [ProductoController::class, 'actualizar']);
-$router->post('/productos/actualizar', [ProductoController::class, 'actualizar']);
-$router->post('/productos/eliminar', [ProductoController::class, 'eliminar']);
-
-
-
+$router->get('/tallas/admin', [TallaController::class, 'index']);
+$router->get('/tallas/crear', [TallaController::class, 'crear']);
+$router->post('/tallas/crear', [TallaController::class, 'crear']);
+$router->get('/tallas/actualizar', [TallaController::class, 'actualizar']);
+$router->post('/tallas/actualizar', [TallaController::class, 'actualizar']);
+$router->post('/tallas/eliminar', [TallaController::class, 'eliminar']);
 
 
 // Login 
@@ -83,10 +87,6 @@ $router->get('/', [PaginasController::class, 'index']);
 $router->get('/nosotros', [PaginasController::class, 'nosotros']);
 $router->get('/contacto', [PaginasController::class, 'contacto']);
 $router->post('/contacto', [PaginasController::class, 'contacto']);
-
-
-
-
 
 
 

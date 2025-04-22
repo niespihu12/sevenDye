@@ -11,43 +11,46 @@
             </p>
         </div>
         <div class="influencers__header">
-            <h2>Categorias</h2>
-            <a href="/categorias/crear" class="influencers__nuevo">
+            <h2>Colores</h2>
+            <a href="/colores/crear" class="influencers__nuevo">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
                 </svg>
-                Nueva Categoria
+                Nuevo Color
             </a>
         </div>
         <table class="influencers__tabla">
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Slug</th>
-                    <th>Nombre</th>
-                    <th>Descripcion</th>
-                    <th>Imagen</th>
+                    <th>nombre</th>
+                    <th>hexadecimal</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
 
             
             <tbody>
-                <?php foreach ($categorias as $categoria) { ?>
+                <?php foreach ($colores as $color) { ?>
                     <tr>
-                        <td><?php echo $categoria->id; ?></td>
-                        <td><?php echo $categoria->slug; ?></td>
-                        <td><?php echo $categoria->nombre; ?></td>
+                        <td><?php echo $color->id; ?></td>
+                        <td><?php echo $color->nombre; ?></td>
                         <td>
-                            <div class="influencers__descripcion"><?php echo $categoria->descripcion; ?></div>
+                            <div>
+
+                                <div style="background-color: <?php echo $color->hexadecimal; ?>; width:10%;">
+                                    <p style="color: transparent;">color</p>
+                                </div>
+
+                            </div>
                         </td>
-                        <td> <img src="/imagenes/<?php echo $categoria->imagen; ?>" class="imagen-tabla"> </td>
+                        
                         
                        
                         <td>
                             <div class="influencers__acciones">
-                                <form method="POST" action="/categorias/eliminar">
-                                    <input type="hidden" name="id" value="<?php echo $categoria->id; ?>">
+                                <form method="POST" action="/colores/eliminar">
+                                    <input type="hidden" name="id" value="<?php echo $color->id; ?>">
                                     <button type="submit" class="boton-eliminar">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
                                             <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
@@ -55,7 +58,7 @@
                                         Eliminar
                                     </button>
                                 </form>
-                                <a href="/categorias/actualizar?id=<?php echo $categoria->id; ?>" class="boton-actualizar">
+                                <a href="/colores/actualizar?id=<?php echo $color->id; ?>" class="boton-actualizar">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
                                         <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
                                     </svg>

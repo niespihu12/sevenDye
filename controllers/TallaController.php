@@ -1,0 +1,100 @@
+<?php
+
+namespace Controllers;
+
+use Model\Talla;
+use MVC\Router;
+
+class TallaController{
+    public static function index(Router $router){
+        session_start();
+
+        isAdmin();
+        $tallas = Talla::all();
+
+        $router->render('tallas/admin', [
+            'tallas' => $tallas,
+            'pageTitle' => 'Tallas'
+        ]);
+    }
+
+    public static function crear(Router $router){
+        session_start();
+
+        isAdmin();
+        $talla = new Talla; 
+        $alertas = Talla::getAlertas();
+
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            $talla = new Talla($_POST);
+
+            $alertas = $talla->validar();
+
+            if(empty($alertas)){
+                $resultado = $talla->guardar();
+
+                if($resultado){
+                    header('Location: /tallas/admin');
+                }
+            }
+        }
+
+        $router->render('tallas/crear',[
+            'alertas' => $alertas,
+            'talla' => $talla,
+            'pageTitle' => "tallas"
+        ]);
+    }
+    public static function actualizar(Router $router){
+        session_start();
+
+        isAdmin();
+        $id = validarORedireccionar('/tallas/admin');
+
+        $talla = Talla::find($id);  
+        $alertas = Talla::getAlertas();
+
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+
+            $args = $_POST;
+
+            $talla->sincronizar($args);
+
+            $alertas = $talla->validar();
+
+            if(empty($alertas)){
+                $resultado = $talla->guardar();
+
+                if($resultado){
+                    header('Location: /tallas/admin');
+                }
+            }
+        }
+
+        $router->render('tallas/actualizar',[
+            'alertas' => $alertas,
+            'talla' => $talla,
+            'pageTitle' => "tallas"
+        ]);
+    }
+
+    public static function eliminar(){
+        session_start();
+
+        isAdmin();
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            $id = $_POST['id'];
+            $id = filter_var($id, FILTER_VALIDATE_INT);
+
+            if($id){
+                $talla = Talla::find($id);
+                $resultado = $talla->eliminar();
+                if ($resultado) {
+                    header('location: /tallas/admin?resultado=3');
+                }
+            }
+        }
+    }
+
+
+}

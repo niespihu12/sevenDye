@@ -36,12 +36,6 @@ function s($html): string
 }
 
 // Validar tipo de Contenido
-function validarTipoContenido($tipo)
-{
-    $tipos = ['testimonio', 'influencer','categoria'];
-
-    return in_array($tipo, $tipos);
-}
 
 // Muestra los mensajes
 function mostrarNotificacion($codigo)

@@ -29,11 +29,11 @@ class TestimonioController
         $testimonio = new Testimonio;
         $alertas = Testimonio::getAlertas();
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
-            $testimonio = new Testimonio($_POST['testimonio']);
+            $testimonio = new Testimonio($_POST);
             $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
-            if ($_FILES['testimonio']['tmp_name']['imagen']) {
+            if ($_FILES['tmp_name']['imagen']) {
                 $manager = new Image(Driver::class); // el gd que viene nativo con php
-                $image = $manager->read($_FILES['testimonio']['tmp_name']['imagen'])->cover(600, 800);
+                $image = $manager->read($_FILES['tmp_name']['imagen'])->cover(600, 800);
                 $testimonio->setImagen($nombreImagen);
             }
             $alertas = $testimonio->validar();
@@ -69,20 +69,20 @@ class TestimonioController
         $testimonio = Testimonio::find($id);
         $alertas = Testimonio::getAlertas();
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
-            $args = $_POST['testimonio'];
+            $args = $_POST;
 
             $testimonio->sincronizar($args);
             $alertas = $testimonio->validar();
             $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
-            if ($_FILES['testimonio']['tmp_name']['imagen']) {
+            if ($_FILES['tmp_name']['imagen']) {
                 $manager = new Image(Driver::class); // el gd que viene nativo con php
-                $imagen = $manager->read($_FILES['testimonio']['tmp_name']['imagen'])->cover(800, 600);
+                $imagen = $manager->read($_FILES['tmp_name']['imagen'])->cover(800, 600);
                 $testimonio->setImagen($nombreImagen);
             }
 
 
             if (empty($alertas)) {
-                if ($_FILES['testimonio']['tmp_name']['imagen']) {
+                if ($_FILES['tmp_name']['imagen']) {
                     $imagen->save(CARPETA_IMAGENES . $nombreImagen);
                 }
 
@@ -101,25 +101,20 @@ class TestimonioController
         ]);
     }
 
-    public static function eliminar(){
+    public static function eliminar()
+    {
         session_start();
-
         isAdmin();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id = $_POST['id'];
             $id = filter_var($id, FILTER_VALIDATE_INT);
 
             if ($id) {
-
-                $tipo = $_POST['tipo'];
-
-                if (validarTipoContenido($tipo)) {
-                    $testimonio = Testimonio::find($id);
-                    $resultado = $testimonio->eliminar();
-                    if ($resultado) {
-                        $testimonio->borrarImagen();
-                        header('location: /testimonios/admin?resultado=3');
-                    }
+                $testimonio = Testimonio::find($id);
+                $resultado = $testimonio->eliminar();
+                if ($resultado) {
+                    $testimonio->borrarImagen();
+                    header('location: /testimonios/admin?resultado=3');
                 }
             }
         }
