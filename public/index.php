@@ -14,6 +14,7 @@ use Controllers\CategoriaController;
 use Controllers\UsuarioController;
 use Controllers\ColorController;
 use Controllers\TallaController;
+use Controllers\ProductoController;
 
 $router = new Router();
 
@@ -53,6 +54,14 @@ $router->post('/tallas/crear', [TallaController::class, 'crear']);
 $router->get('/tallas/actualizar', [TallaController::class, 'actualizar']);
 $router->post('/tallas/actualizar', [TallaController::class, 'actualizar']);
 $router->post('/tallas/eliminar', [TallaController::class, 'eliminar']);
+
+
+$router->get('/productos/admin', [ProductoController::class, 'index']);
+$router->get('/productos/crear', [ProductoController::class, 'crear']);
+$router->post('/productos/crear', [ProductoController::class, 'crear']);
+$router->get('/productos/actualizar', [ProductoController::class, 'actualizar']);
+$router->post('/productos/actualizar', [ProductoController::class, 'actualizar']);
+$router->post('/productos/eliminar', [ProductoController::class, 'eliminar']);
 
 
 // Login 
