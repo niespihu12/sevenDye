@@ -48,8 +48,8 @@
       <form class="profile-form" method="POST" enctype="multipart/form-data">
         <div class="form-row">
           <div class="form-group">
-            <label for="firstName">Name</label>
-            <input type="text" id="firstName" name="usuario[nombre]" value="<?php echo s($usuario->nombre); ?>" />
+            <label for="firstName"><i class="fas fa-user"></i> Nombre</label>
+            <input type="text" id="firstName" name="nombre" value="<?php echo s($usuario->nombre); ?>" />
           </div>
           <div class="form-group">
             <label for="email"><i class="fas fa-envelope"></i> Email</label>
@@ -59,20 +59,20 @@
 
         <div class="form-row">
           <div class="form-group">
-            <label for="lastName">Phone</label>
-            <input type="text" id="lastName" name="usuario[telefono]" value="<?php echo s($usuario->telefono); ?>" />
+            <label for="lastName"><i class="fas fa-phone"></i> Teléfono</label>
+            <input type="text" id="lastName" name="telefono" value="<?php echo s($usuario->telefono); ?>" />
           </div>
           <div class="form-group">
-            <label for="address">Address</label>
-            <input type="text" id="address" name="usuario[direccion]" value="<?php echo  s($usuario->direccion)  ?>" />
+            <label for="address"><i class="fas fa-map-marker-alt"></i> Dirección</label>
+            <input type="text" id="address" name="direccion" value="<?php echo s($usuario->direccion); ?>" />
           </div>
         </div>
         
         <div class="form-row">
           <div class="form-group">
-            <label for="imagen">Image</label>
-            <input type="file" id="imagen" accept="image/jpeg, image/png" name="usuario[imagen]">
-
+            <label for="imagen"><i class="fas fa-image"></i> Imagen de Perfil</label>
+            <input type="file" id="imagen" accept="image/jpeg, image/png" name="imagen">
+            <p class="file-help">Formatos permitidos: JPG, PNG. Tamaño máximo: 2MB</p>
           </div>
           <div class="form-group__imagen">
             <?php if ($usuario->imagen) { ?>
