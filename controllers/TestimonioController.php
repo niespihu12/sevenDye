@@ -31,9 +31,9 @@ class TestimonioController
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $testimonio = new Testimonio($_POST);
             $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
-            if ($_FILES['tmp_name']['imagen']) {
+            if ($_FILES['imagen']['tmp_name']) {
                 $manager = new Image(Driver::class); // el gd que viene nativo con php
-                $image = $manager->read($_FILES['tmp_name']['imagen'])->cover(600, 800);
+                $image = $manager->read($_FILES['imagen']['tmp_name'])->cover(600, 800);
                 $testimonio->setImagen($nombreImagen);
             }
             $alertas = $testimonio->validar();
@@ -74,15 +74,15 @@ class TestimonioController
             $testimonio->sincronizar($args);
             $alertas = $testimonio->validar();
             $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
-            if ($_FILES['tmp_name']['imagen']) {
+            if ($_FILES['imagen']['tmp_name']) {
                 $manager = new Image(Driver::class); // el gd que viene nativo con php
-                $imagen = $manager->read($_FILES['tmp_name']['imagen'])->cover(800, 600);
+                $imagen = $manager->read($_FILES['imagen']['tmp_name'])->cover(800, 600);
                 $testimonio->setImagen($nombreImagen);
             }
 
 
             if (empty($alertas)) {
-                if ($_FILES['tmp_name']['imagen']) {
+                if ($_FILES['imagen']['tmp_name']) {
                     $imagen->save(CARPETA_IMAGENES . $nombreImagen);
                 }
 

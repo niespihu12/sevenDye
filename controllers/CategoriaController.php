@@ -31,9 +31,9 @@ class CategoriaController
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $categoria = new Categoria($_POST);
             $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
-            if ($_FILES['tmp_name']['imagen']) {
+            if ($_FILES['imagen']['tmp_name']) {
                 $manager = new Image(Driver::class); // el gd que viene nativo con php
-                $image = $manager->read($_FILES['tmp_name']['imagen'])->cover(600, 800);
+                $image = $manager->read($_FILES['imagen']['tmp_name'])->cover(600, 800);
                 $categoria->setImagen($nombreImagen);
             }
             $alertas = $categoria->validar();
@@ -70,14 +70,14 @@ class CategoriaController
             $categoria->sincronizar($args);
             $alertas = $categoria->validar();
             $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
-            if ($_FILES['tmp_name']['imagen']) {
+            if ($_FILES['imagen']['tmp_name']) {
                 $manager = new Image(Driver::class); // el gd que viene nativo con php
-                $imagen = $manager->read($_FILES['tmp_name']['imagen'])->cover(800, 600);
+                $imagen = $manager->read($_FILES['imagen']['tmp_name'])->cover(800, 600);
                 $categoria->setImagen($nombreImagen);
             }
 
             if(empty($alertas)){
-                if ($_FILES['tmp_name']['imagen']) {
+                if ($_FILES['imagen']['tmp_name']) {
                     $imagen->save(CARPETA_IMAGENES . $nombreImagen);
                 }
 

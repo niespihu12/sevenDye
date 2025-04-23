@@ -28,9 +28,9 @@ class InfluencerController{
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $influencer = new Influencer($_POST);
             $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
-            if ($_FILES['tmp_name']['imagen']) {
+            if ($_FILES['imagen']['tmp_name']) {
                 $manager = new Image(Driver::class); 
-                $image = $manager->read($_FILES['tmp_name']['imagen'])->cover(600, 800);
+                $image = $manager->read($_FILES['imagen']['tmp_name'])->cover(600, 800);
                 $influencer->setImagen($nombreImagen);
             }
             $alertas = $influencer->validar();
@@ -70,15 +70,15 @@ class InfluencerController{
             $influencer->sincronizar($args);
             $alertas = $influencer->validar();
             $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
-            if ($_FILES['tmp_name']['imagen']) {
+            if ($_FILES['imagen']['tmp_name']) {
                 $manager = new Image(Driver::class); // el gd que viene nativo con php
-                $imagen = $manager->read($_FILES['tmp_name']['imagen'])->cover(800, 600);
+                $imagen = $manager->read($_FILES['imagen']['tmp_name'])->cover(800, 600);
                 $influencer->setImagen($nombreImagen);
             }
 
 
             if (empty($alertas)) {
-                if ($_FILES['tmp_name']['imagen']) {
+                if ($_FILES['imagen']['tmp_name']) {
                     $imagen->save(CARPETA_IMAGENES . $nombreImagen);
                 }
 

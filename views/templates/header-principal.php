@@ -5,12 +5,11 @@ use Model\Usuario;
 if (!isset($_SESSION)) {
     session_start();
 }
+
 $auth = $_SESSION['login'] ?? false;
 if ($auth) {
     $foto = Usuario::find($_SESSION['id'])->imagen;
 }
-
-
 
 ?>
 

@@ -117,10 +117,13 @@ class ActiveRecord
 
     public function borrarImagen()
     {
-        $existeArchivo = file_exists(CARPETA_IMAGENES . $this->imagen);
-        if ($existeArchivo) {
-            unlink(CARPETA_IMAGENES . $this->imagen);
+        if(!empty($this->imagen)){
+            $existeArchivo = file_exists(CARPETA_IMAGENES . $this->imagen);
+            if ($existeArchivo) {
+                unlink(CARPETA_IMAGENES . $this->imagen);
+            }
         }
+       
     }
     public static function all()
     {

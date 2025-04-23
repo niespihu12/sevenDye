@@ -12,7 +12,7 @@ class Producto extends ActiveRecord{
         'descripcion',
         'precio',
         'precio_descuento',
-        'color',
+        'colores_id',
         'peso',
         'activo',
         'destacado',
@@ -29,7 +29,7 @@ class Producto extends ActiveRecord{
     public $descripcion;
     public $precio;
     public $precio_descuento;
-    public $color;
+    public $colores_id;
     public $peso;
     public $activo;
     public $destacado;
@@ -46,7 +46,7 @@ class Producto extends ActiveRecord{
         $this->descripcion = $args['descripcion'] ?? '';
         $this->precio = $args['precio'] ?? '';
         $this->precio_descuento = $args['precio_descuento'] ?? '';
-        $this->color = $args['color'] ?? '';
+        $this->colores_id = $args['colores_id'] ?? '';
         $this->peso = $args['peso'] ?? '';
         $this->activo = $args['activo'] ?? '1';
         $this->destacado = $args['destacado'] ?? '0';
@@ -66,11 +66,17 @@ class Producto extends ActiveRecord{
         if(!$this->categorias_id){
             self::$alertas['error'][] = 'La categoria es obligatoria';
         }
+        if(!$this->colores_id){
+            self::$alertas['error'][] = 'El color es obligatorio';
+        }
+        if(!$this->descripcion){
+            self::$alertas['error'][] = 'La descripcion es obligatoria';
+        }
+        if(!$this->descripcion){
+            self::$alertas['error'][] = 'La descripcion es obligatoria';
+        }
         if(!is_numeric($this->precio)){
             self::$alertas['error'][] = 'El precio debe ser un numero';
-        }
-        if(!is_numeric($this->categorias_id)){
-            self::$alertas['error'][] = 'La categoria debe ser un numero';
         }
         return self::$alertas;
     }

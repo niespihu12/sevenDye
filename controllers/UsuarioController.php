@@ -19,9 +19,9 @@ class UsuarioController{
             $args = $_POST;
             $usuario->sincronizar($args);
             $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
-            if ($_FILES['tmp_name']['imagen']) {
+            if ($_FILES['imagen']['tmp_name']) {
                 $manager = new Image(Driver::class); // el gd que viene nativo con php
-                $imagen = $manager->read($_FILES['tmp_name']['imagen'])->cover(800, 600);
+                $imagen = $manager->read($_FILES['imagen']['tmp_name'])->cover(800, 600);
                 $usuario->setImagen($nombreImagen);
                 $imagen->save(CARPETA_IMAGENES . $nombreImagen);
             }
@@ -29,7 +29,7 @@ class UsuarioController{
             $resultado = $usuario->guardar();
 
             if($resultado){
-                echo "Guardado Correctamente";
+                header('Location: /');
             }
 
         
