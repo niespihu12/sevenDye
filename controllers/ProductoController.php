@@ -34,21 +34,49 @@ class ProductoController{
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $producto = new Producto($_POST);
-
-            
-
+            $alertas = $producto->validar();
             $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
-
-            if($_FILES['imagen']['tmp_name']){
-                
-                
+            $imagenesSubidas = [];
+            if(count($_FILES['imagen']['tmp_name'])>=4){
+                $producto->setAlerta("error", "Solo se permiten 4 imagenes por producto");
+            } else{
+                if($_FILES['imagen']['tmp_name'][0]){
+                    $manager = new Image(Driver::class);
+                    foreach($_FILES['imagen']['tmp_name'] as $imagen){
+                        $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
+                        $image = $manager->read($imagen)->cover(1000,1000);
+                        $image->save(CARPETA_IMAGENES . $nombreImagen);
+                        $imagenesSubidas[] = $nombreImagen;
+                    }
+                }else{
+                    $producto->setAlerta("error", "La imagen del producto es obligatoria");
+                }
             }
 
-            $alertas = $producto->validar();
+            if(empty($alertas)){
+                $producto->crearReferencia();
+                $resultado = $producto->guardar();
+                $producto = Producto::where('referencia', $producto->referencia);
+                if($resultado){
+                    foreach($imagenesSubidas as $imagen){
+                        $productosImagen = new ProductoImagen([
+                            'imagen' => $imagen,
+                            'productos_id' => $producto->id
+                        ]);
+                        $productosImagen->guardar();
+                    }
+
+                }
+               
+
+
+            }
 
         
             
         }
+
+        $alertas = Producto::getAlertas();
 
         $router->render('productos/crear', [
             'producto' => $producto,

@@ -20,6 +20,7 @@ class Testimonio extends ActiveRecord{
     public $mensaje;
     public $creado;
     public $actualizado;
+    
 
     public function __construct($args=[]){
         $this->id = $args['id']?? null;

@@ -22,8 +22,8 @@ class ProductoImagen extends ActiveRecord{
     public function __construct($args = []){
         $this->id = $args['id'] ?? null;
         $this->imagen = $args['imagen'] ?? '';
-        $this->creado = $args['creado'] ?? '';
-        $this->actualizado = $args['actualizado'] ?? '';
+        $this->creado =  date('Y/m/d');
+        $this->actualizado =  date('Y/m/d');
         $this->productos_id = $args['productos_id'] ?? '';
     }
 

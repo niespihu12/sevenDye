@@ -13,13 +13,12 @@ class Producto extends ActiveRecord{
         'precio',
         'precio_descuento',
         'colores_id',
-        'peso',
         'activo',
         'destacado',
         'recuento_ventas',
+        'categorias_id',
         'creado',
         'actualizado',
-        'categorias_id'
     ];
 
 
@@ -30,13 +29,12 @@ class Producto extends ActiveRecord{
     public $precio;
     public $precio_descuento;
     public $colores_id;
-    public $peso;
     public $activo;
     public $destacado;
     public $recuento_ventas;
+    public $categorias_id;
     public $creado;
     public $actualizado;
-    public $categorias_id;
 
     public function __construct($args = [])
     {
@@ -45,15 +43,14 @@ class Producto extends ActiveRecord{
         $this->nombre = $args['nombre'] ?? '';
         $this->descripcion = $args['descripcion'] ?? '';
         $this->precio = $args['precio'] ?? '';
-        $this->precio_descuento = $args['precio_descuento'] ?? '';
+        $this->precio_descuento = $args['precio_descuento'] ?? 0.0;
         $this->colores_id = $args['colores_id'] ?? '';
-        $this->peso = $args['peso'] ?? '';
-        $this->activo = $args['activo'] ?? '1';
-        $this->destacado = $args['destacado'] ?? '0';
+        $this->activo = $args['activo'] ?? '';
+        $this->destacado = $args['destacado'] ?? '';
         $this->recuento_ventas = $args['recuento_ventas'] ?? '0';
-        $this->creado = date('Y-m-d');
-        $this->actualizado = date('Y-m-d');
         $this->categorias_id = $args['categorias_id'] ?? '';
+        $this->creado = date('Y/m/d');
+        $this->actualizado = date('Y/m/d');
     }
 
     public function validar(){
@@ -79,6 +76,10 @@ class Producto extends ActiveRecord{
             self::$alertas['error'][] = 'El precio debe ser un numero';
         }
         return self::$alertas;
+    }
+
+    public function crearReferencia(){
+        $this->referencia = uniqid();
     }
 
 

@@ -18,14 +18,7 @@
 
         <div class="campo-admin">
             <label for="precio" class="campo-admin__label">Precio Con Descuento:</label>
-            <input type="number" class="campo-admin__field" id="precio" name="precio_descuento" value="<?php echo s($producto->precio_descuento); ?>">
-        </div>
-
-
-
-        <div class="campo-admin">
-            <label for="peso" class="campo-admin__label">Peso:</label>
-            <input type="number" class="campo-admin__field" id="peso" name="peso" value="<?php echo s($producto->peso); ?>">
+            <input type="number" class="campo-admin__field" id="precio" name="precio_descuento" value="<?php echo $producto->precio_descuento === '' ? '0' : s($producto->precio_descuento); ?>">
         </div>
     </div>
 
@@ -62,27 +55,33 @@
             <label for="activo" class="campo-admin__label">Activo</label>
             <select name="activo" id="activo">
                 <option selected value="">--Seleccione--</option>
-                <option value="1">Activo</option>
-                <option value="0">No activo</option>
+                <?php if ($producto->activo == 1) { ?>
+                    <option selected value="1">Activo</option>
+                    <option value="0">No activo</option>
+                <?php } else { ?>
+                    <option value="1">Activo</option>
+                    <option selected value="0">No activo</option>
+                <?php } ?>
             </select>
         </div>
         <div class="campo-admin">
             <label for="destacado" class="campo-admin__label">Destacado</label>
             <select name="destacado" id="destacado">
                 <option selected value="">--Seleccione--</option>
-                <option value="1">Desctacado</option>
-                <option value="0">No destacado</option>
+                <?php if ($producto->destacado == 1) { ?>
+                    <option selected value="1">Desctacado</option>
+                    <option value="0">No destacado</option>
+                <?php } else { ?>
+                    <option value="1">Desctacado</option>
+                    <option selected value="0">No destacado</option>
+                <?php } ?>
             </select>
         </div>
         <div class="campo-admin">
             <label for="imagenes" class="campo-admin__label">Imagen</label>
             <input type="file" class="campo-admin__field" id="imagenes" name="imagen[]" accept="image/*" multiple>
 
-            <!-- <?php foreach ($variable as $imagen) { ?>
-                
-
-
-            <?php } ?> -->
+           
 
         </div>
 

@@ -13,7 +13,7 @@
         <h1>Crear</h1>
         <form method="POST" action="/productos/crear" enctype="multipart/form-data">
             <?php include __DIR__ . "/formulario.php"; ?>
-            <input class="boton-primario" type="submit" value="Crear Testimonio">
+            <input class="boton-primario" type="submit" value="Crear producto">
         </form>
     </div>
 
