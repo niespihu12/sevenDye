@@ -82,7 +82,7 @@ if ($auth) {
                 </picture>
             </a>
         <?php } ?>
-        <a class="carrito" href="carrito.php"><i class="bi bi-bag-fill"></i></a>
+        <a class="carrito" href="/carrito"><i class="bi bi-bag-fill"></i></a>
     </nav>
 
     <nav class="navegacion-mobile" id="nav-mob">

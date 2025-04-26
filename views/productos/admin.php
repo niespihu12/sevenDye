@@ -25,8 +25,8 @@
             <thead>
                 <tr>
                     <th>Id</th>
+                    <th>Imagen</th>
                     <th>Nombre</th>
-                    <th>Descripcion</th>
                     <th>Precio</th>
                     <th>Recuento ventas</th>
                     <th>Acciones</th>
@@ -35,12 +35,15 @@
 
             <tbody>
                 <?php foreach ($productos as $producto) { ?>
+
+
                     <tr>
                         <td><?php echo $producto->id; ?></td>
-                        <td><?php echo $producto->nombre; ?></td>
                         <td>
-                            <div class="influencers__descripcion"><?php echo $producto->descripcion; ?></div>
+
+                            <img src="/imagenes/<?php echo $imagenes[$producto->id] ?>" class="imagen-tabla" alt="<?php echo $producto->nombre; ?>">
                         </td>
+                        <td><?php echo $producto->nombre; ?></td>
                         <td><?php echo $producto->precio; ?></td>
                         <td><?php echo $producto->recuento_ventas; ?></td>
                         <td>

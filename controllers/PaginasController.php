@@ -5,28 +5,38 @@ namespace Controllers;
 use Model\Influencer;
 use Model\Testimonio;
 use MVC\Router;
+use Model\Producto;
 use PHPMailer\PHPMailer\PHPMailer;
 
 
-class PaginasController{
+class PaginasController
+{
 
-    public static function index(Router $router){
+    public static function index(Router $router)
+    {
         $testimonios = Testimonio::all();
         $influencers = Influencer::get(3);
 
+        $query = "SELECT * FROM productos WHERE destacado = '1' LIMIT 8";
+        $productos = Producto::consultarSQL($query);
+
+
         $router->render('paginas/index', [
             'testimonios' => $testimonios,
-            'influencers' => $influencers
+            'influencers' => $influencers,
+            'productos' => $productos
         ]);
     }
 
-    public static function nosotros(Router $router){
+    public static function nosotros(Router $router)
+    {
         $router->render('paginas/nosotros');
     }
 
-    public static function contacto(Router $router){
+    public static function contacto(Router $router)
+    {
         $mensaje = null;
-        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $respuestas = $_POST['contacto'];
 
             $mail = new PHPMailer();
@@ -58,19 +68,15 @@ class PaginasController{
             $mail->AltBody = "Esto es texto alternativo sin HTML";
 
             //  Enviar el email
-            if($mail->send()){
+            if ($mail->send()) {
                 $mensaje = "Mensaje enviado correctamente";
-            } else{
+            } else {
                 $mensaje = "El mensaje no se pudo enviar..";
             }
-        
-
         }
 
-        $router->render('paginas/contacto',[
+        $router->render('paginas/contacto', [
             'mensaje' => $mensaje
         ]);
-
-
     }
 }

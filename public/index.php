@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/../includes/app.php';
 
-
+use Controllers\CarritoController;
 use MVC\Router;
 use Controllers\InfluencerController;
 use Controllers\TestimonioController;
@@ -97,7 +97,8 @@ $router->get('/nosotros', [PaginasController::class, 'nosotros']);
 $router->get('/contacto', [PaginasController::class, 'contacto']);
 $router->post('/contacto', [PaginasController::class, 'contacto']);
 
-
+// Carrito
+$router->get('/carrito', [CarritoController::class, 'index']);
 
 
 $router->comprobarRutas();

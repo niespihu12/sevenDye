@@ -2,6 +2,8 @@
 define('TEMPLATES_URL', __DIR__ . '/templates');  // constantes para las rutas
 define('FUNCIONES_URL', __DIR__ . 'funciones.php');
 define('CARPETA_IMAGENES', $_SERVER['DOCUMENT_ROOT'] . "/imagenes/"); // carpeta de imagenes
+define("MONEDA","USD");
+define("KEY_TOKEN", "APR.wqc-354*");
 
 function incluirTemplate(string $nombre, bool $inicio = false)
 {

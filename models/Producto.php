@@ -12,7 +12,6 @@ class Producto extends ActiveRecord{
         'descripcion',
         'precio',
         'precio_descuento',
-        'colores_id',
         'activo',
         'destacado',
         'recuento_ventas',
@@ -28,7 +27,6 @@ class Producto extends ActiveRecord{
     public $descripcion;
     public $precio;
     public $precio_descuento;
-    public $colores_id;
     public $activo;
     public $destacado;
     public $recuento_ventas;
@@ -44,7 +42,6 @@ class Producto extends ActiveRecord{
         $this->descripcion = $args['descripcion'] ?? '';
         $this->precio = $args['precio'] ?? '';
         $this->precio_descuento = $args['precio_descuento'] ?? 0.0;
-        $this->colores_id = $args['colores_id'] ?? '';
         $this->activo = $args['activo'] ?? '';
         $this->destacado = $args['destacado'] ?? '';
         $this->recuento_ventas = $args['recuento_ventas'] ?? '0';
@@ -62,12 +59,6 @@ class Producto extends ActiveRecord{
         }
         if(!$this->categorias_id){
             self::$alertas['error'][] = 'La categoria es obligatoria';
-        }
-        if(!$this->colores_id){
-            self::$alertas['error'][] = 'El color es obligatorio';
-        }
-        if(!$this->descripcion){
-            self::$alertas['error'][] = 'La descripcion es obligatoria';
         }
         if(!$this->descripcion){
             self::$alertas['error'][] = 'La descripcion es obligatoria';
