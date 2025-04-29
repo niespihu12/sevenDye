@@ -8,6 +8,7 @@ class Producto extends ActiveRecord{
     protected static $columnasDB = [
         'id',
         'referencia',
+        'slug',
         'nombre',
         'descripcion',
         'precio',
@@ -23,6 +24,7 @@ class Producto extends ActiveRecord{
 
     public $id;
     public $referencia;
+    public $slug;
     public $nombre; 
     public $descripcion;
     public $precio;
@@ -38,6 +40,7 @@ class Producto extends ActiveRecord{
     {
         $this->id = $args['id'] ?? null;
         $this->referencia = $args['referencia'] ?? '';
+        $this->slug = $args['slug'] ?? '';
         $this->nombre = $args['nombre'] ?? '';
         $this->descripcion = $args['descripcion'] ?? '';
         $this->precio = $args['precio'] ?? '';

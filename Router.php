@@ -27,7 +27,6 @@ class Router {
 
         foreach ($rutas as $ruta) {
             if (preg_match($ruta['pattern'], $urlActual, $coincidencias)) {
-                // Filtra solo las coincidencias nombradas (los parámetros)
                 $parametros = array_filter($coincidencias, 'is_string', ARRAY_FILTER_USE_KEY);
                 call_user_func_array($ruta['callback'], array_merge([$this], $parametros));
                 return;

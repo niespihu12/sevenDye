@@ -105,12 +105,9 @@ $router->post('/carrito/actualizar', [CarritoController::class, 'actualizar']);
 $router->post('/carrito/eliminar', [CarritoController::class, 'eliminar']);
 
 
-
-
 // Tienda 
 $router->get('/tienda', [TiendaController::class, 'index']);
-$router->get('/tienda/{slug}', [TiendaController::class, 'index']);
-
+$router->get('/tienda/{slug}', [TiendaController::class, 'indexSlug']);
 $router->get('/detalles/{slug}', [TiendaController::class, 'detalles']);
 
 
