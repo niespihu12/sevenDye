@@ -15,6 +15,7 @@ use Controllers\UsuarioController;
 use Controllers\ColorController;
 use Controllers\TallaController;
 use Controllers\ProductoController;
+use Controllers\TiendaController;
 
 $router = new Router();
 
@@ -99,6 +100,18 @@ $router->post('/contacto', [PaginasController::class, 'contacto']);
 
 // Carrito
 $router->get('/carrito', [CarritoController::class, 'index']);
+$router->post('/carrito/agregar', [CarritoController::class, 'agregar']);
+$router->post('/carrito/actualizar', [CarritoController::class, 'actualizar']);
+$router->post('/carrito/eliminar', [CarritoController::class, 'eliminar']);
+
+
+
+
+// Tienda 
+$router->get('/tienda', [TiendaController::class, 'index']);
+$router->get('/tienda/{slug}', [TiendaController::class, 'index']);
+
+$router->get('/detalles/{slug}', [TiendaController::class, 'detalles']);
 
 
 $router->comprobarRutas();
