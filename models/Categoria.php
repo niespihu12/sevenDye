@@ -14,6 +14,7 @@ class Categoria extends ActiveRecord
         'nombre',
         'descripcion',
         'imagen',
+        'importante',
         'creado',
         'actualizado'
     ];
@@ -23,6 +24,7 @@ class Categoria extends ActiveRecord
     public $nombre;
     public $descripcion;
     public $imagen;
+    public $importante;
     public $creado;
     public $actualizado;
 
@@ -33,6 +35,7 @@ class Categoria extends ActiveRecord
         $this->nombre = $args['nombre'] ?? '';
         $this->descripcion = $args['descripcion'] ?? '';
         $this->imagen = $args['imagen'] ?? '';
+        $this->importante = $args['importante'] ?? 0;
         $this->creado = date('Y/m/d');
         $this->actualizado = date('Y/m/d');
     }

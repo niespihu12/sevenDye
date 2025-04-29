@@ -7,6 +7,7 @@ use Model\Influencer;
 use Model\Testimonio;
 use MVC\Router;
 use Model\Producto;
+use Model\ProductoImagen;
 use PHPMailer\PHPMailer\PHPMailer;
 
 
@@ -19,15 +20,26 @@ class PaginasController
         $influencers = Influencer::get(3);
         $categorias = Categoria::all();
 
+        $categoriasImportantes = Categoria::consultarSQL("SELECT * FROM categorias WHERE importante = '1' LIMIT 5");
+
         $query = "SELECT * FROM productos WHERE destacado = '1' LIMIT 8";
         $productos = Producto::consultarSQL($query);
+        $imagenes = [];
+        foreach($productos as $producto){
+            $imagen = ProductoImagen::consultarSQL("SELECT * FROM producto_imagen WHERE productos_id = {$producto->id} LIMIT 1");
+            $imagenes[$producto->id] = $imagen[0]->imagen;
 
+            
+        }
+
+        var_dump($imagenes);
 
         $router->render('paginas/index', [
             'testimonios' => $testimonios,
             'influencers' => $influencers,
             'productos' => $productos,
             'categorias' => $categorias,
+            'categoriasImportantes' => $categoriasImportantes
         ]);
     }
 

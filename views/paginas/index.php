@@ -191,11 +191,9 @@
     </div>
     <div class="arrival__contenido">
         <div class="arrival__contenido--botones category">
-            <button class="boton-primario">Tees</button>
-            <button class="boton-primario">Sweaters</button>
-            <button class="boton-primario">Jogger</button>
-            <button class="boton-primario">Jackets</button>
-            <button class="boton-primario">Kids</button>
+            <?php foreach ($categoriasImportantes as $categoria): ?>
+            <button class="boton-primario" data-categoria=""><?php echo $categoria->nombre ?></button>
+            <?php endforeach; ?>
         </div>
         <div class="arrival__contenido--productos">
             <div class="producto">
