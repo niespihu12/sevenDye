@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use Model\Categoria;
 use Model\Influencer;
 use Model\Testimonio;
 use MVC\Router;
@@ -16,6 +17,7 @@ class PaginasController
     {
         $testimonios = Testimonio::all();
         $influencers = Influencer::get(3);
+        $categorias = Categoria::all();
 
         $query = "SELECT * FROM productos WHERE destacado = '1' LIMIT 8";
         $productos = Producto::consultarSQL($query);
@@ -24,7 +26,8 @@ class PaginasController
         $router->render('paginas/index', [
             'testimonios' => $testimonios,
             'influencers' => $influencers,
-            'productos' => $productos
+            'productos' => $productos,
+            'categorias' => $categorias,
         ]);
     }
 

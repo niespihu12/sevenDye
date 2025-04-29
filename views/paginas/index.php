@@ -53,119 +53,18 @@
     <div class="categories-container">
         <div class="categories-slider">
             <!-- Categoría 1: Pullovers -->
-            <div class="category-item">
-                <picture>
-                    <source srcset="./build/img/pullovers.avif" type="image/avif">
-                    <source srcset="./build/img/pullovers.webp" type="image/webp">
-                    <img loading="lazy" width="100" height="100" src="./build/img/pullovers.png" alt="Pullovers"
+            <?php foreach ($categorias as $categoria): ?>
+                <a class="category-item" href="/tienda/<?php echo urlencode($categoria->slug); ?>">
+
+                    <img loading="lazy" width="100" height="100" src="/imagenes/<?php echo $categoria->imagen ?>" alt="Pullovers"
                         class="category-image">
-                </picture>
-                <div class="category-title">
-                    <h3>Pullovers <span class="arrow">→</span></h3>
-                </div>
-            </div>
 
-            <!-- Categoría 2: Tank Tops -->
-            <div class="category-item">
-                <picture>
-                    <source srcset="./build/img/tank-tops.avif" type="image/avif">
-                    <source srcset="./build/img/tank-tops.webp" type="image/webp">
-                    <img loading="lazy" width="100" height="100" src="./build/img/tank-tops.png" alt="Tank Tops"
-                        class="category-image">
-                </picture>
-                <div class="category-title">
-                    <h3>Tank Tops <span class="arrow">→</span></h3>
-                </div>
-            </div>
+                    <div class="category-title">
+                        <h3><?php echo $categoria->nombre ?> <span class="arrow">→</span></h3>
+                    </div>
+                </a>
+            <?php endforeach; ?>
 
-            <!-- Categoría 3: Joggers -->
-            <div class="category-item">
-                <picture>
-                    <source srcset="./build/img/jogger.avif" type="image/avif">
-                    <source srcset="./build/img/jogger.webp" type="image/webp">
-                    <img loading="lazy" width="100" height="100" src="./build/img/jogger.png" alt="Joggers"
-                        class="category-image">
-                </picture>
-                <div class="category-title">
-                    <h3>Joggers <span class="arrow">→</span></h3>
-                </div>
-            </div>
-
-            <!-- Categoría 4: Denim Jackets -->
-            <div class="category-item">
-                <picture>
-                    <source srcset="./build/img/denim-jackets.avif" type="image/avif">
-                    <source srcset="./build/img/denim-jackets.webp" type="image/webp">
-                    <img loading="lazy" width="100" height="100" src="./build/img/denim-jackets.png" alt="Denim Jackets"
-                        class="category-image">
-                </picture>
-                <div class="category-title">
-                    <h3>Denim Jackets <span class="arrow">→</span></h3>
-                </div>
-            </div>
-
-            <!-- Categoría 5: Crewneck -->
-            <div class="category-item">
-                <picture>
-                    <source srcset="./build/img/Crewneck.avif" type="image/avif">
-                    <source srcset="./build/img/Crewneck.webp" type="image/webp">
-                    <img loading="lazy" width="100" height="100" src="./build/img/Crewneck.jpg" alt="Crewneck"
-                        class="category-image">
-                </picture>
-                <div class="category-title">
-                    <h3>Crewneck<span class="arrow">→</span></h3>
-                </div>
-            </div>
-
-            <!-- Categoría 6: Long Sleeve -->
-            <div class="category-item">
-                <picture>
-                    <source srcset="./build/img/Long Sleeve.avif" type="image/avif">
-                    <source srcset="./build/img/Long Sleeve.webp" type="image/webp">
-                    <img loading="lazy" width="100" height="100" src="./build/img/Long Sleeve.jpg" alt="Long Sleeve"
-                        class="category-image">
-                </picture>
-                <div class="category-title">
-                    <h3>Long Sleeve <span class="arrow">→</span></h3>
-                </div>
-            </div>
-
-            <!-- Categoría 7: Tees -->
-            <div class="category-item">
-                <picture>
-                    <source srcset="./build/img/Tees.avif" type="image/avif">
-                    <source srcset="./build/img/Tees.webp" type="image/webp">
-                    <img loading="lazy" width="100" height="100" src="./build/img/Tees.PNG" alt="Tees" class="category-image">
-                </picture>
-                <div class="category-title">
-                    <h3>Tees <span class="arrow">→</span></h3>
-                </div>
-            </div>
-
-            <!-- Categoría 8: Kids -->
-            <div class="category-item">
-                <picture>
-                    <source srcset="./build/img/Kids.avif" type="image/avif">
-                    <source srcset="./build/img/Kids.webp" type="image/webp">
-                    <img loading="lazy" width="100" height="100" src="./build/img/Kids.jpg" alt="Kids" class="category-image">
-                </picture>
-                <div class="category-title">
-                    <h3>Kids <span class="arrow">→</span></h3>
-                </div>
-            </div>
-
-            <!-- Categoría 9: Crop Hoodie -->
-            <div class="category-item">
-                <picture>
-                    <source srcset="./build/img/Crop Hoodie.avif" type="image/avif">
-                    <source srcset="./build/img/Crop Hoodie.webp" type="image/webp">
-                    <img loading="lazy" width="100" height="100" src="./build/img/Crop Hoodie.jpg" alt="Crop Hoodie"
-                        class="category-image">
-                </picture>
-                <div class="category-title">
-                    <h3>Crop Hoodie<span class="arrow">→</span></h3>
-                </div>
-            </div>
         </div>
 
         <div class="nav-buttons">
