@@ -1,0 +1,434 @@
+@use '../base/variables' as v;
+@use '../base/mixins' as m;
+
+.formulario-color {
+    max-width: 900px;
+    margin: 3rem auto;
+    padding: 2.5rem;
+    background: linear-gradient(135deg, rgba(v.$blanco, 0.9) 0%, rgba(v.$blanco, 0.8) 100%);
+    backdrop-filter: blur(10px);
+    border-radius: 2.5rem;
+    box-shadow: 0 20px 50px rgba(v.$azulOscuro, 0.1),
+        0 10px 25px rgba(v.$violeta, 0.05);
+    position: relative;
+    overflow: hidden;
+
+
+    &::before {
+        content: '';
+        position: absolute;
+        width: 250px;
+        height: 250px;
+        border-radius: 50%;
+        background: linear-gradient(45deg, v.$azul, v.$violeta);
+        top: -125px;
+        right: -125px;
+        opacity: 0.1;
+        z-index: -1;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        background: linear-gradient(45deg, v.$amarillo, v.$rojo);
+        bottom: -100px;
+        left: -100px;
+        opacity: 0.1;
+        z-index: -1;
+    }
+
+    >div {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 3rem;
+
+        @media (max-width: v.$tablet) {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+    }
+
+    &__titulo {
+        font-family: v.$fuente-principal;
+        font-size: 3.2rem;
+        text-align: center;
+        margin-bottom: 2.5rem;
+        background: linear-gradient(to right, v.$azul, v.$violeta);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        letter-spacing: 2px;
+        position: relative;
+
+        &::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, v.$azul, v.$violeta);
+            margin: 0.8rem auto 0;
+            border-radius: 2px;
+        }
+    }
+}
+
+// Campo de administración mejorado
+.campo-color {
+    .campo-admin {
+        position: relative;
+        margin-bottom: 2.5rem;
+
+        // Label con animación
+        &__label {
+            display: block;
+            font-family: v.$fuente-principal;
+            font-size: 1.5rem;
+            letter-spacing: 1.5px;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            color: v.$azulOscuro;
+            position: relative;
+            padding-left: 1rem;
+
+            &::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 4px;
+                height: 70%;
+                background: linear-gradient(to bottom, v.$azul, v.$violeta);
+                border-radius: 2px;
+            }
+        }
+
+        // Campo de texto mejorado
+        &__field {
+            width: 100%;
+            padding: 1.3rem 1.5rem;
+            border: 2px solid v.$grisClaro;
+            border-radius: 1.2rem;
+            font-size: 1.2rem;
+            font-family: v.$fuente-secundaria;
+            font-weight: 500;
+            color: v.$azulOscuro;
+            background-color: rgba(v.$blanco, 0.8);
+            box-shadow: 0 4px 10px rgba(v.$azulOscuro, 0.03);
+            transition: all 0.3s ease;
+
+            &::placeholder {
+                color: lighten(v.$gris, 30%);
+                font-weight: 400;
+            }
+
+            &:focus {
+                outline: none;
+                border-color: v.$azul;
+                box-shadow: 0 0 0 4px rgba(v.$azul, 0.15),
+                    0 10px 20px rgba(v.$azulOscuro, 0.08);
+                transform: translateY(-3px);
+            }
+        }
+
+        // Campo de color especial
+        &__color {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 150px;
+            padding: 0;
+            border: none;
+            cursor: pointer;
+            background-color: transparent;
+            border-radius: 2rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(v.$negro, 0.1),
+                0 5px 15px rgba(v.$negro, 0.05);
+            transition: all 0.3s ease;
+
+            &::-webkit-color-swatch-wrapper {
+                padding: 0;
+            }
+
+            &::-webkit-color-swatch {
+                border: none;
+                border-radius: 2rem;
+                position: relative;
+            }
+
+            &::-moz-color-swatch {
+                border: none;
+                border-radius: 2rem;
+            }
+
+            &:focus {
+                outline: none;
+                transform: translateY(-5px) scale(1.02);
+                box-shadow: 0 15px 35px rgba(v.$negro, 0.15),
+                    0 8px 20px rgba(v.$negro, 0.1);
+            }
+
+            // Estilizar el input mediante un envoltorio
+            &-wrapper {
+                position: relative;
+                width: 100%;
+                padding-bottom: 1rem;
+
+                &::after {
+                    content: attr(data-value);
+                    position: absolute;
+                    left: 50%;
+                    bottom: -1.5rem;
+                    transform: translateX(-50%);
+                    font-family: v.$fuente-secundaria;
+                    font-weight: 600;
+                    font-size: 1.2rem;
+                    color: v.$azulOscuro;
+                    padding: 0.5rem 1.5rem;
+                    background: v.$blanco;
+                    border-radius: 2rem;
+                    box-shadow: 0 5px 15px rgba(v.$negro, 0.1);
+                    letter-spacing: 1px;
+                    transition: all 0.3s ease;
+                }
+            }
+        }
+    }
+}
+
+
+// Componente de visualización del color
+.color-preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 3rem;
+
+    &__label {
+        font-family: v.$fuente-principal;
+        font-size: 1.8rem;
+        letter-spacing: 1.5px;
+        margin-bottom: 1.5rem;
+        color: v.$azulOscuro;
+    }
+
+    &__box {
+        width: 100%;
+        height: 200px;
+        border-radius: 2rem;
+        margin-bottom: 1rem;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(v.$negro, 0.1),
+            0 5px 15px rgba(v.$negro, 0.05);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+
+        // Textos de contraste para evaluar legibilidad
+        &-text {
+            font-family: v.$fuente-secundaria;
+            font-size: 1rem;
+            background: rgba(v.$blanco, 0.2);
+            padding: 0.8rem 1.5rem;
+            border-radius: 2rem;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+
+        &:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(v.$negro, 0.15),
+                0 8px 20px rgba(v.$negro, 0.1);
+        }
+    }
+
+    &__info {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 1rem;
+
+        &-item {
+            background: v.$blanco;
+            padding: 0.6rem 1.2rem;
+            border-radius: 2rem;
+            font-family: v.$fuente-secundaria;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: v.$azulOscuro;
+            box-shadow: 0 4px 10px rgba(v.$negro, 0.05);
+            transition: all 0.3s ease;
+
+            &:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 8px 15px rgba(v.$negro, 0.08);
+            }
+
+            &--rgb {
+                border-left: 3px solid v.$azul;
+            }
+
+            &--hsl {
+                border-left: 3px solid v.$violeta;
+            }
+
+            &--hex {
+                border-left: 3px solid v.$amarillo;
+            }
+        }
+    }
+}
+
+// Botones de acción
+.formulario-admin__actions {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 3.5rem;
+
+    .btn {
+        padding: 1.2rem 2.5rem;
+        border-radius: 1.2rem;
+        font-family: v.$fuente-principal;
+        font-size: 1.5rem;
+        letter-spacing: 1px;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(v.$blanco, 0.1), rgba(v.$blanco, 0));
+            transform: translateY(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        &:hover::before {
+            transform: translateY(0);
+        }
+
+        &--guardar {
+            background: linear-gradient(135deg, v.$azul, v.$azulClaro);
+            color: v.$blanco;
+            box-shadow: 0 8px 20px rgba(v.$azul, 0.3);
+
+            &:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 12px 25px rgba(v.$azul, 0.4);
+            }
+
+            &:active {
+                transform: translateY(-2px);
+            }
+        }
+
+        &--cancelar {
+            background: v.$blanco;
+            color: v.$gris;
+            box-shadow: 0 8px 20px rgba(v.$negro, 0.08);
+            border: 1px solid v.$grisClaro;
+
+            &:hover {
+                color: v.$azulOscuro;
+                transform: translateY(-5px);
+                box-shadow: 0 12px 25px rgba(v.$negro, 0.12);
+            }
+
+            &:active {
+                transform: translateY(-2px);
+            }
+        }
+    }
+}
+
+// Animaciones de color
+@keyframes colorPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(v.$violeta, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(v.$violeta, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(v.$violeta, 0);
+    }
+}
+
+// Diseño de cuadrícula de colores similares
+.similar-colors {
+    margin-top: 4rem;
+
+    &__title {
+        font-family: v.$fuente-principal;
+        font-size: 2rem;
+        text-align: center;
+        margin-bottom: 2rem;
+        color: v.$azulOscuro;
+    }
+
+    &__grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 1rem;
+
+
+    }
+
+    &__item {
+        height: 80px;
+        border-radius: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+
+        &:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 20px rgba(v.$negro, 0.15);
+            z-index: 1;
+
+            .similar-colors__hex {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        &:active {
+            transform: translateY(-2px) scale(1.02);
+        }
+    }
+
+    &__hex {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 0.5rem;
+        background: rgba(v.$negro, 0.7);
+        color: v.$blanco;
+        font-family: v.$fuente-secundaria;
+        font-size: 0.8rem;
+        text-align: center;
+        opacity: 0;
+        transform: translateY(100%);
+        transition: all 0.3s ease;
+        backdrop-filter: blur(3px);
+    }
+}

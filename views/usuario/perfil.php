@@ -87,7 +87,7 @@
         </div>
 
         <div class="form-actions">
-          <button type="button" class="btn btn-cancel" onclick="window.location.href='/profile'">
+          <button type="button" class="btn btn-cancel" onclick="window.location.href='/'">
             <i class="fas fa-times"></i> Cancelar
           </button>
           <button type="submit" class="btn btn-save">
