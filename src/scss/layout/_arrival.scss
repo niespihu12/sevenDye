@@ -18,6 +18,10 @@
         flex-wrap: wrap;
         gap: 2rem;
 
+        .active{
+            background-color: v.$azul;
+        }
+
         
     }
 

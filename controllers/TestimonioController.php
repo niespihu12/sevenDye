@@ -45,7 +45,7 @@ class TestimonioController
                     mkdir(CARPETA_IMAGENES);
                 }
                 $image->save(CARPETA_IMAGENES . $nombreImagen);
-
+                $testimonio->creado = date('Y/m/d');
                 $resultado = $testimonio->guardar();
 
                 if ($resultado) {
@@ -85,7 +85,7 @@ class TestimonioController
                 if ($_FILES['imagen']['tmp_name']) {
                     $imagen->save(CARPETA_IMAGENES . $nombreImagen);
                 }
-
+                $testimonio->actualizado = date('Y/m/d');
 
                 $resultado = $testimonio->guardar();
 

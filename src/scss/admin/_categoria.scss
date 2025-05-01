@@ -1,0 +1,260 @@
+@use '../base/variables' as v;
+@use '../base/mixins' as m;
+
+:root {
+    --fuente-principal: "Bebas Neue", serif;
+    --fuente-secundaria: "Montserrat", serif;
+    
+    /* Colores */
+    --violeta: #FF77E5;
+    --azul: #42B0FF;
+    --amarillo: #E9FF5A;
+    --rojo: #FE502B;
+    --negro: #272328;
+    --blanco: #FFFFFF;
+    --gris: #333;
+    --azulClaro: #0085FF;
+    --azulOscuro: #003465;
+    --grisClaro: #E6E7E8;
+    --verde: rgb(64, 156, 64);
+    
+    /* Variables adicionales para UI */
+    --background: #f8f9fa;
+    --text: #333333;
+    --border: #e1e1e1;
+    --primary: var(--azul);
+    --success: var(--verde);
+    --darker: #222222;
+    --light-shadow: rgba(0, 0, 0, 0.1);
+}
+
+
+.formulario-admin1 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4rem;
+    max-width: 1400px;
+    
+    
+}
+
+.form-column1, .form-column {
+    flex: 1;
+    min-width: 320px;
+}
+
+.form-section1, .form-section {
+    background-color: var(--blanco);
+    border-radius: 15px;
+    padding: 4rem;
+    box-shadow: 0 8px 20px var(--light-shadow);
+    margin-bottom: 3rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-section1:hover, .form-section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+.form-section-title1, .form-section-title {
+    color: var(--azulClaro);
+    font-size: 1.6rem;
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 1.2rem;
+    margin-bottom: 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.form-section-title1 i, .form-section-title i {
+    color: var(--azul);
+    font-size: 1.8rem;
+}
+
+/* Campos del formulario */
+.campo-admin1, .campo-admin {
+    margin-bottom: 2rem;
+}
+
+.campo-admin_label1, .campo-admin_label {
+    display: block;
+    font-weight: 600;
+    color: var(--gris);
+    margin-bottom: 0.8rem;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+.campo-admin_field1, .campo-admin_field {
+    width: 100%;
+    padding: 1.2rem 1.5rem;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    font-family: var(--fuente-secundaria);
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+
+.campo-admin_field1:focus, .campo-admin_field:focus {
+    outline: none;
+    border-color: var(--azulClaro);
+    box-shadow: 0 0 0 4px rgba(66, 176, 255, 0.2);
+    transform: scale(1.01);
+}
+
+.campo-admin_field--textarea1, .campo-admin_field--textarea {
+    min-height: 180px;
+    resize: vertical;
+}
+
+/* Área de carga de archivos */
+.upload-container {
+    margin-top: 2rem;
+}
+
+.upload-area {
+    border: 3px dashed var(--border);
+    border-radius: 12px;
+    padding: 3rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: rgba(66, 176, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.upload-area:hover, .upload-area.active {
+    background-color: rgba(66, 176, 255, 0.12);
+    border-color: var(--azulClaro);
+    transform: scale(1.02);
+}
+
+.upload-icon {
+    font-size: 3.5rem;
+    color: var(--azulClaro);
+    margin-bottom: 1.5rem;
+}
+
+.upload-text {
+    font-weight: 600;
+    color: var(--gris);
+    margin-bottom: 0.8rem;
+    font-size: 1.2rem;
+}
+
+.upload-hint {
+    font-size: 0.95rem;
+    color: #777;
+}
+
+/* Contenedor de imagen previa */
+.imagen-previa-container {
+    margin-top: 3rem;
+}
+
+.imagen-previa {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.imagen-previa:hover {
+    transform: translateY(-5px) scale(1.01);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.imagen-previa img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: filter 0.3s ease;
+}
+
+.imagen-previa:hover img {
+    filter: brightness(1.05);
+}
+
+.imagen-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 1.2rem;
+    border-top: 1px solid var(--border);
+}
+
+.imagen-actions label {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.imagen-actions label:hover {
+    color: var(--azulClaro);
+}
+
+.btn-zoom {
+    background-color: var(--azulClaro);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1.2rem;
+}
+
+.btn-zoom:hover {
+    background-color: var(--azulOscuro);
+    transform: scale(1.1);
+    box-shadow: 0 2px 8px rgba(0, 52, 101, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .formulario-admin1 {
+        flex-direction: column;
+        gap: 2rem;
+        padding: 2rem;
+    }
+
+    .form-column1, .form-column {
+        width: 100%;
+    }
+    
+    .form-section1, .form-section {
+        padding: 3rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .form-section1, .form-section {
+        padding: 2rem;
+        border-radius: 10px;
+    }
+    
+    .campo-admin_field1, .campo-admin_field {
+        padding: 1rem;
+    }
+    
+    .upload-area {
+        padding: 2rem;
+    }
+}

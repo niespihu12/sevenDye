@@ -46,6 +46,7 @@ include_once __DIR__ . "/../templates/alertas.php";
                                 <source srcset="build/img/logo_google.webp" type="image/webp">
                                 <img loading="lazy" width="100" height="100" src="build/img/logo_google.png" alt="">
                             </picture>
+                            <span>Sign in with Google</span>
                         </a>
                     </div>
                 </div>

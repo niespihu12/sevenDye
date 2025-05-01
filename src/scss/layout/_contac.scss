@@ -95,7 +95,7 @@
             .social-links {
                 display: flex;
                 gap: 1.5rem;
-                margin-top: auto;
+                margin-top: 20px;
 
                 .social-icon {
                     width: 2rem;
@@ -147,7 +147,7 @@
 
                 textarea {
                     resize: vertical;
-                    min-height: 450px;
+                    min-height: 400px;
                 }
 
                 .submit-btn {
@@ -202,7 +202,7 @@
 
 @media (max-width: 480px) {
     .contact-section {
-        padding: 4rem 1.5rem;
+        padding: 7rem 1.5rem;
 
         .section-title {
             font-size: 3rem;

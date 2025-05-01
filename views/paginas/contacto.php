@@ -7,7 +7,7 @@
         <div class="contact-info">
             <div class="info-card">
                 <div class="icon-container">
-                    <i class="fas fa-phone-alt"></i>
+
                     <picture>
                         <source srcset="./build/img/telefono.avif" type="image/avif">
                         <source srcset="./build/img/telefono.webp" type="image/webp">
@@ -21,7 +21,7 @@
 
             <div class="info-card">
                 <div class="icon-container">
-                    <i class="fas fa-envelope"></i>
+
                     <picture>
                         <source srcset="./build/img/correo-electronico.avif" type="image/avif">
                         <source srcset="./build/img/correo-electronico.webp" type="image/webp">
@@ -37,27 +37,30 @@
             </div>
 
             <div class="social-links">
-                <a href="#" class="social-icon"><i class="fab fa-twitter"></i>
+                <a href="#" class="social-icon"><i class="fab fa-tiktok"></i>
                     <picture>
                         <source srcset="./build/img/tik-tok.avif" type="image/avif">
                         <source srcset="./build/img/tik-tok.webp" type="image/webp">
-                        <img loading="lazy" width="100" height="100" src="./build/img/tik-tok.jpg" alt="">
+                        <img class="imagen-social" loading="lazy" width="100" height="100" src="./build/img/tik-tok.jpg" alt="TikTok">
                     </picture>
                 </a>
-                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i>
+
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i>
                     <picture>
                         <source srcset="./build/img/instagram.avif" type="image/avif">
                         <source srcset="./build/img/instagram.webp" type="image/webp">
-                        <img loading="lazy" width="100" height="100" src="./build/img/instagram.jpg" alt="">
+                        <img class="imagen-social" loading="lazy" width="100" height="100" src="./build/img/instagram.jpg" alt="Instagram">
                     </picture>
                 </a>
-                <a href="#" class="social-icon"><i class="fab fa-instagram"></i>
+
+                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i>
                     <picture>
-                        <source srcset="./build/img/facebook.avif" type="image/avif">
-                        <source srcset="./build/img/facebook.webp" type="image/webp">
-                        <img loading="lazy" width="100" height="100" src="./build/img/facebook.jpg" alt="">
+                        <source class="imagen-social" srcset="./build/img/facebook.avif" type="image/avif">
+                        <source class="imagen-social" srcset="./build/img/facebook.webp" type="image/webp">
+                        <img class="imagen-social" loading="lazy" width="100" height="100" src="./build/img/facebook.jpg" alt="Facebook">
                     </picture>
                 </a>
+
             </div>
         </div>
 
@@ -74,7 +77,7 @@
                 </div>
                 <textarea name="contacto[mensaje]" placeholder="Your Message" rows="6" required></textarea>
                 <button type="submit" class="submit-btn">
-                    Send Message
+                    Send request
                     <i class="fas fa-paper-plane"></i>
                 </button>
             </form>

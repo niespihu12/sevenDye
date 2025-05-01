@@ -109,7 +109,7 @@ class LoginController{
                 $usuario->contraseña = $contraseña->contraseña;
                 $usuario->hashPassword();
                 $usuario->token = null;
-
+                $usuario->actualizado = date('Y/m/d');
                 $resultado = $usuario->guardar();
                 if($resultado) {
                     header('Location: /');
@@ -147,7 +147,6 @@ class LoginController{
                     $email = new Email($usuario->email, $usuario->token);
                     $email->enviarConfirmacion();
 
-
                     $resultado = $usuario->guardar();
 
                     if($resultado){
@@ -177,6 +176,7 @@ class LoginController{
             // Modificar a usuario confirmado
             $usuario->confirmado = "1";
             $usuario->token = '';
+            $usuario->creado = date('Y/m/d');
             $usuario->guardar();
             Usuario::setAlerta('exito','Cuenta Comprobada Correctamente');
         }

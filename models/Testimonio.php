@@ -28,7 +28,8 @@ class Testimonio extends ActiveRecord{
         $this->nombre = $args['nombre'] ??'';
         $this->rol = $args['rol'] ??'';
         $this->mensaje = $args['mensaje'] ??'';
-        $this->creado = date('Y/m/d');
+        $this->creado =  $args['creado'] ?? '';
+        $this->actualizado =  $args['actualizado'] ?? '';
     }
 
     public function validar(){

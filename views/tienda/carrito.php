@@ -47,7 +47,7 @@
           <span class="discount-amount">-<?php echo $moneda . number_format($total * 0.2, 2); ?></span>
         </div>
         <div class="summary-row">
-          <span>Delivery Fee</span>
+          <span>Delivery Free</span>
           <span>$15</span>
         </div>
         <div class="summary-row total">

@@ -77,13 +77,15 @@ class ProductoController
 
             if (empty($alertas)) {
                 $producto->crearReferencia();
+                $producto->creado = date('Y/m/d');
                 $resultado = $producto->guardar();
                 $producto = Producto::where('referencia', $producto->referencia);
                 if ($resultado) {
                     foreach ($imagenesSubidas as $imagen) {
                         $productosImagen = new ProductoImagen([
                             'imagen' => $imagen,
-                            'productos_id' => $producto->id
+                            'productos_id' => $producto->id,
+                            'creado' => date('Y/m/d')
                         ]);
                         $productosImagen->guardar();
                     }
@@ -174,6 +176,7 @@ class ProductoController
             }
 
             if (empty($alertas)) {
+                $producto->actualizado = date('Y/m/d');
                 $resultado = $producto->guardar();
 
                 if ($resultado) {
@@ -189,7 +192,8 @@ class ProductoController
                     foreach ($imagenesSubidas as $nombreImagen) {
                         $productoImagen = new ProductoImagen([
                             'imagen' => $nombreImagen,
-                            'productos_id' => $producto->id
+                            'productos_id' => $producto->id,
+                            'creado' => date('Y/m/d')
                         ]);
                         $productoImagen->guardar();
                     }

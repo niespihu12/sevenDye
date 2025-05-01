@@ -8,9 +8,9 @@
     <div class="sale-content">
         <div class="top-images">
             <picture>
-                <source srcset="./build/img/seve-urban.avif" type="image/avif">
-                <source srcset="./build/img/seve-urban.webp" type="image/webp">
-                <img loading="lazy" width="100" height="100" src="./build/img/seve-urban.png" alt="Seven Street">
+                <source srcset="/build/img/chino_mier.avif" type="image/avif">
+                <source srcset="/build/img/chino_mier.webp" type="image/webp">
+                <img loading="lazy" width="100" height="100" src="/build/img/chino_mier.png" alt="Seven Street">
             </picture>
         </div>
 
@@ -25,9 +25,9 @@
 
         <div class="bottom-image">
             <picture>
-                <source srcset="./build/img/seven-pared.avif" type="image/avif">
-                <source srcset="./build/img/seven-pared.webp" type="image/webp">
-                <img loading="lazy" width="100" height="100" src="./build/img/seven-pared.png" alt="Seven Logo">
+                <source srcset="./build/img/save_tray.avif" type="image/avif">
+                <source srcset="./build/img/save_tray.webp" type="image/webp">
+                <img loading="lazy" width="100" height="100" src="./build/img/save_tray.png" alt="Seven Logo">
             </picture>
         </div>
     </div>
@@ -161,14 +161,14 @@
         <div class="dynamic-gallery-slider">
             <div class="dynamic-gallery-slide dynamic-gallery-slide--featured">
                 <picture>
-                    <source srcset="build/img/image1.avif" type="image/avif">
+                    <source srcset="/build/img/chaquetahombre.avif" type="image/avif">
                     <source srcset="build/img/image1.webp" type="image/webp">
                     <img loading="lazy" width="100" height="100" src="build/img/image1.jpg" alt="Image 1">
                 </picture>
             </div>
             <div class="dynamic-gallery-slide">
                 <picture>
-                    <source srcset="build/img/20231105_170723.avif" type="image/avif">
+                    <source srcset="/build/img/chaqueta_roja.avif" type="image/avif">
                     <source srcset="build/img/20231105_170723.webp" type="image/webp">
                     <img loading="lazy" width="100" height="100" src="build/img/20231105_170723.png" alt="Image 2">
                 </picture>
@@ -191,156 +191,57 @@
     </div>
     <div class="arrival__contenido">
         <div class="arrival__contenido--botones category">
-            <?php foreach ($categoriasImportantes as $categoria): ?>
-            <button class="boton-primario" data-categoria=""><?php echo $categoria->nombre ?></button>
+            <?php foreach ($categorias as $categoria) : ?>
+                <button class="boton-primario <?php echo $categoria->id == $categoriaId ? 'active' : ''; ?>" data-categoria="<?php echo $categoria->id; ?>"><?php echo $categoria->nombre; ?></button>
             <?php endforeach; ?>
         </div>
-        <div class="arrival__contenido--productos">
-            <div class="producto">
-                <div class="producto__imagen">
-                    <picture>
-                        <source srcset="./build/img/chaqueta1.avif" type="image/avif">
-                        <source srcset="./build/img/chaqueta1.webp" type="image/webp">
-                        <img loading="lazy" width="100" height="100" class="imgg" src="./build/img/chaqueta1.png"
-                            alt="Eternal Cosmos Denim Jacket">
-                    </picture>
-                    <div class="quick-actions">
-                        <button class="favorite" aria-label="Add to favorites">
-                            <i class="far fa-heart"></i>
-                        </button>
-                        <button class="quick-views" aria-label="Quick views">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="producto-info">
-                    <p class="producto-titulo">
-                        <a href="#">Sugary Bliss Denim Jacket T-shirt Seven Best Tiedye Colorful.</a>
-                    </p>
-                    <div class="producto-precio">$102.40</div>
-                    <div class="producto-rating">
-                        <div class="star">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <span class="rating-count">(65)</span>
-                    </div>
-                </div>
-            </div>
-            <div class="producto">
-                <div class="producto__imagen">
-                    <picture>
-                        <source srcset="./build/img/chaqueta2.avif" type="image/avif">
-                        <source srcset="./build/img/chaqueta2.webp" type="image/webp">
-                        <img loading="lazy" width="100" height="100" src="./build/img/chaqueta2.png"
-                            alt="Eternal Cosmos Denim Jacket">
-                    </picture>
-                    <div class="quick-actions">
-                        <button class="favorite" aria-label="Add to favorites">
-                            <i class="far fa-heart"></i>
-                        </button>
-                        <button class="quick-views" aria-label="Quick view">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                    </div>
 
-                </div>
-                <div class="producto-info">
-                    <p class="producto-titulo">
-                        <a href="#">Navy Nebula Denim Jacket T-Shirt Seven Best Tiedye Colorful</a>
-                    </p>
-                    <div class="producto-precio">$102.40</div>
-                    <div class="producto-rating">
-                        <div class="star">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <span class="rating-count">(65)</span>
-                    </div>
-                </div>
-            </div>
-            <div class="producto">
-                <div class="producto__imagen">
-                    <picture>
-                        <source srcset="./build/img/chaqueta3.avif" type="image/avif">
-                        <source srcset="./build/img/chaqueta3.webp" type="image/webp">
-                        <img loading="lazy" width="100" height="100" src="./build/img/chaqueta3.png"
-                            alt="Eternal Cosmos Denim Jacket">
-                    </picture>
-                    <div class="quick-actions">
-                        <button class="favorite" aria-label="Add to favorites">
-                            <i class="far fa-heart"></i>
-                        </button>
-                        <button class="quick-views" aria-label="Quick view">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="producto-info">
-                    <p class="producto-titulo">
-                        <a href="#">Midnight Mirage Denim Jacket T-Shirt Seven Best Tiedye Colorful</a>
-                    </p>
-                    <div class="producto-precio">$102.40</div>
-                    <div class="producto-rating">
-                        <div class="star">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <span class="rating-count">(65)</span>
-                    </div>
-                </div>
-            </div>
-            <div class="producto">
-                <div class="producto__imagen">
-                    <picture>
-                        <source srcset="./build/img/chaqueta4.avif" type="image/avif">
-                        <source srcset="./build/img/chaqueta4.webp" type="image/webp">
-                        <img loading="lazy" width="100" height="100" src="./build/img/chaqueta4.png"
-                            alt="Eternal Cosmos Denim Jacket">
-                    </picture>
-                    <div class="quick-actions">
-                        <button class="favorite" aria-label="Add to favorites">
-                            <i class="far fa-heart"></i>
-                        </button>
-                        <button class="quick-views" aria-label="Quick view">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="producto-info">
-                    <p class="producto-titulo">
-                        <a href="#">Eternal Cosmos Denim Jacket T-Shirt Seven Best Tiedye Colorful</a>
-                    </p>
-                    <div class="producto-precio">$102.40</div>
-                    <div class="producto-rating">
-                        <div class="star">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <span class="rating-count">(65)</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <?php foreach ($categorias as $categoria) : ?>
+            <div class="arrival__contenido--productos" id="categoria-<?php echo $categoria->id; ?>" <?php echo ($categoria !== $categorias[0]) ? 'style="display: none;"' : ''; ?>>
+                <?php foreach ($productosPorCategoria[$categoria->id] as $producto) : ?>
+                    <div class="producto">
+                        <div class="producto__imagen">
+                            <img loading="lazy" width="100" height="100" class="imgg" src="/imagenes/<?php echo $imagenes[$producto->id]; ?>"
+                                alt="<?php echo $producto->nombre; ?>">
 
+                            <p data-descripcion = "<?php echo $producto->descripcion ?>"></p> 
+                          
+                            <div class="quick-actions">
+                                <button class="favorite" aria-label="Add to favorites">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="quick-views" aria-label="Quick views">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="producto-info">
+                            <p class="producto-titulo">
+                                <a href="/producto?id=<?php echo $producto->id; ?>"><?php echo $producto->nombre; ?></a>
+                            </p>
+                            <div class="producto-precio">$<?php echo $producto->precio; ?></div>
+                            <div class="producto-rating">
+                                <div class="star">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="rating-count">(<?php echo $producto->recuento_ventas; ?>)</span>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        <?php endforeach; ?>
     </div>
 
     <div class="arrival__contenido--mas">
-        <a href="/carro.php">SEE MORE</a>
+        <a href="/tienda">SEE MORE</a>
     </div>
 
+    
 </section>
 
 <!-- apartado del video y fotos de influencer -->

@@ -35,9 +35,9 @@ class Categoria extends ActiveRecord
         $this->nombre = $args['nombre'] ?? '';
         $this->descripcion = $args['descripcion'] ?? '';
         $this->imagen = $args['imagen'] ?? '';
-        $this->importante = $args['importante'] ?? 0;
-        $this->creado = date('Y/m/d');
-        $this->actualizado = date('Y/m/d');
+        $this->importante = $args['importante'] ?? '';
+        $this->creado = $args['creado'] ?? '';
+        $this->actualizado = $args['actualizado'] ?? '';
     }
 
     public function validar()
@@ -50,6 +50,9 @@ class Categoria extends ActiveRecord
         }
         if(strlen($this->descripcion)<50){
             self::$alertas['error'][] = "La descripcion es obligatoria y debe tener al menos 50 caracteres";
+        }
+        if($this->importante === ''){
+            self::$alertas['error'][] = "El campo importante es obligatorio";
         }
         if(!$this->imagen){
             self::$alertas['error'][] = "La imagen es obligatoria";

@@ -42,6 +42,7 @@ class CategoriaController
                     mkdir(CARPETA_IMAGENES);
                 }
                 $image->save(CARPETA_IMAGENES . $nombreImagen);
+                $categoria->creado = date('Y/m/d');
                 $resultado = $categoria->guardar();
 
                 if ($resultado) {
@@ -81,7 +82,7 @@ class CategoriaController
                     $imagen->save(CARPETA_IMAGENES . $nombreImagen);
                 }
 
-
+                $categoria->actualizado = date('Y/m/d');
                 $resultado = $categoria->guardar();
 
                 if ($resultado) {

@@ -2,8 +2,10 @@
 
 namespace Controllers;
 
+use Google\Service\AdExchangeBuyerII\Product;
 use Model\Talla;
 use MVC\Router;
+use Model\ProductoTalla;
 
 class TallaController{
     public static function index(Router $router){
@@ -88,6 +90,10 @@ class TallaController{
 
             if($id){
                 $talla = Talla::find($id);
+                $productosTallas = ProductoTalla::consultarSQL("SELECT * FROM productos_tallas WHERE tallas_id = {$id}");
+                foreach($productosTallas as $productoTalla){
+                    $productoTalla->eliminar();
+                }
                 $resultado = $talla->eliminar();
                 if ($resultado) {
                     header('location: /tallas/admin?resultado=3');

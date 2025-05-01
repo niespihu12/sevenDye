@@ -1,9 +1,10 @@
-<?php 
+<?php
 
 
 namespace Model;
 
-class Producto extends ActiveRecord{
+class Producto extends ActiveRecord
+{
     protected static $tabla = 'productos';
     protected static $columnasDB = [
         'id',
@@ -25,7 +26,7 @@ class Producto extends ActiveRecord{
     public $id;
     public $referencia;
     public $slug;
-    public $nombre; 
+    public $nombre;
     public $descripcion;
     public $precio;
     public $precio_descuento;
@@ -49,34 +50,36 @@ class Producto extends ActiveRecord{
         $this->destacado = $args['destacado'] ?? '';
         $this->recuento_ventas = $args['recuento_ventas'] ?? '0';
         $this->categorias_id = $args['categorias_id'] ?? '';
-        $this->creado = date('Y/m/d');
-        $this->actualizado = date('Y/m/d');
+        $this->creado =  $args['creado'] ?? '';
+        $this->actualizado =  $args['actualizado'] ?? '';
     }
 
-    public function validar(){
-        if(!$this->nombre){
+    public function validar()
+    {
+        if (!$this->nombre) {
             self::$alertas['error'][] = 'El nombre es obligatorio';
         }
-        if(!$this->precio){
+
+        if (!$this->slug) {
+            self::$alertas['error'][] = 'El slug es obligatorio';
+        }
+        if (!$this->precio) {
             self::$alertas['error'][] = 'El precio es obligatorio';
         }
-        if(!$this->categorias_id){
+        if (!$this->categorias_id) {
             self::$alertas['error'][] = 'La categoria es obligatoria';
         }
-        if(!$this->descripcion){
+        if (!$this->descripcion) {
             self::$alertas['error'][] = 'La descripcion es obligatoria';
         }
-        if(!is_numeric($this->precio)){
+        if (!is_numeric($this->precio)) {
             self::$alertas['error'][] = 'El precio debe ser un numero';
         }
         return self::$alertas;
     }
 
-    public function crearReferencia(){
+    public function crearReferencia()
+    {
         $this->referencia = uniqid();
     }
-
-
-
-
 }

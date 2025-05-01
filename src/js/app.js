@@ -10,44 +10,40 @@ document.addEventListener('DOMContentLoaded', function () {
     testimoniales();
     weekle_categories();
     slider();
+    cambioArrival();
   } else if (window.location.pathname === "/carro") {
     carro();
   } else if (window.location.pathname === "/detail-product") {
     incremento();
   } else if (window.location.pathname === "/register" || window.location.pathname === "/login") {
     login();
-  }else if(window.location.pathname === "/categorias/admin" || window.location.pathname === "/influencers/admin" || window.location.pathname === "/testimonios/admin"){
+  } else if (window.location.pathname === "/categorias/admin" || window.location.pathname === "/influencers/admin" || window.location.pathname === "/testimonios/admin") {
     // logica de javaScript
     admin();
   }
 })
 
-function admin(){
+function admin() {
 
 }
 
+function cambioArrival() {
+  const categoryButtons = document.querySelectorAll('.arrival__contenido--botones button');
 
-
-
-function incremento() {
-  const decremento = document.getElementById('decremento')
-  const incremento = document.getElementById('incremento')
-  const input = document.querySelector('.contador-input')
-
-
-  decremento.addEventListener("click", (event) => {
-    event.preventDefault();
-    if (input.value > input.min) {
-      input.value = parseInt(input.value) - 1;
-    }
+  categoryButtons.forEach(button => {
+    button.addEventListener('click', function () {
+      const categoriaId = this.getAttribute('data-categoria');
+      document.querySelectorAll('.arrival__contenido--productos').forEach(section => {
+        section.style.display = 'none';
+      });
+      document.getElementById('categoria-' + categoriaId).style.display = 'grid';
+      categoryButtons.forEach(btn => btn.classList.remove('active'));
+      this.classList.add('active');
+    });
   });
-
-  incremento.addEventListener("click", (event) => {
-    event.preventDefault();
-    if (input.value > input.min) {
-      input.value = parseInt(input.value) + 1;
-    }
-  });
+  if (categoryButtons.length > 0) {
+    categoryButtons[0].classList.add('active');
+  }
 }
 
 
@@ -90,7 +86,7 @@ function testimoniales() {
       }
     });
   });
-} 
+}
 
 function modalProductos() {
   document.querySelectorAll('.quick-views').forEach(button => {
@@ -133,27 +129,8 @@ function modalProductos() {
                         </div>
                         <span>${productData.rating}</span>
                     </div>
-                    <div class="product-description">
-                        <p>Chaqueta denim con diseño tie-dye único. Perfecta para un look casual y moderno. Material de alta calidad y confección premium.</p>
-                    </div>
-                    <div class="size-section">
-                        <h4>Talla</h4>
-                        <div class="size-options">
-                            <button>S</button>
-                            <button>M</button>
-                            <button>L</button>
-                            <button>XL</button>
-                        </div>
-                    </div>
-                    <div class="quantity-section">
-                        <h4>Cantidad</h4>
-                        <div class="quantity-controls">
-                            <button class="decrease">-</button>
-                            <input type="number" value="1" min="1" max="10">
-                            <button class="increase">+</button>
-                        </div>
-                    </div>
-                    <button class="add-to-cart">Añadir al carrito</button>
+                
+                    <a class="add-to-cart centrar-texto">Añadir al carrito</button>
                 </div>
             </div>
         </div>
@@ -214,7 +191,7 @@ function carro() {
       this.classList.add('activo');
     });
   });
-} 
+}
 
 
 
@@ -372,24 +349,8 @@ function ofertas() {
                       <div class="product-description">
                           <p>Chaqueta denim con diseño tie-dye único. Perfecta para un look casual y moderno. Material de alta calidad y confección premium.</p>
                       </div>
-                      <div class="size-section">
-                          <h4>Talla</h4>
-                          <div class="size-options">
-                              <button>S</button>
-                              <button>M</button>
-                              <button>L</button>
-                              <button>XL</button>
-                          </div>
-                      </div>
-                      <div class="quantity-section">
-                          <h4>Cantidad</h4>
-                          <div class="quantity-controls">
-                              <button class="decrease">-</button>
-                              <input type="number" value="1" min="1" max="10">
-                              <button class="increase">+</button>
-                          </div>
-                      </div>
-                      <button class="add-to-cart">Añadir al carrito</button>
+                      
+                      <button class="add-to-cart centrar-texto">Añadir al carrito</button>
                   </div>
               </div>
           </div>
@@ -562,13 +523,13 @@ function weekle_categories() {
   let currentIndex = 0;
   const totalItems = items.length;
   let autoplayInterval;
-  const autoplayDelay = 3000; 
+  const autoplayDelay = 3000;
 
   const firstItemsClone = [...items].slice(0, 4).map(item => item.cloneNode(true));
   firstItemsClone.forEach(clone => slider.appendChild(clone));
 
   function updateSlider(direction = null) {
-    const itemWidth = items[0].offsetWidth + 16; 
+    const itemWidth = items[0].offsetWidth + 16;
 
     if (direction === 'next') {
       currentIndex++;
@@ -608,7 +569,7 @@ function weekle_categories() {
   }
 
   function startAutoplay() {
-    stopAutoplay(); 
+    stopAutoplay();
     autoplayInterval = setInterval(() => {
       updateSlider('next');
     }, autoplayDelay);

@@ -10,20 +10,17 @@ class ProductoImagen extends ActiveRecord{
         'id',
         'imagen',
         'creado',
-        'actualizado',
         'productos_id'
     ];
     public $id;
     public $imagen;
     public $creado;
-    public $actualizado;
     public $productos_id;
 
     public function __construct($args = []){
         $this->id = $args['id'] ?? null;
         $this->imagen = $args['imagen'] ?? '';
-        $this->creado =  date('Y/m/d');
-        $this->actualizado =  date('Y/m/d');
+        $this->creado =  $args['creado'] ?? '';
         $this->productos_id = $args['productos_id'] ?? '';
     }
 

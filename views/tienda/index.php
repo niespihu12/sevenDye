@@ -38,7 +38,7 @@
                     <div class="colors">
                         <h3 class="colors__title">Color</h3>
                         <div class="colors__grid">
-                            <span class="colors__dot color-all active" data-color-id="0" style="background-color: #ffffff; border: 1px solid #000;"></span>
+                            <span class="colors__dot color-all <?php echo $color_id == 0 ? 'active' : ''; ?>" data-color-id="0" style="background-color: #ffffff; border: 1px solid #000;"></span>
                             <?php foreach ($colores as $color): ?>
                                 <span class="colors__dot <?php echo $color_id == $color->id ? 'active' : ''; ?>"
                                     data-color-id="<?php echo $color->id; ?>"
@@ -47,35 +47,15 @@
                         </div>
                     </div>
             </aside>
-
-            <div class="more">
-                <button class="more-btn">More</button>
-            </div>
         </div>
 
         <div class="producto-car">
-            <div class="promo-banner">
-                <div class="promo-banner__content">
-                    <div class="promo-banner__text">
-                        <h2 class="promo-banner__title">Fashion for Everyone,</h2>
-                        <h3 class="promo-banner__subtitle">Style Without LIMITS</h3>
-                        <p class="promo-banner__description">
-                            FOR ALL TASTES, SIZES AND STYLES. OUR COLLECTION OFFERS
-                            VIBRANT COLORS, UNIQUE DESIGNS AND OPTIONS FOR EVERY OCCASION,
-                            BECAUSE WE BELIEVE THAT FASHION SHOULD BE INCLUSIVE AND FIT
-                            YOU.
-                        </p>
-                        <a href="#" class="promo-banner__button">SHOP NOW</a>
-                    </div>
-                    <div class="promo-banner__image">
-                        <picture>
-                            <source srcset="/build/img/chaqueta2.avif" type="image/avif">
-                            <source srcset="/build/img/chaqueta2.webp" type="image/webp">
-                            <img loading="lazy" width="100" height="100" src="/build/img/chaqueta2.png" alt="Featured jacket" />
-                        </picture>
-
-                    </div>
-                </div>
+            <div class="sort-filter">
+                <select id="sortOrder" class="sort-select">
+                    <option value="">Default Order</option>
+                    <option value="precio_asc" <?php echo ($orden === 'precio_asc') ? 'selected' : ''; ?>>Price: Low to High</option>
+                    <option value="precio_desc" <?php echo ($orden === 'precio_desc') ? 'selected' : ''; ?>>Price: High to Low</option>
+                </select>
             </div>
             <div class="products">
 
@@ -83,7 +63,11 @@
                     <a class="products__card" href="/detalles/<?php echo urlencode($producto->slug); ?>?token=<?php echo hash_hmac('sha1', $producto->slug, KEY_TOKEN); ?>">
                         <span class="products__hot">HOT</span>
                         <div class="products__image">
-                            <img loading="lazy" width="100" height="100" src="/imagenes/<?php echo $imagenes[$producto->id] ?>" alt="<?php $producto->nombre ?>">
+                            <?php if (isset($imagenes[$producto->id])): ?>
+                                <img loading="lazy" width="100" height="100" src="/imagenes/<?php echo $imagenes[$producto->id] ?>" alt="<?php echo $producto->nombre ?>">
+                            <?php else: ?>
+                                <img loading="lazy" width="100" height="100" src="/imagenes/no-image.jpg" alt="No disponible">
+                            <?php endif; ?>
 
                             <div class="products__actions">
                                 <button class="action-btn">❤</button>
@@ -118,8 +102,21 @@
     </div>
 </main>
 <script>
-    // Variables globales para los filtros
     let currentCategorySlug = '<?php echo isset($categoria_slug) ? $categoria_slug : ''; ?>';
+    <?php
+    $min_db = floatval($min_db ?? 0);
+    $max_db = floatval($max_db ?? 100);
+
+    if ($min_db >= $max_db) {
+        $max_db = $min_db + 1;
+    }
+
+    $precio_min = floatval($precio_min ?? $min_db);
+    $precio_max = floatval($precio_max ?? $max_db);
+    $precio_min = max($min_db, $precio_min);
+    $precio_max = min($max_db, max($precio_min + 0.01, $precio_max));
+    ?>
+
     let currentMinPrice = <?php echo $precio_min; ?>;
     let currentMaxPrice = <?php echo $precio_max; ?>;
     let currentColorId = <?php echo $color_id; ?>;
@@ -127,24 +124,21 @@
     const minDbPrice = <?php echo $min_db; ?>;
     const maxDbPrice = <?php echo $max_db; ?>;
 
-    // Función para aplicar todos los filtros
     function applyFilters() {
         let url = currentCategorySlug ? `/tienda/${currentCategorySlug}` : '/tienda';
         let params = [];
-
-        // Añadir filtro de precio solo si está activo
+        const sortOrder = document.getElementById('sortOrder').value;
+        if (sortOrder) {
+            params.push(`orden=${sortOrder}`);
+        }
         if (isPriceFilterActive) {
             params.push(`filtro_precio=1`);
             params.push(`precio_min=${currentMinPrice}`);
             params.push(`precio_max=${currentMaxPrice}`);
         }
-
-        // Añadir filtro de color si está seleccionado
         if (currentColorId > 0) {
             params.push(`color=${currentColorId}`);
         }
-
-        // Añadir parámetros a la URL
         if (params.length > 0) {
             url += '?' + params.join('&');
         }
@@ -152,71 +146,53 @@
         window.location.href = url;
     }
 
-    // Event listener para el rango de precio
     const rangeInput = document.getElementById('priceRange');
     const priceRangeDisplay = document.querySelector('.prices__range span:last-child');
     const sliderTrack = document.querySelector('.prices__slider');
     const enablePriceFilter = document.getElementById('enablePriceFilter');
 
+    document.getElementById('sortOrder').addEventListener('change', applyFilters);
     rangeInput.addEventListener('input', function() {
-        const value = parseFloat(this.value).toFixed(2);
-        const percentage = ((value - this.min) / (this.max - this.min)) * 100;
-
-        // Update the slider appearance
+        const value = parseFloat(this.value);
+        let percentage = 0;
+        if (this.max > this.min) {
+            percentage = ((value - this.min) / (this.max - this.min)) * 100;
+        }
         sliderTrack.style.setProperty('--slider-percentage', `${percentage}%`);
-
-        // Update the displayed price
-        priceRangeDisplay.textContent = `<?php echo MONEDA; ?>${currentMinPrice.toFixed(2)} - <?php echo MONEDA; ?>${value}`;
-
-        // Guardar el valor actual
+        priceRangeDisplay.textContent = `<?php echo MONEDA; ?>${currentMinPrice.toFixed(2)} - <?php echo MONEDA; ?>${value.toFixed(2)}`;
         currentMaxPrice = value;
     });
-
-    // Aplicar el filtro al soltar el deslizador
     rangeInput.addEventListener('change', function() {
         applyFilters();
     });
-
-    // Manejador para activar/desactivar el filtro de precio
     enablePriceFilter.addEventListener('change', function() {
         isPriceFilterActive = this.checked;
-
-        // Actualizar estilos y estado del deslizador
         if (isPriceFilterActive) {
             sliderTrack.style.opacity = '1';
             rangeInput.disabled = false;
         } else {
             sliderTrack.style.opacity = '0.5';
             rangeInput.disabled = true;
-
-            // Resetear a valores por defecto
             currentMinPrice = minDbPrice;
             currentMaxPrice = maxDbPrice;
         }
-
-        // Aplicar filtros
         applyFilters();
     });
-
-    // Event listener para los colores
     const colorDots = document.querySelectorAll('.colors__dot');
     colorDots.forEach(dot => {
         dot.addEventListener('click', function() {
-            // Remover clase activa de todos los puntos
             colorDots.forEach(d => d.classList.remove('active'));
-
-            // Añadir clase activa al punto seleccionado
             this.classList.add('active');
-
-            // Actualizar el color seleccionado
-            currentColorId = this.dataset.colorId;
-
-            // Aplicar filtros
+            currentColorId = parseInt(this.dataset.colorId) || 0;
             applyFilters();
         });
     });
-
-    // Estilo CSS para el deslizador
+    <?php
+    $percentage = 0;
+    if ($max_db > $min_db) {
+        $percentage = (($precio_max - $min_db) / ($max_db - $min_db)) * 100;
+    }
+    ?>
     document.head.insertAdjacentHTML('beforeend', `
         <style>
             .prices__slider {
@@ -225,7 +201,7 @@
                 height: 2px;
                 background-color: #ccc;
                 margin: 1.5rem 0;
-                --slider-percentage: <?php echo (($precio_max - $min_db) / ($max_db - $min_db)) * 100; ?>%;
+                --slider-percentage: <?php echo $percentage; ?>%;
                 transition: opacity 0.3s;
             }
             
@@ -267,7 +243,6 @@
                 display: flex;
                 align-items: center;
                 margin-bottom: 1rem;
-                font-family: v.$fuente-secundaria;
                 font-size: 1.3rem;
             }
             

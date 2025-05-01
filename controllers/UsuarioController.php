@@ -25,7 +25,7 @@ class UsuarioController{
                 $usuario->setImagen($nombreImagen);
                 $imagen->save(CARPETA_IMAGENES . $nombreImagen);
             }
-
+            $usuario->actualizado = date('Y/m/d');
             $resultado = $usuario->guardar();
 
             if($resultado){

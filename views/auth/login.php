@@ -24,13 +24,11 @@
                             <input class="campo__field" type="password" placeholder="Password" id="password" name="contraseña" data-pwd-input>
                             <span class="toggle-password"> <i class="bi bi-eye-fill" data-pwd-toggle></i></span>
                         </div>
-
                     </div>
                     <div class="campo">
                         <a href="/olvide" class="campo__clave">Forgot Password?</a>
                         <input type="submit" value="SIGN IN" class="boton-enviar">
                     </div>
-
                 </form>
                 <div class="login__footer">
                     <p class="">or contine with</p>
@@ -41,15 +39,13 @@
                                 <source srcset="build/img/logo_google.webp" type="image/webp">
                                 <img loading="lazy" width="100" height="100" src="build/img/logo_google.png" alt="">
                             </picture>
+                            <span>Sign in with Google</span>
                         </a>
                     </div>
                     <p>Don't have an account yet?<a class="negrilla" href="/register" class=""> Register for
                             free</a></p>
                 </div>
             </div>
-
         </div>
-
     </div>
-
 </main>

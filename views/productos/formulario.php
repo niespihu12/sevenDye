@@ -4,13 +4,11 @@
             <label class="campo-admin__label" for="nombre">Nombre del Producto</label>
             <input class="campo-admin__field" type="text" id="nombre" name="nombre" placeholder="Nombre del Producto" value="<?php echo s($producto->nombre); ?>">
         </div>
-
-
         <div class="campo-admin">
-            <label class="campo-admin__label" for="descripcion">Descripción</label>
-            <textarea class="campo-admin__field campo-admin__field--textarea" id="descripcion" name="descripcion"><?php echo s($producto->descripcion); ?></textarea>
+            <label class="campo-admin__label" for="slug">Slug</label>
+            <input class="campo-admin__field" type="text" id="slug" name="slug" placeholder="Nombre del slug" value="<?php echo s($producto->slug); ?>">
         </div>
-
+       
         <div class="campo-admin">
             <label for="precio" class="campo-admin__label">Precio:</label>
             <input type="number" class="campo-admin__field" id="precio" name="precio" step="0.01" value="<?php echo s($producto->precio); ?>">
@@ -111,6 +109,12 @@
                 </div>
             <?php endif; ?>
         </div>
+
+        <div class="campo-admin">
+            <label class="campo-admin__label" for="descripcion">Descripción</label>
+            <textarea class="campo-admin__field campo-admin__field--textarea" id="descripcion" name="descripcion"><?php echo s($producto->descripcion); ?></textarea>
+        </div>
+
 
 
     </div>

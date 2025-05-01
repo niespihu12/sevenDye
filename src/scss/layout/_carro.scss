@@ -564,3 +564,27 @@
         }
     }
 }
+.sort-filter {
+    margin-bottom: 2rem;
+    text-align: right;
+}
+
+.sort-select {
+    padding: 0.8rem 1.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.sort-select:hover {
+    border-color: #0077cc;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sort-select:focus {
+    outline: none;
+    border-color: #005fa3;
+}

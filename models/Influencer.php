@@ -14,7 +14,8 @@ class Influencer extends ActiveRecord
         'instagram',
         'imagen',
         'descripcion',
-        'creado'
+        'creado',
+        'actualizado'
     ];
     public $id;
     public $nombre;
@@ -24,6 +25,7 @@ class Influencer extends ActiveRecord
     public $imagen;
     public $descripcion;
     public $creado;
+    public $actualizado;
     public function __construct($args = [])
     {
         $this->id = $args['id'] ?? null;
@@ -33,7 +35,8 @@ class Influencer extends ActiveRecord
         $this->instagram = $args['instagram'] ?? '';
         $this->imagen = $args['imagen'] ?? '';
         $this->descripcion = $args['descripcion'] ?? '';
-        $this->creado = date('Y/m/d');
+        $this->creado = $args['creado'] ?? '';
+        $this->actualizado = $args['actualizado'] ?? '';
     }
 
     public function validar()

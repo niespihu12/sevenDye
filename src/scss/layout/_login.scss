@@ -3,7 +3,6 @@
 @use "sass:color";
 
 
-
 .login {
     background: radial-gradient(v.$azulClaro, v.$azulOscuro);
     width: 100%;
@@ -56,7 +55,6 @@
             margin: 0 auto;
         }
     }
-
 }
 
 .formulario {
@@ -85,7 +83,6 @@
             color: v.$blanco;
             font-size: 1.6rem;
         }
-
     }
 }
 
@@ -102,7 +99,6 @@
     &:hover {
         background-color: color.adjust(v.$violeta, $lightness: -5%)
     }
-
 }
 
 .login__footer {
@@ -120,17 +116,36 @@
         img {
             width: 20px;
             height: 20px;
-            margin: 0 auto;
+            margin-right: 1rem;
         }
 
         @include m.tablet {
             flex-direction: row;
         }
-        a{
+        
+        a {
             width: 100%;
             background-color: v.$blanco;
             padding: 1rem 0;
             border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #444;
+            font-family: v.$fuente-secundaria;
+            font-size: 1.5rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            
+            &:hover {
+                background-color: color.adjust(v.$blanco, $lightness: -5%);
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            }
+            
+            span {
+                display: inline-block;
+            }
         }
     }
 
@@ -140,14 +155,15 @@
     }
 }
 
-.form-control{
+.form-control {
     width: 100%;
     margin: 1rem 0;
     position: relative;
 
-    .toggle-password{
+    .toggle-password {
         position: absolute;
         top: 25%;
         right: 1rem;
+        cursor: pointer;
     }
 }

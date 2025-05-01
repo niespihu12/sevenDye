@@ -42,7 +42,7 @@ class InfluencerController{
                     mkdir(CARPETA_IMAGENES);
                 }
                 $image->save(CARPETA_IMAGENES . $nombreImagen);
-
+                $influencer->creado = date('Y/m/d');
                 $resultado = $influencer->guardar();
 
                 if ($resultado) {
@@ -82,7 +82,7 @@ class InfluencerController{
                     $imagen->save(CARPETA_IMAGENES . $nombreImagen);
                 }
 
-
+                $influencer->actualizado = date('Y/m/d');
                 $resultado = $influencer->guardar();
 
                 if ($resultado) {

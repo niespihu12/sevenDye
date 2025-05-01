@@ -18,28 +18,32 @@ class PaginasController
     {
         $testimonios = Testimonio::all();
         $influencers = Influencer::get(3);
-        $categorias = Categoria::all();
 
-        $categoriasImportantes = Categoria::consultarSQL("SELECT * FROM categorias WHERE importante = '1' LIMIT 5");
+        $query = "SELECT * FROM categorias WHERE importante = '1'";
+        $categorias = Categoria::consultarSQL($query);
 
         $query = "SELECT * FROM productos WHERE destacado = '1' LIMIT 8";
         $productos = Producto::consultarSQL($query);
-        $imagenes = [];
-        foreach($productos as $producto){
-            $imagen = ProductoImagen::consultarSQL("SELECT * FROM producto_imagen WHERE productos_id = {$producto->id} LIMIT 1");
-            $imagenes[$producto->id] = $imagen[0]->imagen;
 
-            
+        $productosPorCategoria = [];
+        foreach ($categorias as $categoria) {
+            $query = "SELECT * FROM productos WHERE categorias_id = {$categoria->id} LIMIT 4";
+            $productosPorCategoria[$categoria->id] = Producto::consultarSQL($query);
         }
 
-        var_dump($imagenes);
+        $imagenes = [];
+        foreach ($productos as $producto) {
+            $imagen = ProductoImagen::consultarSQL("SELECT * FROM producto_imagen WHERE productos_id = {$producto->id} LIMIT 1");
+            $imagenes[$producto->id] = $imagen[0]->imagen;
+        }
 
         $router->render('paginas/index', [
             'testimonios' => $testimonios,
             'influencers' => $influencers,
             'productos' => $productos,
             'categorias' => $categorias,
-            'categoriasImportantes' => $categoriasImportantes
+            'productosPorCategoria' => $productosPorCategoria,
+            'imagenes' => $imagenes
         ]);
     }
 
