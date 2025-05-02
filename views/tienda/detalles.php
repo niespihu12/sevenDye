@@ -5,7 +5,7 @@
         <?php foreach ($productoImagenes as $i => $imagen): ?>
             <div class="image-box<?php echo $i === 0 ? ' active' : ''; ?>" 
                  onclick="img('/imagenes/<?php echo $imagen->imagen ?>', this)">
-                <img  loading="lazy" width="100" height="100" src="/imagenes/<?php echo $imagen->imagen ?>">
+                <img loading="lazy" width="100" height="100" src="/imagenes/<?php echo $imagen->imagen ?>">
             </div>
         <?php endforeach; ?>
     </div>
@@ -26,7 +26,8 @@
                 <p>In Stock</p>
             </div>
         </div>
-        <p class="producto-precio">
+        <!-- Precio que cambiará dinámicamente -->
+        <p class="producto-precio" id="precio-producto">
             <?php echo MONEDA . $producto->precio ?>
         </p>
         <p class="producto-descripcion-larga">
@@ -39,7 +40,10 @@
                     <label class="producto-radio">
                         <?php foreach ($tallas as $talla): ?>
                             <?php if ($productoTalla->tallas_id == $talla->id): ?>
-                                <input type="radio" name="radio" value="<?php echo $talla->id; ?>">
+                                <input type="radio" name="radio" 
+                                       value="<?php echo $talla->id; ?>" 
+                                       data-precio="<?php echo $productoTalla->precio ?? $producto->precio; ?>"
+                                       data-talla-id="<?php echo $talla->id; ?>">
                                 <span class="producto-size"><?php echo $talla->nombre ?></span>
                             <?php endif; ?>
                         <?php endforeach; ?>
@@ -53,7 +57,9 @@
                     <button class="contador-boton-incremento" id="incremento">+</button>
                 </div>
                 <div class="producto-solo-megusta">
-                    <button type="button">&#9825;</button>
+                    <button type="button" id="btn-wishlist" data-producto="<?php echo $producto->id; ?>">
+                        <i class="<?php echo $enListaDeseos ? 'fas' : 'far'; ?> fa-heart"></i>
+                    </button>
                 </div>
             </div>
             <div class="producto-solo-metods">
@@ -145,6 +151,18 @@
         if (el) el.classList.add('active');
     }
 
+    // Actualizar precio cuando se cambia la talla
+    const radios = document.querySelectorAll('input[name="radio"]');
+    radios.forEach(radio => {
+        radio.addEventListener('change', function() {
+            const precio = this.getAttribute('data-precio');
+            if (precio) {
+                const precioElement = document.getElementById('precio-producto');
+                precioElement.textContent = '<?php echo MONEDA ?>' + precio;
+            }
+        });
+    });
+
     // Agregar al carrito
     const addToCartButtons = document.querySelectorAll('.add-to-cart');
     addToCartButtons.forEach(button => {
@@ -193,6 +211,65 @@
         event.preventDefault();
         if (parseInt(input.value) < parseInt(input.max)) {
             input.value = parseInt(input.value) + 1;
+        }
+    });
+
+    // Agregar o quitar de la lista de deseos
+    const btnWishlist = document.getElementById('btn-wishlist');
+    btnWishlist.addEventListener('click', async function() {
+        const producto = this.dataset.producto;
+        const icon = this.querySelector('i');
+        const isInWishlist = icon.classList.contains('fas');
+        
+        try {
+            let url, method;
+            
+            if (isInWishlist) {
+                url = '/deseos/eliminar';
+                method = 'POST';
+            } else {
+                url = '/deseos/guardar';
+                method = 'POST';
+            }
+            
+            const response = await fetch(url, {
+                method: method,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify({
+                    producto
+                })
+            });
+            
+            const data = await response.json();
+            
+            if (data.resultado) {
+                // Cambiar el ícono
+                if (isInWishlist) {
+                    icon.classList.replace('fas', 'far');
+                } else {
+                    icon.classList.replace('far', 'fas');
+                }
+
+                console.log(data.mensaje);
+                
+                // Mostrar mensaje
+                alert(data.mensaje || (isInWishlist ? 'Removed from wishlist' : 'Added to wishlist'));
+
+                
+
+            } else {
+                // Mostrar error
+                alert(data.mensaje || 'An error occurred');
+                if(data.mensaje == 'Usuario no autenticado'){
+                    window.location.href = "/login";
+                }
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Error processing your request');
         }
     });
 </script>

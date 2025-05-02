@@ -18,6 +18,7 @@ class PaginasController
     {
         $testimonios = Testimonio::all();
         $influencers = Influencer::get(3);
+        $categoriasCompletas = Categoria::all();
 
         $query = "SELECT * FROM categorias WHERE importante = '1'";
         $categorias = Categoria::consultarSQL($query);
@@ -32,9 +33,19 @@ class PaginasController
         }
 
         $imagenes = [];
-        foreach ($productos as $producto) {
-            $imagen = ProductoImagen::consultarSQL("SELECT * FROM producto_imagen WHERE productos_id = {$producto->id} LIMIT 1");
-            $imagenes[$producto->id] = $imagen[0]->imagen;
+        // Corregido: iterar sobre cada grupo de productos por categoría
+        foreach ($productosPorCategoria as $catId => $productosCategoria) {
+            // Corregido: iterar sobre cada producto individual
+            foreach ($productosCategoria as $producto) {
+                $query = "SELECT * FROM producto_imagen WHERE productos_id = {$producto->id} LIMIT 1";
+                $resultado = ProductoImagen::consultarSQL($query);
+
+                if (!empty($resultado)) {
+                    $imagenes[$producto->id] = $resultado[0]->imagen;
+                } else {
+                    $imagenes[$producto->id] = 'imagen_default.jpg'; // Imagen por defecto si no hay resultados
+                }
+            }
         }
 
         $router->render('paginas/index', [
@@ -43,10 +54,10 @@ class PaginasController
             'productos' => $productos,
             'categorias' => $categorias,
             'productosPorCategoria' => $productosPorCategoria,
-            'imagenes' => $imagenes
+            'imagenes' => $imagenes,
+            'categoriasCompletas' => $categoriasCompletas
         ]);
     }
-
     public static function nosotros(Router $router)
     {
         $router->render('paginas/nosotros');

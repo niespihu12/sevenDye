@@ -6,6 +6,7 @@ use Model\Carrito;
 use Model\Producto;
 use Model\ProductoImagen;
 use Model\Talla;
+use Model\Cupon;
 
 class CarritoController
 {
@@ -19,12 +20,16 @@ class CarritoController
             $imagenes[$carItem['id']] = $imagen[0]->imagen;
         }
         $total = Carrito::obtenerTotal();
+        $cupon = Carrito::obtenerCupon();
+        $totalConDescuento = Carrito::obtenerTotalConDescuento();
 
         $router->render('tienda/carrito', [
             'carItems' => $carItems,
             'total' => $total,
             'moneda' => MONEDA,
-            'imagenes' => $imagenes
+            'imagenes' => $imagenes,
+            'cupon' => $cupon,
+            'totalConDescuento' => $totalConDescuento
         ]);
     }
 
@@ -108,6 +113,58 @@ class CarritoController
             $datos['ok'] = false;
         }
 
+        echo json_encode($datos);
+    }
+    
+    public static function aplicarCupon()
+    {
+        session_start();
+        $jsonData = file_get_contents('php://input');
+        $data = json_decode($jsonData, true);
+        $codigo = $data['codigo'] ?? null;
+        
+        if (!$codigo) {
+            $datos['ok'] = false;
+            $datos['mensaje'] = 'El código de cupón es requerido';
+            echo json_encode($datos);
+            return;
+        }
+        
+        $respuesta = Carrito::aplicarCupon($codigo);
+        
+        if ($respuesta) {
+            $totalConDescuento = Carrito::obtenerTotalConDescuento();
+            $total = Carrito::obtenerTotal();
+            $descuentoAplicado = $total - $totalConDescuento;
+            
+            $datos['ok'] = true;
+            $datos['mensaje'] = 'Cupón aplicado correctamente';
+            $datos['descuento'] = [
+                'porcentaje' => $respuesta['descuento'],
+                'monto' => MONEDA . number_format($descuentoAplicado, 2)
+            ];
+            $datos['totalConDescuento'] = MONEDA . number_format($totalConDescuento, 2);
+        } else {
+            $datos['ok'] = false;
+            $datos['mensaje'] = 'El cupón no es válido o está expirado';
+        }
+        
+        echo json_encode($datos);
+    }
+    
+    public static function quitarCupon()
+    {
+        session_start();
+        $respuesta = Carrito::quitarCupon();
+        
+        if ($respuesta) {
+            $datos['ok'] = true;
+            $datos['mensaje'] = 'Cupón eliminado correctamente';
+        } else {
+            $datos['ok'] = false;
+            $datos['mensaje'] = 'Error al eliminar el cupón';
+        }
+        
         echo json_encode($datos);
     }
 }

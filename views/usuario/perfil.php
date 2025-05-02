@@ -23,7 +23,10 @@
       </div>
       <h3><?php echo s($usuario->nombre); ?></h3>
       <div class="profile-enlaces">
-        <a href="/favorites"><i class="fas fa-heart"></i> Favoritos</a>
+        <a href="/deseos"><i class="fas fa-heart"></i> Favoritos</a>
+        <?php if($usuario->rolId == 2): ?>
+          <a href="/admin"><i class="fas fa-user-shield"></i> Administrador</a>
+        <?php endif; ?>
         <a href="/logout"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
       </div>
     </div>

@@ -63,10 +63,5 @@
     &:hover{
         background-color: color.adjust($bgColor, $lightness: -15%);
         color: white;
-        font-size: 1.3em;
     }
-}
-
-@mixin botonAdmin($bgColor){
-    
 }

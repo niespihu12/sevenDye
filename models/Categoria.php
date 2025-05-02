@@ -16,7 +16,6 @@ class Categoria extends ActiveRecord
         'imagen',
         'importante',
         'creado',
-        'actualizado'
     ];
 
     public $id;
@@ -26,7 +25,6 @@ class Categoria extends ActiveRecord
     public $imagen;
     public $importante;
     public $creado;
-    public $actualizado;
 
     public function __construct($args = [])
     {
@@ -37,7 +35,6 @@ class Categoria extends ActiveRecord
         $this->imagen = $args['imagen'] ?? '';
         $this->importante = $args['importante'] ?? '';
         $this->creado = $args['creado'] ?? '';
-        $this->actualizado = $args['actualizado'] ?? '';
     }
 
     public function validar()

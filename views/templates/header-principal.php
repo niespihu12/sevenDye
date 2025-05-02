@@ -27,7 +27,7 @@ if ($auth) {
     <div class="barra-mobile">
         <a class="profile" href="/login"><i class="bi bi-person-fill"></i></i></a>
         <?php if ($auth) { ?>
-            <a class="like" href="/favoritos"><i class="bi bi-heart-fill"></i></a>
+            <a class="like" href="/deseos"><i class="bi bi-heart-fill"></i></a>
         <?php } ?>
         <a class="carrito" href="/carrito"><i class="bi bi-bag-fill"></i></a>
         <button id="abrir" class="abrir-menu"><i class="bi bi-list"></i></button>
@@ -74,7 +74,7 @@ if ($auth) {
             <a class="sign-in-button" href="/login">Sign In</a>
         <?php } ?>
         <?php if ($auth) { ?>
-            <a class="favoritos" href="/favoritos">
+            <a class="favoritos" href="/deseos">
                 <picture>
                     <source srcset="/build/img/favorite.avif" type="image/avif">
                     <source srcset="/build/img/favorite.webp" type="image/webp">

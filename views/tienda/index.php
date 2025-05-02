@@ -68,10 +68,6 @@
                             <?php else: ?>
                                 <img loading="lazy" width="100" height="100" src="/imagenes/no-image.jpg" alt="No disponible">
                             <?php endif; ?>
-
-                            <div class="products__actions">
-                                <button class="action-btn">❤</button>
-                            </div>
                         </div>
                         <div class="products__info">
                             <h3 class="products__title">
@@ -80,10 +76,6 @@
                             <div class="products__rating">★★★★★</div>
                             <div class="products__prices">
                                 <span class="products__current-price"><?php echo MONEDA . $producto->precio ?></span>
-                                <?php if ($producto->precio_descuento > 0): ?>
-                                    <span class="products__original-price">$394.33</span>
-                                    <span class="products__discount">24% OFF</span>
-                                <?php endif; ?>
                             </div>
                         </div>
                     </a>

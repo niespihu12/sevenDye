@@ -1,44 +1,121 @@
 <?php include_once __DIR__ . "/../templates/header-principal.php"; ?>
 <div class="nosotros">
-  <h1 class="nosotros-titulo">Welcome to Seven Dye: Where Fashion <br>Tells Your Story in Color</h1>
+  <h1 class="nosotros-titulo">Welcome to Seven Dye: <br>Where Fashion
+    Tells Your Story in Color</h1>
 
 </div>
 
 <section class="creemos">
-  <div class="creemos-izquierda"></div>
   <div class="creemos-texto">
-    <p>We invite you to be the author of your own style, to let your clothes speak for you, and to spread positive
-      vibes and authenticity wherever you go. Join us and discover how each piece can be the perfect canvas to express
-      who you are and what’s in your heart.</p>
-    <p>We are an online store, shipping from Miami, Florida, to all over the United States. We love genderless tie-dye
-      fashion! You’ll find t-shirts, jerseys, denim jackets, crewnecks, crop hoodies, joggers, tank tops, long-sleeve
-      shirts, and much more, all in Tie dye. Welcome to Seven Dye, dress your life in colors!</p>
-    <p>In Seven Dye, we believe that fashion is more than just wearing clothes! We are storytellers, memory creators,
-      and emotion painters in every piece we design. In our world of colors and textures, each item is a blank page
-      waiting to be filled with your own authenticity and joy.</p>
-    <p>We firmly believe that what we wear is not just about covering our bodies; it’s also about telling our story to
-      the world. What better way to showcase your vibrant and genuine self than with colorful and lively clothing? And
-      don’t worry about finding your size: at Seven Dye, we’ve got you covered! We offer products that range from XS
-      to 5XL. </p>
-  </div>
-  <div class="creemos-derecha"></div>
+    <p>At Seven Dye, fashion is more than clothing—it's a way to tell your story. We invite you to embrace your unique style, let your outfits speak for you, and spread positivity wherever you go.</p>
+    <p>Born from a passion for genderless, handcrafted tie-dye fashion, Seven Dye celebrates diversity and self-expression. Based in Miami, Florida, we ship across the U.S., offering vibrant, handmade tie-dye clothing for babies, kids, and adults (XS - 5XL).</p>
+
 
 </section>
 
+<section class="nosotros-cards ">
+  <h2 class="centrar-texto">Our Colorful Collection</h2>
+  <div class="nosotros-card-seccion">
+    <div class="card">
+      <div class="card-image">
+        <picture>
+          <source srcset="/build/img/4.8115b2d0.avif" type="image/avif">
+          <source srcset="/build/img/4.8115b2d0.webp" type="image/webp">
+          <img loading="lazy" src="/build/img/4.8115b2d0.jpg" alt="tshirtandtops">
+        </picture>
+
+      </div>
+      <p class="card-title">T-Shirts & Tops</p>
+      <p class="card-body">
+        Vibrant tie-dye t-shirts, tank tops, and more for everyday expression.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-image">
+        <picture>
+          <source srcset="/build/img/Hoodies-sevendye.avif" type="image/avif">
+          <source srcset="/build/img/Hoodies-sevendye.webp" type="image/webp">
+          <img loading="lazy" src="/build/img/Hoodies-sevendye.jpg" alt="hoodiesandjackets">
+        </picture>
+
+      </div>
+      <p class="card-title">Hoodies & Jackets</p>
+      <p class="card-body">
+        Cozy hoodies and denim jackets with unique tie-dye patterns.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-image">
+        <picture>
+          <source srcset="/build/img/17.a5b79559.avif" type="image/avif">
+          <source srcset="/build/img/17.a5b79559.webp" type="image/webp">
+          <img loading="lazy" src="/build/img/17.a5b79559.jpg" alt="kidsandbabys">
+        </picture>
+      </div>
+      <p class="card-title">Kids & Baby</p>
+      <p class="card-body">
+        Colorful tie-dye clothing for the little ones in your life.
+      </p>
+    </div>
+  </div>
+
+
+
+
+
+</section>
+
+
+<section class="nosotros-conlogos">
+  <h2 class="centrar-texto">Fashion Without Limits</h2>
+  <p class="centrar-texto conlogos-texto">We believe clothing should express who you are. Each piece is a blank canvas, waiting to be part of your journey. Our commitment is to provide high-quality, handmade, and colorful designs that let you shine.</p>
+  <div class="nosotros-conlogos-seccion">
+    <div class="card1">
+      <div class="icon">
+        💜
+
+      </div>
+      <strong> Inclusive </strong>
+      <div class="card__body">Inclusive sizing & genderless fashion for everyone</div>
+    </div>
+    <div class="card2">
+      <div class="icon">
+        👶
+      </div>
+      <strong> For All Ages </strong>
+      <div class="card__body">Hand-dyed tie-dye for babies, kids & adults</div>
+    </div>
+    <div class="card3">
+      <div class="icon">
+        🌱
+      </div>
+      <strong> Quality </strong>
+      <div class="card__body">Quality materials for lasting style and comfort</div>
+    </div>
+    <div class="card4">
+      <div class="icon">
+        📦
+      </div>
+      <strong> Fast Shipping </strong>
+      <div class="card__body">Fast U.S. shipping from our Miami location</div>
+    </div>
+
+  </div>
+</section>
+
 <section class="compromiso">
-  <h2 class="centrar-texto">Our Commitment</h2>
-  <p class="centrar-texto">At Seven Dye, we are committed to: </p>
+  <h2 class="centrar-texto">The Art of Tie-Dye</h2>
   <div class="compromiso-derecha">
     <div class="compromiso-texto">
-      <h3>Quality</h3>
-      <p>We pledge to offer garments of the highest quality, from materials to manufacturing and design.</p>
+      <h3>Handcrafted with Care</h3>
+      <p>Each piece is individually hand-dyed by our skilled artisans, ensuring no two items are exactly alike.</p>
 
     </div>
     <div>
       <picture>
-        <source srcset="build/img/panel-gris.avif" type="image/avif">
-        <source srcset="build/img/panel-gris.webp" type="image/webp">
-        <img loading="lazy" width="100" height="100" src="build/img/panel-gris.png" alt="">
+        <source srcset="/build/img/bts4.avif" type="image/avif">
+        <source srcset="/build/img/bts4.webp" type="image/webp">
+        <img loading="lazy" width="100" height="100" src="/build/img/bts4.jpg" alt="HandcraftedwithCare">
         <picture>
     </div>
 
@@ -46,78 +123,32 @@
   <div class="compromiso-izquierda">
     <div>
       <picture>
-        <source srcset="build/img/panel-gris.avif" type="image/avif">
-        <source srcset="build/img/panel-gris.webp" type="image/webp">
-        <img loading="lazy" width="100" height="100" src="build/img/panel-gris.png" alt="">
+        <source srcset="/build/img/5.avif" type="image/avif">
+        <source srcset="/build/img/5.webp" type="image/webp">
+        <img loading="lazy" width="100" height="100" src="/build/img/5.jpg" alt="vibrantcolors">
         <picture>
     </div>
     <div class="compromiso-texto">
-      <h3>Innovation</h3>
-      <p>We are constantly seeking new techniques and trends to stay at the forefront of fashion and provide you with
-        the latest in style.</p>
+      <h3>Vibrant Colors</h3>
+      <p>We use high-quality dyes to create vibrant, long-lasting colors that won't fade easily with washing.</p>
     </div>
   </div>
   <div class="compromiso-derecha">
     <div class="compromiso-texto">
-      <h3>Creativity</h3>
-      <p>We inspire creative expression through our garments, encouraging you to be bold and unique in your personal
-        style.</p>
+      <h3>Quality Inspection</h3>
+      <p>Every item undergoes a thorough quality check before being carefully packaged and shipped to you.</p>
 
     </div>
     <div>
       <picture>
-        <source srcset="build/img/panel-gris.avif" type="image/avif">
-        <source srcset="build/img/panel-gris.webp" type="image/webp">
-        <img loading="lazy" width="100" height="100" src="build/img/panel-gris.png" alt="">
+        <source srcset="build/img/BTS.avif" type="image/avif">
+        <source srcset="build/img/BTS.webp" type="image/webp">
+        <img loading="lazy" width="100" height="100" src="build/img/BTS.png" alt="qualityinspection">
         <picture>
     </div>
 
   </div>
-  <div class="compromiso-izquierda">
-    <div>
-      <picture>
-        <source srcset="build/img/panel-gris.avif" type="image/avif">
-        <source srcset="build/img/panel-gris.webp" type="image/webp">
-        <img loading="lazy" width="100" height="100" src="build/img/panel-gris.png" alt="">
-        <picture>
-    </div>
-    <div class="compromiso-texto">
-      <h3>Inclusivity</h3>
-      <p>We celebrate diversity and strive to offer fashion choices for people of all shapes, sizes, genders, and
-        styles.</p>
 
-    </div>
-  </div>
-  <div class="compromiso-derecha">
-    <div class="compromiso-texto">
-      <h3>Authenticity</h3>
-      <p>Every garment from Seven Dye is imbued with authenticity, reflecting your true self and individuality.</p>
-
-    </div>
-    <div>
-      <picture>
-        <source srcset="build/img/panel-gris.avif" type="image/avif">
-        <source srcset="build/img/panel-gris.webp" type="image/webp">
-        <img loading="lazy" width="100" height="100" src="build/img/panel-gris.png" alt="">
-        <picture>
-    </div>
-
-  </div>
-  <div class="compromiso-izquierda">
-    <div>
-      <picture>
-        <source srcset="build/img/panel-gris.avif" type="image/avif">
-        <source srcset="build/img/panel-gris.webp" type="image/webp">
-        <img loading="lazy" width="100" height="100" src="build/img/panel-gris.png" alt="">
-        <picture>
-    </div>
-    <div class="compromiso-texto">
-      <h3>Empowerment</h3>
-      <p>We believe in the transformative power of fashion to empower you and make you feel confident in any
-        situation.</p>
-
-    </div>
-  </div>
 </section>
 
 <section class="nosotros-redes">

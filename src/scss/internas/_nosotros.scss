@@ -2,204 +2,477 @@
 @use '../base/variables' as v;
 @use 'sass:color';
 
-.nosotros {
-    background: linear-gradient(v.$violeta, #FF77E5);
-    height: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 7rem 2rem 0 2rem;
 
-    &-titulo {
-        text-align: center;
+
+// Assuming desktop is already defined in your mixins file
+
+.nosotros {
+  background: linear-gradient(v.$violeta, color.scale(v.$violeta, $lightness: 50%));
+  height: auto;
+  display: flex;
+  flex-direction: column; // Stack elements vertically on mobile
+  justify-content: center;
+  align-items: center;
+  padding: 7rem 1rem 0 1rem; // Reduced padding for mobile
+
+  @include m.tablet {
+    padding: 7rem 1.5rem 0 1.5rem; // Medium padding for tablet
+  }
+
+  @include m.desktop {
+    padding: 7rem 2rem 0 2rem; // Original padding for desktop
+  }
+
+  &-titulo {
+    text-align: center;
+    font-size: 3rem; // Smaller font size for mobile
+
+    @include m.tablet {
+      font-size: 4rem; // Medium font size for tablet
     }
+
+    @include m.desktop {
+      font-size: 5rem; // Larger font size for desktop
+    }
+  }
 }
 
 .creemos {
-    display: grid;
-    grid-template-columns: 1fr;
+  display: flex;
+  flex-direction: column; // Stack elements vertically on mobile
+  justify-content: center;
+  margin: 2rem 1rem; // Much smaller margin for mobile
 
-    @include m.desktop{
-        grid-template-columns: 20% 30% 50%;
-    }
-    
+  @include m.tablet {
+    margin: 3rem 5rem; // Increased margin for tablet
+  }
 
-    &-texto {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        margin: 0 2rem;
-    }
+  @include m.desktop {
+    margin: 5rem 10rem; // Larger margin for desktop
+    flex-direction: row; // Original layout for desktop
+  }
 
-    &-derecha {
-        background-image: url('../../build/img/nosotros.png');
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: center center;
-        margin: 0;
-        padding: 0;
+  &-texto {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: justify;
+    margin: 0 1rem; // Smaller margin for mobile
+
+    @include m.tablet {
+      margin: 0 1.5rem; // Medium margin for tablet
     }
 
-    &-izquierda {
-        background-image: url('../../build/img/nosotros2.png');
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: center center;
-        margin: 0;
-        padding: 0;
+    @include m.desktop {
+      margin: 0 2rem; // Original margin for desktop
     }
+  }
 }
 
 .compromiso {
+  &-derecha {
+    background-color: v.$azul;
+    display: flex;
+    flex-direction: column-reverse;
 
-    &-derecha {
-        background-color: v.$azul;
-        display: flex;
-        flex-direction: column-reverse;
-
-
-        @include m.desktop{
-            display: grid;
-            grid-template-columns: 1fr .3fr;
-
-        }
+    @include m.tablet {
+      display: grid;
+      grid-template-columns: 1fr 0.4fr; // More balanced columns for tablet
     }
 
-    &-izquierda {
-        
-        display: flex;
-        flex-direction: column;
+    @include m.desktop {
+      display: grid;
+      grid-template-columns: 1fr 0.3fr; // Original grid for desktop
+    }
+  }
 
-        @include m.desktop{
-            display: grid;
-            grid-template-columns: .3fr 1fr;
-        }
+  &-izquierda {
+    display: flex;
+    flex-direction: column;
+
+    @include m.tablet {
+      display: grid;
+      grid-template-columns: 0.4fr 1fr; // More balanced columns for tablet
     }
 
-    &-texto {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        margin: 0;
-        text-align: center;
-        margin: 2rem 5rem;
-
-        @include m.desktop{
-            margin: 0 20rem;
-            text-align: left;
-        }
+    @include m.desktop {
+      display: grid;
+      grid-template-columns: 0.3fr 1fr; // Original grid for desktop
     }
+  }
+
+  &-texto {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    margin: 2rem 1rem; // Smaller margin for mobile
+
+    @include m.tablet {
+      margin: 2rem 10rem; // Medium margin for tablet
+    }
+
+    @include m.desktop {
+      margin: 0 20rem; // Original margin for desktop
+      text-align: left;
+    }
+  }
+}
+
+.conlogos-texto {
+  margin: 2rem 1rem; // Much smaller margin for mobile
+
+  @include m.tablet {
+    margin: 3rem 10rem; // Medium margin for tablet
+  }
+
+  @include m.desktop {
+    margin: 5rem 35rem; // Original margin for desktop
+  }
+}
+
+.nosotros-conlogos {
+  margin-top: 3rem; // Smaller margin for mobile
+  margin-bottom: 3rem;
+
+  @include m.tablet {
+    margin-top: 5rem; // Medium margin for tablet
+    margin-bottom: 5rem;
+  }
+
+  @include m.desktop {
+    margin-top: 7rem; // Original margin for desktop
+    margin-bottom: 7rem;
+  }
+
+  .nosotros-conlogos-seccion {
+    display: flex;
+    flex-wrap: wrap; // Allow cards to wrap on smaller screens
+    justify-content: center;
+    gap: 1.5rem; // Increased gap for better spacing when stacked
+    padding: 0 1rem;
+
+    @include m.tablet {
+      gap: 1rem;
+      padding: 0 2rem;
+    }
+
+    @include m.desktop {
+      justify-content: space-evenly;
+      gap: 0.5rem; // Original gap for desktop
+      padding: 0;
+    }
+
+    .card1, .card2, .card3, .card4 {
+      max-width: 100%; // Full width on mobile
+      width: 100%;
+      
+      @include m.telefono {
+        max-width: 45%; // Two cards per row on small devices
+      }
+      
+      @include m.tablet {
+        max-width: 30%; // Three cards per row on tablets
+      }
+      
+      @include m.desktop {
+        max-width: 23ch; // Original width on desktop
+      }
+      
+      text-align: center;
+      padding: 1.5em;
+      padding-block: 1.8em;
+      border-radius: 5px;
+      position: relative;
+      overflow: hidden;
+      font-family: v.$fuente-secundaria;
+      transition:
+        0.3s cubic-bezier(0.6, 0.4, 0, 1),
+        transform 0.15s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 1em;
+      color: black;
+    }
+
+    .card1 {
+      background: color.scale(v.$violeta, $lightness: 20%);
+    }
+    
+    .card2 {
+      background: color.scale(v.$azul, $lightness: 20%);
+    }
+    
+    .card3 {
+      background: color.scale(v.$amarillo, $lightness: 20%);
+    }
+    
+    .card4 {
+      background: color.scale(v.$rojo, $lightness: 20%);
+    }
+
+    .card__body {
+      color: v.$negro;
+      line-height: 1.5em;
+      font-size: 1em;
+    }
+
+    .card > :not(span) {
+      transition: 0.3s cubic-bezier(0.6, 0.4, 0, 1);
+    }
+
+    .card > strong {
+      display: block;
+      font-size: 1.4rem;
+      letter-spacing: -0.035em;
+    }
+
+    .card span {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--hover-text);
+      border-radius: 5px;
+      font-weight: bold;
+      top: 100%;
+      transition: all 0.3s cubic-bezier(0.6, 0.4, 0, 1);
+    }
+  }
+}
+
+.nosotros-cards {
+  background: linear-gradient(v.$azul, v.$blanco);
+  padding: 2.5rem 0;
+  
+  .nosotros-card-seccion {
+    display: flex;
+    flex-wrap: wrap; // Allow cards to wrap on smaller screens
+    justify-content: center;
+    gap: 2rem; // Increased gap for better spacing when stacked
+    padding: 0 1rem;
+
+    @include m.tablet {
+      gap: 1rem;
+      justify-content: space-around;
+      padding: 0 2rem;
+    }
+
+    @include m.desktop {
+      justify-content: space-evenly;
+      gap: 0.5rem; // Original gap for desktop
+      padding: 0;
+    }
+
+    .card {
+      padding: 20px;
+      width: 100%; // Full width on mobile
+      max-width: 330px; // Max width to maintain design
+      min-height: 370px;
+      border-radius: 20px;
+      background: #e8e8e8;
+      box-shadow: 5px 5px 6px #dadada,
+        -5px -5px 6px #f6f6f6;
+      transition: 0.4s;
+      margin-bottom: 1.5rem; // Add margin bottom for stacked cards
+
+      @include m.telefono {
+        width: 90%; // Slightly smaller on small devices
+      }
+
+      @include m.tablet {
+        width: 45%; // Two cards per row on tablets
+        margin-bottom: 0;
+      }
+
+      @include m.desktop {
+        width: 330px; // Original width on desktop
+      }
+    }
+
+    .card:hover {
+      translate: 0 -10px;
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #2e54a7;
+      margin: 15px 0 0 10px;
+    }
+
+    .card-image {
+      min-height: 170px;
+      background-color: #c9c9c9;
+      border-radius: 15px;
+      box-shadow: inset 8px 8px 10px #c3c3c3,
+        inset -8px -8px 10px #cfcfcf;
+    }
+
+    .card-body {
+      margin: 13px 0 0 10px;
+      color: rgb(31, 31, 31);
+      font-size: 15px;
+    }
+
+    .footer {
+      float: right;
+      margin: 28px 0 0 18px;
+      font-size: 13px;
+      color: #636363;
+    }
+
+    .by-name {
+      font-weight: 700;
+    }
+  }
 }
 
 .nosotros-redes {
-    
-    margin: 5rem 1rem ;
-    
-    .wrapper {
-        display: inline-flex;
-        gap: 10rem;
-        list-style: none;
-        height: auto;
-        width: 100%;
-        padding: 0;
-        font-family: "Poppins", sans-serif;
-        justify-content: center;
-        flex-wrap: wrap;
-        .icon {
-            position: relative;
-            background: #fff;
-            border-radius: 50%;
-            width: 80px;
-            height: 80px;
-            font-size: 18px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
-            transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        }
-        .tooltip {
-            position: absolute;
-            top: 0;
-            font-size: 14px;
-            background: #fff;
-            color: #fff;
-            padding: 5px 8px;
-            border-radius: 5px;
-            box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            &::before {
-                position: absolute;
-                content: "";
-                height: 8px;
-                width: 8px;
-                background: #fff;
-                bottom: -3px;
-                left: 50%;
-                transform: translate(-50%) rotate(45deg);
-                transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            }
-        
-        }
+  margin: 3rem 1rem; // Smaller margin for mobile
+
+  @include m.tablet {
+    margin: 4rem 1rem; // Medium margin for tablet
+  }
+
+  @include m.desktop {
+    margin: 5rem 1rem; // Original margin for desktop
+  }
+
+  .wrapper {
+    display: flex;
+    flex-wrap: wrap; // Allow icons to wrap on smaller screens
+    justify-content: center;
+    gap: 2rem; // Smaller gap for mobile
+    list-style: none;
+    height: auto;
+    width: 100%;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+
+    @include m.tablet {
+      gap: 5rem; // Medium gap for tablet
     }
 
-    
-
-    
-
-    
-    .wrapper .icon:hover .tooltip {
-        top: -45px;
-        opacity: 1;
-        visibility: visible;
-        pointer-events: auto;
+    @include m.desktop {
+      gap: 10rem; // Original gap for desktop
     }
 
-    .wrapper .icon:hover span,
-    .wrapper .icon:hover .tooltip {
-        text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.1);
+    .icon {
+      position: relative;
+      background: #fff;
+      border-radius: 50%;
+      width: 60px; // Smaller size for mobile
+      height: 60px;
+      font-size: 16px; // Smaller font for mobile
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      margin-bottom: 1rem; // Add margin for wrapping
+
+      @include m.tablet {
+        width: 70px; // Medium size for tablet
+        height: 70px;
+        font-size: 17px; // Medium font for tablet
+      }
+
+      @include m.desktop {
+        width: 80px; // Original size for desktop
+        height: 80px;
+        font-size: 18px; // Original font for desktop
+        margin-bottom: 0;
+      }
     }
 
-    .wrapper .facebook:hover,
-    .wrapper .facebook:hover .tooltip,
-    .wrapper .facebook:hover .tooltip::before {
-        background: #1877f2;
-        color: #fff;
+    .tooltip {
+      position: absolute;
+      top: 0;
+      font-size: 14px;
+      background: #fff;
+      color: #fff;
+      padding: 5px 8px;
+      border-radius: 5px;
+      box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+      &::before {
+        position: absolute;
+        content: "";
+        height: 8px;
+        width: 8px;
+        background: #fff;
+        bottom: -3px;
+        left: 50%;
+        transform: translate(-50%) rotate(45deg);
+        transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      }
+    }
+  }
+
+  .wrapper .icon:hover .tooltip {
+    top: -45px;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .wrapper .icon:hover span,
+  .wrapper .icon:hover .tooltip {
+    text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.1);
+  }
+
+  .wrapper .facebook:hover,
+  .wrapper .facebook:hover .tooltip,
+  .wrapper .facebook:hover .tooltip::before {
+    background: #1877f2;
+    color: #fff;
+  }
+
+  .wrapper .tiktok:hover,
+  .wrapper .tiktok:hover .tooltip,
+  .wrapper .tiktok:hover .tooltip::before {
+    background: v.$negro;
+    color: #fff;
+  }
+
+  .wrapper .instagram:hover,
+  .wrapper .instagram:hover .tooltip,
+  .wrapper .instagram:hover .tooltip::before {
+    background: #e4405f;
+    color: #fff;
+  }
+
+  .wrapper .email:hover,
+  .wrapper .email:hover .tooltip,
+  .wrapper .email:hover .tooltip::before {
+    background: red;
+    color: #fff;
+  }
+
+  .nosotros-redes__descripcion {
+    font-family: v.$fuente-principal;
+    font-size: 1.4rem; // Smaller font for mobile
+    font-weight: bold;
+    text-align: center; // Center text on mobile
+
+    @include m.tablet {
+      font-size: 1.6rem; // Medium font for tablet
     }
 
-    .wrapper .tiktok:hover,
-    .wrapper .tiktok:hover .tooltip,
-    .wrapper .tiktok:hover .tooltip::before {
-        background: v.$negro;
-        color: #fff;
+    @include m.desktop {
+      font-size: 1.8rem; // Original font for desktop
     }
-
-    .wrapper .instagram:hover,
-    .wrapper .instagram:hover .tooltip,
-    .wrapper .instagram:hover .tooltip::before {
-        background: #e4405f;
-        color: #fff;
-    }
-
-    .wrapper .email:hover,
-    .wrapper .email:hover .tooltip,
-    .wrapper .email:hover .tooltip::before {
-        background: red;
-        color: #fff;
-    }
-    .nosotros-redes__descripcion{
-        font-family: v.$fuente-principal;
-        font-size: 1.8rem;
-        font-weight: bold;
-    }
-    
-
-
+  }
 }
-

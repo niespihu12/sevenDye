@@ -5,19 +5,26 @@
             <h3 class="form-section-title1">
                 <i class="fas fa-info-circle1"></i> Información Básica
             </h3>
-            
+
             <div class="campo-admin1">
                 <label class="campo-admin__label1" for="slug">
                     <i class="fas fa-link"></i> Slug
                 </label>
                 <input class="campo-admin__field1" type="text" id="slug" name="slug" placeholder="ej: categoria-productos" value="<?php echo s($categoria->slug); ?>">
             </div>
-            
+
             <div class="campo-admin1">
                 <label class="campo-admin__label1" for="nombre">
                     <i class="fas fa-tag1"></i> Nombre
                 </label>
                 <input class="campo-admin__field1" type="text" id="nombre" name="nombre" placeholder="Nombre de la categoría" value="<?php echo s($categoria->nombre); ?>">
+            </div>
+            <div class="campo-admin">
+                <label for="importante" class="campo-admin__label">Importante</label>
+                <select name="importante" id="importante" class="campo-admin__select">
+                    <option value="0" <?php echo $categoria->importante === '0' ? 'selected' : ''; ?>>No Importante</option>
+                    <option value="1" <?php echo $categoria->importante === '1' ? 'selected' : ''; ?>>Importante</option>
+                </select>
             </div>
 
             <div class="campo-admin1">
@@ -29,18 +36,18 @@
         </div>
     </div>
 
-   
+
     <div class="form-column">
         <div class="form-section">
             <h3 class="form-section-title">
                 <i class="fas fa-image"></i> Imagen de Categoría
             </h3>
-            
+
             <div class="campo-admin">
                 <label class="campo-admin__label" for="imagen">
                     <i class="fas fa-cloud-upload-alt"></i> Imagen Principal
                 </label>
-                
+
                 <div class="upload-container">
                     <label for="imagen" class="upload-area" id="uploadArea">
                         <div class="upload-icon">
@@ -51,7 +58,7 @@
                     </label>
                     <input class="campo-admin__field--archi" type="file" id="imagen" accept="image/jpeg, image/png" name="imagen" style="display: none;">
                 </div>
-                
+
                 <?php if ($categoria->imagen) { ?>
                     <div class="imagen-previa-container" style="margin-top: 2rem;">
                         <h4 style="font-size: 1.1rem; margin-bottom: 1rem; color: var(--darker); font-weight: 600;">
@@ -76,40 +83,40 @@
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const uploadArea = document.getElementById('uploadArea');
-    const fileInput = document.getElementById('imagen');
-    
-    if (uploadArea && fileInput) {
-        // Cambiar estilo al arrastrar sobre el área
-        uploadArea.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            uploadArea.classList.add('active');
-        });
-        
-        uploadArea.addEventListener('dragleave', () => {
-            uploadArea.classList.remove('active');
-        });
-        
-        uploadArea.addEventListener('drop', (e) => {
-            e.preventDefault();
-            uploadArea.classList.remove('active');
-            if (e.dataTransfer.files.length) {
-                fileInput.files = e.dataTransfer.files;
-                updateFileName();
-            }
-        });
-        
-        // Cambiar estilo al seleccionar archivo
-        fileInput.addEventListener('change', updateFileName);
-        
-        function updateFileName() {
-            if (fileInput.files.length) {
-                const fileName = fileInput.files[0].name;
-                uploadArea.querySelector('.upload-text').textContent = fileName;
-                uploadArea.querySelector('.upload-icon').innerHTML = '<i class="fas fa-check-circle" style="color: var(--success);"></i>';
+    document.addEventListener('DOMContentLoaded', function() {
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('imagen');
+
+        if (uploadArea && fileInput) {
+            // Cambiar estilo al arrastrar sobre el área
+            uploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadArea.classList.add('active');
+            });
+
+            uploadArea.addEventListener('dragleave', () => {
+                uploadArea.classList.remove('active');
+            });
+
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadArea.classList.remove('active');
+                if (e.dataTransfer.files.length) {
+                    fileInput.files = e.dataTransfer.files;
+                    updateFileName();
+                }
+            });
+
+            // Cambiar estilo al seleccionar archivo
+            fileInput.addEventListener('change', updateFileName);
+
+            function updateFileName() {
+                if (fileInput.files.length) {
+                    const fileName = fileInput.files[0].name;
+                    uploadArea.querySelector('.upload-text').textContent = fileName;
+                    uploadArea.querySelector('.upload-icon').innerHTML = '<i class="fas fa-check-circle" style="color: var(--success);"></i>';
+                }
             }
         }
-    }
-});
+    });
 </script>

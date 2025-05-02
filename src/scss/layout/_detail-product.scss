@@ -296,17 +296,19 @@
 }
 
 .producto-solo-metods {
-  display: flex;
-  gap: 1.2rem;
+  display: block;
+  gap: 1.5rem;
   margin-top: 1.5rem;
   .producto-solo-car,
   .producto-solo-checkout {
     input[type="submit"] {
       background: v.$violeta;
+      width: 100%;
       color: v.$blanco;
+      margin-bottom: 1rem;
       border: none;
       border-radius: 0.7rem;
-      padding: 0.7rem 2rem;
+      padding: 1rem 2rem;
       font-size: 1.1rem;
       font-family: v.$fuente-secundaria;
       font-weight: 700;

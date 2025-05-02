@@ -53,6 +53,22 @@ class Usuario extends ActiveRecord
         $this->token = $args['token'] ?? '';
     }
 
+    public function validar() {
+        self::$alertas = ['error' => []];
+    
+        if(!$this->email) {
+            self::$alertas['error'][] = "El email es obligatorio";
+        } elseif(!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
+            self::$alertas['error'][] = "El email no es válido";
+        }
+    
+        if(!$this->rolId || !is_numeric($this->rolId)) {
+            self::$alertas['error'][] = "El rol es obligatorio y debe ser numérico";
+        }
+    
+        return self::$alertas;
+    }
+
 
     public function validarRegistro($contraseña_repetida){
         if(!$this->email){

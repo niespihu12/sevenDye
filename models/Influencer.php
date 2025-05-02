@@ -15,7 +15,6 @@ class Influencer extends ActiveRecord
         'imagen',
         'descripcion',
         'creado',
-        'actualizado'
     ];
     public $id;
     public $nombre;
@@ -25,7 +24,6 @@ class Influencer extends ActiveRecord
     public $imagen;
     public $descripcion;
     public $creado;
-    public $actualizado;
     public function __construct($args = [])
     {
         $this->id = $args['id'] ?? null;
@@ -36,22 +34,12 @@ class Influencer extends ActiveRecord
         $this->imagen = $args['imagen'] ?? '';
         $this->descripcion = $args['descripcion'] ?? '';
         $this->creado = $args['creado'] ?? '';
-        $this->actualizado = $args['actualizado'] ?? '';
     }
 
     public function validar()
     {
         if (!$this->nombre) {
             self::$alertas['error'][] = "El nombre es obligatorio";
-        }
-        if (!$this->youtube) {
-            self::$alertas['error'][] = "El youtube es obligatorio";
-        }
-        if (!$this->tiktok) {
-            self::$alertas['error'][] = "El tiktok es obligatorio";
-        }
-        if (!$this->instagram) {
-            self::$alertas['error'][] = "El instagram es obligatorio";
         }
         if (!$this->imagen) {
             self::$alertas['error'][] = "La imagen es obligatoria";

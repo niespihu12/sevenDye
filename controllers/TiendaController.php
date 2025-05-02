@@ -179,7 +179,7 @@ class TiendaController
         
         $productoImagenes = ProductoImagen::consultarSQL("SELECT * FROM producto_imagen WHERE productos_id = {$producto->id}");
         $productoImagenPrincipal = ProductoImagen::where('productos_id', $producto->id);
-        $productoTallas = ProductoTalla::consultarSQL("SELECT * FROM productos_tallas  WHERE productos_id = {$producto->id} AND cantidad != 0 ");
+        $productoTallas = ProductoTalla::consultarSQL("SELECT * FROM productos_tallas  WHERE productos_id = {$producto->id}");
         $tallas = Talla::all();
 
         $router->render('tienda/detalles', [

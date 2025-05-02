@@ -41,7 +41,7 @@
     &__field {
         border-radius: 0.5rem;
         border: 1px solid v.$grisClaro;
-        width: 40rem;
+        width: 100%;
         padding: 1rem 0;
         margin-bottom: 2rem;
     }
@@ -67,5 +67,15 @@
         border: none;
         border-radius: 1rem;
         background-color: v.$grisClaro;
+    }
+
+    &__select{
+        padding: 1rem 0;
+        border: 1px solid v.$grisClaro;
+        font-family: v.$fuente-secundaria;
+        color: v.$dark;
+        font-size: 1.6rem;
+        border-radius: 1rem;
+        
     }
 }

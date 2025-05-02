@@ -11,12 +11,13 @@ use Controllers\LoginController;
 use Controllers\DashboardController;
 use Controllers\GoogleController;
 use Controllers\CategoriaController;
+use Controllers\ClienteController;
 use Controllers\UsuarioController;
 use Controllers\ColorController;
+use Controllers\DeseoController;
 use Controllers\TallaController;
 use Controllers\ProductoController;
 use Controllers\TiendaController;
-
 $router = new Router();
 
 // Zona privada
@@ -65,6 +66,10 @@ $router->post('/productos/actualizar', [ProductoController::class, 'actualizar']
 $router->post('/productos/eliminar', [ProductoController::class, 'eliminar']);
 
 
+$router->get('/clientes/admin', [ClienteController::class, 'index']);
+$router->get('/clientes/actualizar', [ClienteController::class, 'actualizar']);
+$router->post('/clientes/actualizar', [ClienteController::class, 'actualizar']);
+
 // Login 
 $router->get('/login', [LoginController::class, 'login']);
 $router->post('/login', [LoginController::class, 'login']);
@@ -109,6 +114,14 @@ $router->post('/carrito/eliminar', [CarritoController::class, 'eliminar']);
 $router->get('/tienda', [TiendaController::class, 'index']);
 $router->get('/tienda/{slug}', [TiendaController::class, 'indexSlug']);
 $router->get('/detalles/{slug}', [TiendaController::class, 'detalles']);
+
+
+// Deseos
+$router->get('/deseos', [DeseoController::class, 'index']);
+$router->get('/deseos/verificar', [DeseoController::class, 'verificar']);
+$router->post('/deseos/guardar', [DeseoController::class, 'guardar']);
+$router->post('/deseos/eliminar', [DeseoController::class, 'eliminar']);
+
 
 
 $router->comprobarRutas();

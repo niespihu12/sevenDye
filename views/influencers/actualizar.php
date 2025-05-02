@@ -15,7 +15,6 @@
 
         <form method="POST" enctype="multipart/form-data" class="profile-card-wide">
             <?php include __DIR__ . "/formulario.php"; ?>
-            <input class="boton-primario" type="submit" value="Actualizar Influencer">
         </form>
     </div>
 

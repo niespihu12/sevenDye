@@ -2,15 +2,7 @@
 @use '../base/mixins' as m;
 
 // Variables
-$primary: #6C5CE7;
-$primary-dark: #5649C0;
-$light-gray: #DFE6E9;
-$lighter-gray: #F9FAFB;
-$dark: #2D3436;
-$darker: #1A1E1F;
-$border-radius: 12px;
-$border-radius-lg: 20px;
-$transition: all 0.3s ease;
+
 
 // Estilos
 .admin-form-container {
@@ -18,12 +10,12 @@ $transition: all 0.3s ease;
     margin: 2rem auto;
     font-family: 'Inter', sans-serif;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    border-radius: $border-radius-lg;
+    border-radius: v.$border-radius-lg;
     overflow: hidden;
 }
 
 .form-header {
-    background: linear-gradient(135deg, $primary 0%, $primary-dark 100%);
+    background: linear-gradient(135deg, v.$primary 0%, v.$primary-dark 100%);
     color: white;
     padding: 2.5rem 3rem;
 
@@ -53,21 +45,21 @@ $transition: all 0.3s ease;
 }
 
 .form-card {
-    background: $lighter-gray;
-    border-radius: $border-radius;
+    background: v.$lighter-gray;
+    border-radius: v.$border-radius;
     padding: 2rem;
     margin-bottom: 1.5rem;
 
     &__title {
         font-size: 1.3rem;
-        color: $dark;
+        color: v.$dark;
         margin-bottom: 1.5rem;
         display: flex;
         align-items: center;
         gap: 0.8rem;
 
         i {
-            color: $primary;
+            color: v.$primary;
         }
     }
 }
@@ -80,12 +72,12 @@ $transition: all 0.3s ease;
         align-items: center;
         gap: 0.7rem;
         font-weight: 600;
-        color: $darker;
+        color: v.$darker;
         margin-bottom: 0.8rem;
         font-size: 1.05rem;
 
         i {
-            color: $primary;
+            color: v.$primary;
             font-size: 1.1rem;
         }
     }
@@ -97,16 +89,16 @@ $transition: all 0.3s ease;
     .form-field__input {
         width: 100%;
         padding: 1rem 1.5rem 1rem 3rem;
-        border: 2px solid $light-gray;
-        border-radius: $border-radius;
+        border: 2px solid v.$light-gray;
+        border-radius: v.$border-radius;
         font-size: 1rem;
-        transition: $transition;
+        transition: v.$transition;
         background: white;
 
         &:focus {
             outline: none;
-            border-color: $primary;
-            box-shadow: 0 0 0 3px rgba($primary, 0.2);
+            border-color: v.$primary;
+            box-shadow: 0 0 0 3px rgba(v.$primary, 0.2);
         }
     }
 
@@ -115,13 +107,13 @@ $transition: all 0.3s ease;
         left: 1.2rem;
         top: 50%;
         transform: translateY(-50%);
-        color: $primary;
+        color: v.$primary;
     }
 }
 
 .input-hint {
     font-size: 0.85rem;
-    color: lighten($darker, 30%);
+    color: lighten(v.$darker, 30%);
     margin-top: 0.5rem;
     font-style: italic;
 }
@@ -129,28 +121,28 @@ $transition: all 0.3s ease;
 .form-actions {
     background: white;
     padding: 1.5rem 3rem;
-    border-top: 1px solid $light-gray;
+    border-top: 1px solid v.$light-gray;
     display: flex;
     justify-content: flex-end;
 }
 
 .submit-button {
-    background: linear-gradient(135deg, $primary 0%, $primary-dark 100%);
+    background: linear-gradient(135deg, v.$primary 0%, v.$primary-dark 100%);
     color: white;
     border: none;
     padding: 1rem 2rem;
-    border-radius: $border-radius;
+    border-radius: v.$border-radius;
     font-weight: 600;
     font-size: 1rem;
     cursor: pointer;
-    transition: $transition;
+    transition: v.$transition;
     display: flex;
     align-items: center;
     gap: 0.7rem;
 
     &:hover {
         transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba($primary, 0.3);
+        box-shadow: 0 5px 15px rgba(v.$primary, 0.3);
     }
 
     i {
@@ -162,7 +154,7 @@ $transition: all 0.3s ease;
 @media (max-width: 768px) {
     .admin-form-container {
         margin: 1rem;
-        border-radius: $border-radius;
+        border-radius: v.$border-radius;
     }
 
     .form-header {
