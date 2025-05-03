@@ -81,8 +81,6 @@ class CategoriaController
                 if ($_FILES['imagen']['tmp_name']) {
                     $imagen->save(CARPETA_IMAGENES . $nombreImagen);
                 }
-
-                $categoria->actualizado = date('Y/m/d');
                 $resultado = $categoria->guardar();
 
                 if ($resultado) {

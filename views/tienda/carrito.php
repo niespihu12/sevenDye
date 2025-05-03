@@ -45,14 +45,14 @@
             <span>Subtotal</span>
             <span><?php echo $moneda . number_format($total, 2); ?></span>
           </div>
-          
+
           <?php if ($cupon): ?>
             <div class="summary-row discount">
               <span>Discount (<?php echo $cupon['descuento']; ?>%)</span>
               <span class="discount-amount">-<?php echo $moneda . number_format(($total * $cupon['descuento']) / 100, 2); ?></span>
             </div>
           <?php endif; ?>
-          
+
           <div class="summary-row">
             <?php if ($total > 200): ?>
               <span>Delivery Free</span>
@@ -62,11 +62,11 @@
               <span>$7</span>
             <?php endif; ?>
           </div>
-          
+
           <div class="summary-row total">
             <span>Total</span>
             <?php if ($total > 200): ?>
-              <span><?php echo $moneda . number_format($totalConDescuento, 2);?></span>
+              <span><?php echo $moneda . number_format($totalConDescuento, 2); ?></span>
             <?php else: ?>
               <span><?php echo $moneda . number_format($totalConDescuento + 7, 2); ?></span>
             <?php endif; ?>
@@ -94,7 +94,6 @@
 <?php endif; ?>
 
 </section>
-
 <script>
   document.querySelectorAll('.quantity-btn').forEach(btn => {
     btn.addEventListener('click', async (e) => {
@@ -157,7 +156,7 @@
       }
     });
   });
-  
+
   // Aplicar cupón
   const applyCuponBtn = document.getElementById('apply-cupon-btn');
   if (applyCuponBtn) {
@@ -165,13 +164,13 @@
       const cuponInput = document.getElementById('cupon-input');
       const codigo = cuponInput.value.trim();
       const cuponMessage = document.getElementById('cupon-message');
-      
+
       if (!codigo) {
         cuponMessage.textContent = 'Please enter a coupon code';
         cuponMessage.classList.add('error');
         return;
       }
-      
+
       try {
         const response = await fetch('/carrito/aplicar-cupon', {
           method: 'POST',
@@ -183,9 +182,9 @@
             codigo
           })
         });
-        
+
         const data = await response.json();
-        
+
         if (data.ok) {
           cuponMessage.textContent = data.mensaje;
           cuponMessage.classList.remove('error');
@@ -203,7 +202,7 @@
       }
     });
   }
-  
+
   // Quitar cupón
   const removeCuponBtn = document.getElementById('remove-cupon-btn');
   if (removeCuponBtn) {
@@ -216,9 +215,9 @@
             'X-Requested-With': 'XMLHttpRequest'
           }
         });
-        
+
         const data = await response.json();
-        
+
         if (data.ok) {
           window.location.reload();
         }
@@ -228,19 +227,4 @@
     });
   }
 </script>
-
-<style>
-  .cupon-message {
-    margin-top: 0.5rem;
-    font-size: 0.875rem;
-  }
-  
-  .cupon-message.error {
-    color: red;
-  }
-  
-  .cupon-message.success {
-    color: green;
-  }
-</style>
 <?php include_once __DIR__ . "/../templates/footer-principal.php"; ?>

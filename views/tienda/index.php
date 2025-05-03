@@ -93,9 +93,12 @@
         </div>
     </div>
 </main>
-<script>
-    let currentCategorySlug = '<?php echo isset($categoria_slug) ? $categoria_slug : ''; ?>';
-    <?php
+
+<?php
+    $percentage = 0;
+    if ($max_db > $min_db) {
+        $percentage = (($precio_max - $min_db) / ($max_db - $min_db)) * 100;
+    }
     $min_db = floatval($min_db ?? 0);
     $max_db = floatval($max_db ?? 100);
 
@@ -107,171 +110,26 @@
     $precio_max = floatval($precio_max ?? $max_db);
     $precio_min = max($min_db, $precio_min);
     $precio_max = min($max_db, max($precio_min + 0.01, $precio_max));
-    ?>
-
-    let currentMinPrice = <?php echo $precio_min; ?>;
-    let currentMaxPrice = <?php echo $precio_max; ?>;
-    let currentColorId = <?php echo $color_id; ?>;
-    let isPriceFilterActive = <?php echo $filtro_precio_activo ? 'true' : 'false'; ?>;
-    const minDbPrice = <?php echo $min_db; ?>;
-    const maxDbPrice = <?php echo $max_db; ?>;
-
-    function applyFilters() {
-        let url = currentCategorySlug ? `/tienda/${currentCategorySlug}` : '/tienda';
-        let params = [];
-        const sortOrder = document.getElementById('sortOrder').value;
-        if (sortOrder) {
-            params.push(`orden=${sortOrder}`);
-        }
-        if (isPriceFilterActive) {
-            params.push(`filtro_precio=1`);
-            params.push(`precio_min=${currentMinPrice}`);
-            params.push(`precio_max=${currentMaxPrice}`);
-        }
-        if (currentColorId > 0) {
-            params.push(`color=${currentColorId}`);
-        }
-        if (params.length > 0) {
-            url += '?' + params.join('&');
-        }
-
-        window.location.href = url;
-    }
-
-    const rangeInput = document.getElementById('priceRange');
-    const priceRangeDisplay = document.querySelector('.prices__range span:last-child');
-    const sliderTrack = document.querySelector('.prices__slider');
-    const enablePriceFilter = document.getElementById('enablePriceFilter');
-
-    document.getElementById('sortOrder').addEventListener('change', applyFilters);
-    rangeInput.addEventListener('input', function() {
-        const value = parseFloat(this.value);
-        let percentage = 0;
-        if (this.max > this.min) {
-            percentage = ((value - this.min) / (this.max - this.min)) * 100;
-        }
-        sliderTrack.style.setProperty('--slider-percentage', `${percentage}%`);
-        priceRangeDisplay.textContent = `<?php echo MONEDA; ?>${currentMinPrice.toFixed(2)} - <?php echo MONEDA; ?>${value.toFixed(2)}`;
-        currentMaxPrice = value;
-    });
-    rangeInput.addEventListener('change', function() {
-        applyFilters();
-    });
-    enablePriceFilter.addEventListener('change', function() {
-        isPriceFilterActive = this.checked;
-        if (isPriceFilterActive) {
-            sliderTrack.style.opacity = '1';
-            rangeInput.disabled = false;
-        } else {
-            sliderTrack.style.opacity = '0.5';
-            rangeInput.disabled = true;
-            currentMinPrice = minDbPrice;
-            currentMaxPrice = maxDbPrice;
-        }
-        applyFilters();
-    });
-    const colorDots = document.querySelectorAll('.colors__dot');
-    colorDots.forEach(dot => {
-        dot.addEventListener('click', function() {
-            colorDots.forEach(d => d.classList.remove('active'));
-            this.classList.add('active');
-            currentColorId = parseInt(this.dataset.colorId) || 0;
-            applyFilters();
-        });
-    });
-    <?php
-    $percentage = 0;
-    if ($max_db > $min_db) {
-        $percentage = (($precio_max - $min_db) / ($max_db - $min_db)) * 100;
-    }
-    ?>
-    document.head.insertAdjacentHTML('beforeend', `
-        <style>
-            .prices__slider {
-                position: relative;
-                width: 100%;
-                height: 2px;
-                background-color: #ccc;
-                margin: 1.5rem 0;
-                --slider-percentage: <?php echo $percentage; ?>%;
-                transition: opacity 0.3s;
-            }
-            
-            .prices__slider::before {
-                content: '';
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: var(--slider-percentage);
-                height: 100%;
-                background-color: #0077cc;
-            }
-            
-            .prices__slider::after {
-                content: '';
-                position: absolute;
-                left: var(--slider-percentage);
-                top: 50%;
-                transform: translate(-50%, -50%);
-                width: 15px;
-                height: 15px;
-                background-color: #0077cc;
-                border-radius: 50%;
-                cursor: pointer;
-            }
-            
-            .prices__input {
-                position: absolute;
-                top: -8px;
-                left: 0;
-                width: 100%;
-                height: 20px;
-                opacity: 0;
-                cursor: pointer;
-                z-index: 10;
-            }
-            
-            .prices__filter-toggle {
-                display: flex;
-                align-items: center;
-                margin-bottom: 1rem;
-                font-size: 1.3rem;
-            }
-            
-            .prices__filter-toggle input {
-                margin-right: 0.5rem;
-            }
-            
-            .colors__dot {
-                cursor: pointer;
-                transition: transform 0.2s;
-            }
-            
-            .colors__dot:hover {
-                transform: scale(1.2);
-            }
-            
-            .colors__dot.active {
-                border: 2px solid #000;
-                transform: scale(1.2);
-            }
-            
-            .color-all {
-                position: relative;
-            }
-            
-            .color-all::after {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: linear-gradient(135deg, red, orange, yellow, green, blue, indigo, violet);
-                border-radius: 50%;
-                opacity: 0.5;
-            }
-        </style>
-    `);
+?>
+<script>
+const shopConfig = {
+    categorySlug: <?php echo json_encode(isset($categoria_slug) ? $categoria_slug : ''); ?>,
+    minPrice: <?php echo floatval($precio_min); ?>,
+    maxPrice: <?php echo floatval($precio_max); ?>,
+    colorId: <?php echo intval($color_id); ?>,
+    isPriceFilterActive: <?php echo $filtro_precio_activo ? 'true' : 'false'; ?>,
+    minDbPrice: <?php echo floatval($min_db); ?>,
+    maxDbPrice: <?php echo floatval($max_db); ?>,
+    currencySymbol: <?php echo json_encode(MONEDA); ?>,
+    sliderPercentage: <?php echo floatval($percentage); ?>
+};
 </script>
+<?php 
+    $script = "
+        <script src='/build/js/tienda.js'></script>
+    ";
+
+?>
+
+
 <?php include_once __DIR__ . "/../templates/footer-principal.php"; ?>

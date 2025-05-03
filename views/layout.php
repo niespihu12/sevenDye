@@ -28,6 +28,7 @@
     <link rel="shortcut icon" href="../build/img/cropped-Seven_Isotipo-outline-3-32x32.webp" type="image/x-icon">
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+    
 </head>
 
 <body>
@@ -35,7 +36,9 @@
 
     <?php echo $contenido; ?>
 
-
+    <?php
+    echo $script ?? '';
+    ?>
     <script src="../build/js/app.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>

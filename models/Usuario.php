@@ -77,9 +77,25 @@ class Usuario extends ActiveRecord
         if(!$this->contraseña){
             self::$alertas['error'][] = "El password es obligatorio";
         }
+        if($this->existeUsuario()){
+            self::$alertas['error'][] = "El usuario ya existe";
+        }
         if(strlen($this->contraseña) < 8){
             self::$alertas['error'][] = "El password debe tener al menos 8 caracteres";
         }
+        if(!preg_match('/[A-Z]/', $this->contraseña)){
+            self::$alertas['error'][] = "El password debe tener al menos una letra mayúscula";
+        }
+        if(!preg_match('/[a-z]/', $this->contraseña)){
+            self::$alertas['error'][] = "El password debe tener al menos una letra minúscula";
+        }
+        if(!preg_match('/[0-9]/', $this->contraseña)){
+            self::$alertas['error'][] = "El password debe tener al menos un número";
+        }
+        if(!preg_match('/[!@#$%^&*()\-_=+{};:,<.>]/', $this->contraseña)){
+            self::$alertas['error'][] = "El password debe tener al menos un carácter especial";
+        }
+
         if(!$contraseña_repetida){
             self::$alertas['error'][] = "Repetir password es obligatorio";
         }
@@ -115,6 +131,19 @@ class Usuario extends ActiveRecord
         if(strlen($this->contraseña) < 8) {
             self::$alertas['error'][] = 'El Password debe tener al menos 8 caracteres';
         }
+        if(!preg_match('/[A-Z]/', $this->contraseña)){
+            self::$alertas['error'][] = "El password debe tener al menos una letra mayúscula";
+        }
+        if(!preg_match('/[a-z]/', $this->contraseña)){
+            self::$alertas['error'][] = "El password debe tener al menos una letra minúscula";
+        }
+        if(!preg_match('/[0-9]/', $this->contraseña)){
+            self::$alertas['error'][] = "El password debe tener al menos un número";
+        }
+        if(!preg_match('/[!@#$%^&*()\-_=+{};:,<.>]/', $this->contraseña)){
+            self::$alertas['error'][] = "El password debe tener al menos un carácter especial";
+        }
+
 
         return self::$alertas;
     }

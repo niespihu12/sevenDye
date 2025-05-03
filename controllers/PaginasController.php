@@ -8,6 +8,7 @@ use Model\Testimonio;
 use MVC\Router;
 use Model\Producto;
 use Model\ProductoImagen;
+use Model\Blog;
 use PHPMailer\PHPMailer\PHPMailer;
 
 
@@ -28,14 +29,13 @@ class PaginasController
 
         $productosPorCategoria = [];
         foreach ($categorias as $categoria) {
-            $query = "SELECT * FROM productos WHERE categorias_id = {$categoria->id} LIMIT 4";
+            $query = "SELECT * FROM productos WHERE categorias_id = {$categoria->id} ORDER BY id DESC LIMIT 4";
             $productosPorCategoria[$categoria->id] = Producto::consultarSQL($query);
         }
 
         $imagenes = [];
         // Corregido: iterar sobre cada grupo de productos por categoría
         foreach ($productosPorCategoria as $catId => $productosCategoria) {
-            // Corregido: iterar sobre cada producto individual
             foreach ($productosCategoria as $producto) {
                 $query = "SELECT * FROM producto_imagen WHERE productos_id = {$producto->id} LIMIT 1";
                 $resultado = ProductoImagen::consultarSQL($query);
@@ -61,6 +61,45 @@ class PaginasController
     public static function nosotros(Router $router)
     {
         $router->render('paginas/nosotros');
+    }
+
+
+    public static function blog(Router $router)
+    {
+        $blogLatest = Blog::consultarSQL("SELECT * FROM blog ORDER BY id DESC LIMIT 3");
+        $blogUnico = Blog::consultarSQL("SELECT * FROM blog ORDER BY id DESC LIMIT 1");
+        $router->render('blogs/index', [
+            'blogLatest' => $blogLatest,
+            'blogUnico' => $blogUnico[0]
+        ]);
+    }
+
+    public static function entrada(Router $router, $slug)
+    {
+        $slug = isset($slug) ? $slug : '';
+        $token = isset($_GET['token']) ? $_GET['token'] : '';
+
+        if ($slug == '' || $token == '') {
+            header('Location: /blog');
+            return;
+        }
+
+        $token_tmp = hash_hmac('sha1', $slug, KEY_TOKEN);
+        if ($token_tmp != $token) {
+            header('Location: /blog');
+            return;
+        }
+
+        $blog = Blog::where('slug', $slug);
+
+        if (!$blog) {
+            header('Location: /blog');
+            return;
+        }
+
+        $router->render('blog/index', [
+            'blog' => $blog,
+        ]);
     }
 
     public static function contacto(Router $router)

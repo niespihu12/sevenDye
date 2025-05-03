@@ -1,0 +1,149 @@
+/* Estilos para el Formulario de Búsqueda */
+.dashboard__search {
+    margin: 1.5rem 0;
+}
+
+.search-form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+}
+
+.search-input-container {
+    position: relative;
+    flex-grow: 1;
+    max-width: 500px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    padding-right: 3rem;
+    border: 1px solid #e1e1e1;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.search-button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 3rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+}
+
+.search-button:hover {
+    color: #333;
+}
+
+.clear-search {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    color: #666;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.clear-search:hover {
+    text-decoration: underline;
+    color: #333;
+}
+
+/* Sin Resultados */
+.no-results {
+    padding: 2rem;
+    text-align: center;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    margin: 1rem 0;
+}
+
+.btn-reset {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #f1f1f1;
+    color: #333;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.btn-reset:hover {
+    background-color: #e5e5e5;
+}
+
+/* Estilos de Paginación */
+.pagination {
+    margin: 2rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pagination__list {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-wrap: wrap;
+}
+
+.pagination__list li {
+    margin: 0 0.25rem;
+}
+
+.pagination__link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.5rem;
+    min-width: 2.5rem;
+    padding: 0 0.75rem;
+    background-color: #fff;
+    border: 1px solid #e1e1e1;
+    border-radius: 4px;
+    color: #333;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.pagination__link:hover {
+    background-color: #f9f9f9;
+}
+
+.pagination__link--current {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+
+.pagination__link--prev,
+.pagination__link--next {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.pagination__ellipsis {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.5rem;
+    padding: 0 0.5rem;
+}
+
+.pagination__info {
+    margin-top: 1rem;
+    color: #666;
+    font-size: 0.9rem;
+}

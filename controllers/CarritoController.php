@@ -167,4 +167,14 @@ class CarritoController
         
         echo json_encode($datos);
     }
+
+
+    public static function contarCarrito() {
+        session_start();
+        
+        $count = Carrito::obtenerCuentaCarrito();
+        $count = is_array($count) ? 0 : $count;
+        
+        echo json_encode(['count' => (int)$count]);
+    }
 }

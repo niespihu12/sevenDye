@@ -1,0 +1,88 @@
+@use '../base/variables' as v;
+@use '../base/mixins' as m;
+
+// Counter badge styles
+.counter-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: v.$rojo;
+    color: v.$blanco;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+// Make cart and wishlist icons have relative position to position the counter
+.navegacion-secundaria .carrito,
+.navegacion-secundaria .favoritos,
+.barra-mobile .carrito,
+.barra-mobile .like {
+    position: relative;
+    display: inline-block;
+}
+
+// Notification styles
+#notification-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+}
+
+.notification {
+    background-color: v.$violeta;
+    color: v.$blanco;
+    padding: 12px 20px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    animation: slide-in 0.3s ease-out forwards;
+    font-size: 14px;
+    max-width: 300px;
+    
+    &.fade-out {
+        animation: fade-out 0.5s ease-out forwards;
+    }
+}
+
+@keyframes slide-in {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fade-out {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+// Wishlist button styles
+.wishlist-btn {
+    cursor: pointer;
+    transition: all 0.2s ease;
+    
+    &.active {
+        color: v.$rojo;
+    }
+    
+    &:hover {
+        transform: scale(1.1);
+    }
+}

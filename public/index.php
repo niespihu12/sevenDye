@@ -2,6 +2,9 @@
 
 require_once __DIR__ . '/../includes/app.php';
 
+use Controllers\BlogCategoriaController;
+use Controllers\BlogController;
+use Controllers\BlogsController;
 use Controllers\CarritoController;
 use MVC\Router;
 use Controllers\InfluencerController;
@@ -18,6 +21,8 @@ use Controllers\DeseoController;
 use Controllers\TallaController;
 use Controllers\ProductoController;
 use Controllers\TiendaController;
+use Model\BlogCategoria;
+
 $router = new Router();
 
 // Zona privada
@@ -28,6 +33,7 @@ $router->post('/testimonios/crear', [TestimonioController::class, 'crear']);
 $router->get('/testimonios/actualizar', [TestimonioController::class, 'actualizar']);
 $router->post('/testimonios/actualizar', [TestimonioController::class, 'actualizar']);
 $router->post('/testimonios/eliminar', [TestimonioController::class, 'eliminar']);
+
 
 $router->get('/influencers/admin', [InfluencerController::class, 'index']);
 $router->get('/influencers/crear', [InfluencerController::class, 'crear']);
@@ -64,6 +70,25 @@ $router->post('/productos/crear', [ProductoController::class, 'crear']);
 $router->get('/productos/actualizar', [ProductoController::class, 'actualizar']);
 $router->post('/productos/actualizar', [ProductoController::class, 'actualizar']);
 $router->post('/productos/eliminar', [ProductoController::class, 'eliminar']);
+$router->get('/productos/buscar', [ProductoController::class, 'buscar']);
+
+$router->get('/blog/admin', [BlogController::class, 'index']);
+$router->get('/blog/crear', [BlogController::class, 'crear']);
+$router->post('/blog/crear', [BlogController::class, 'crear']);
+$router->get('/blog/actualizar', [BlogController::class, 'actualizar']);
+$router->post('/blog/actualizar', [BlogController::class, 'actualizar']);
+$router->post('/blog/eliminar', [BlogController::class, 'eliminar']);
+$router->get('/blog/buscar', [BlogController::class, 'buscar']);
+
+
+$router->get('/blog_categorias/admin', [BlogCategoriaController::class, 'index']);
+$router->get('/blog_categorias/crear', [BlogCategoriaController::class, 'crear']);
+$router->post('/blog_categorias/crear', [BlogCategoriaController::class, 'crear']);
+$router->get('/blog_categorias/actualizar', [BlogCategoriaController::class, 'actualizar']);
+$router->post('/blog_categorias/actualizar', [BlogCategoriaController::class, 'actualizar']);
+$router->post('/blog_categorias/eliminar', [BlogCategoriaController::class, 'eliminar']);
+
+
 
 
 $router->get('/clientes/admin', [ClienteController::class, 'index']);
@@ -108,6 +133,7 @@ $router->get('/carrito', [CarritoController::class, 'index']);
 $router->post('/carrito/agregar', [CarritoController::class, 'agregar']);
 $router->post('/carrito/actualizar', [CarritoController::class, 'actualizar']);
 $router->post('/carrito/eliminar', [CarritoController::class, 'eliminar']);
+$router->get('/carrito/count', [CarritoController::class, 'contarCarrito']);
 
 
 // Tienda 
@@ -121,8 +147,10 @@ $router->get('/deseos', [DeseoController::class, 'index']);
 $router->get('/deseos/verificar', [DeseoController::class, 'verificar']);
 $router->post('/deseos/guardar', [DeseoController::class, 'guardar']);
 $router->post('/deseos/eliminar', [DeseoController::class, 'eliminar']);
+$router->get('/deseos/count', [DeseoController::class, 'contarDeseos']);
 
-
+// blog
+$router->get('/blog', [PaginasController::class, 'blog']);
 
 $router->comprobarRutas();
 

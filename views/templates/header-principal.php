@@ -25,7 +25,13 @@ if ($auth) {
         </a>
     </div>
     <div class="barra-mobile">
-        <a class="profile" href="/login"><i class="bi bi-person-fill"></i></i></a>
+        <?php if ($auth) { ?>
+            <a href="/perfil" class="perfil-mobile">
+                <img loading="lazy" src="/imagenes/<?php echo $foto ?>" alt="profile" width="100" height="100">
+            </a>
+        <?php } else { ?>
+            <a class="profile" href="/login"><i class="bi bi-person-fill"></i></i></a>
+        <?php } ?>
         <?php if ($auth) { ?>
             <a class="like" href="/deseos"><i class="bi bi-heart-fill"></i></a>
         <?php } ?>
@@ -42,16 +48,18 @@ if ($auth) {
         <a href="/contacto">CONTACT</a>
     </nav>
     <nav class="navegacion-secundaria">
-        <div class="container">
-            <input type="text" name="text" class="input" required="" placeholder="Type to search...">
-            <div class="icon">
-                <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
-                    <title>Search</title>
-                    <path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none"
-                        stroke="currentColor" stroke-miterlimit="10" stroke-width="32"></path>
-                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32"
-                        d="M338.29 338.29L448 448"></path>
-                </svg>
+        <div class="search-container">
+            <div class="container">
+                <input type="text" id="search-input-desktop" name="search" class="input" required placeholder="Type to search...">
+                <div class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
+                        <title>Search</title>
+                        <path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"></path>
+                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448"></path>
+                    </svg>
+                </div>
+            </div>
+            <div id="search-results-desktop" class="search-results">
             </div>
         </div>
         <?php if ($auth) { ?>
@@ -67,9 +75,7 @@ if ($auth) {
                         <img src="/build/img/default_pfp.png" alt="profile" width="100" height="100">
                     </picture>
                 </a>
-
             <?php } ?>
-
         <?php } else { ?>
             <a class="sign-in-button" href="/login">Sign In</a>
         <?php } ?>
@@ -87,16 +93,18 @@ if ($auth) {
 
     <nav class="navegacion-mobile" id="nav-mob">
         <button id="cerrar" class="cerrar-menu"><i class="bi bi-x"></i></button>
-        <div class="container">
-            <input type="text" name="text" class="input" required="" placeholder="Type to search...">
-            <div class="icon">
-                <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
-                    <title>Search</title>
-                    <path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none"
-                        stroke="currentColor" stroke-miterlimit="10" stroke-width="32"></path>
-                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32"
-                        d="M338.29 338.29L448 448"></path>
-                </svg>
+        <div class="search-container">
+            <div class="container">
+                <input type="text" id="search-input-mobile" name="search" class="input" required placeholder="Type to search...">
+                <div class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
+                        <title>Search</title>
+                        <path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"></path>
+                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448"></path>
+                    </svg>
+                </div>
+            </div>
+            <div id="search-results-mobile" class="search-results">
             </div>
         </div>
         <a href="/">HOME</a>

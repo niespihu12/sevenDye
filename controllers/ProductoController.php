@@ -20,17 +20,61 @@ class ProductoController
         session_start();
 
         isAdmin();
-        $productos = Producto::all();
+
+        // Pagination setup
+        $itemsPerPage = 10; // Número de productos por página
+        $currentPage = intval($_GET['page'] ?? 1); // Obtener página actual de la URL, por defecto 1
+        if ($currentPage < 1) $currentPage = 1;
+
+        // Obtener término de búsqueda si existe
+        $search = trim($_GET['search'] ?? '');
+
+        // Construir consulta basada en la búsqueda
+        $whereClause = "";
+
+        if (!empty($search)) {
+            $whereClause = "WHERE nombre LIKE '%{$search}%' OR referencia LIKE '%{$search}%' OR descripcion LIKE '%{$search}%'";
+        }
+
+        // Contar total de elementos para la paginación
+        $countQuery = "SELECT COUNT(*) as total FROM productos {$whereClause}";
+        $resultado = Producto::ejecutarSQL($countQuery);
+        $totalItems = $resultado->fetch_assoc()['total'];
+        $totalPages = ceil($totalItems / $itemsPerPage);
+
+        // Ajustar página actual si excede el máximo de páginas
+        if ($currentPage > $totalPages && $totalPages > 0) {
+            $currentPage = $totalPages;
+        }
+
+        // Calcular offset para la consulta SQL
+        $offset = ($currentPage - 1) * $itemsPerPage;
+
+        // Construir y ejecutar la consulta principal con paginación
+        $productsQuery = "SELECT * FROM productos {$whereClause} ORDER BY id DESC LIMIT {$itemsPerPage} OFFSET {$offset}";
+        $productos = Producto::consultarSQL($productsQuery);
+
+        // Calcular detalles de paginación para la vista
+        $firstItemIndex = $totalItems ? ($offset + 1) : 0;
+        $lastItemIndex = min($offset + $itemsPerPage, $totalItems);
+
+        // Obtener imágenes para los productos
         $imagenes = [];
-        foreach($productos as $producto){
+        foreach ($productos as $producto) {
             $imagen = ProductoImagen::consultarSQL("SELECT * FROM producto_imagen WHERE productos_id = {$producto->id} LIMIT 1");
             $imagenes[$producto->id] = $imagen[0]->imagen ?? '';
         }
-       
+
         $router->render('productos/admin', [
             'productos' => $productos,
             'imagenes' => $imagenes,
-            'pageTitle' => 'Productos'
+            'pageTitle' => 'Productos',
+            'currentPage' => $currentPage,
+            'totalPages' => $totalPages,
+            'totalItems' => $totalItems,
+            'firstItemIndex' => $firstItemIndex,
+            'lastItemIndex' => $lastItemIndex,
+            'search' => $search
         ]);
     }
 
@@ -51,7 +95,7 @@ class ProductoController
             $alertas = $producto->validar();
             $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
             $imagenesSubidas = [];
-            
+
             // Validar imágenes
             if (count($_FILES['imagen']['tmp_name']) > 4) {
                 $producto->setAlerta("error", "Solo se permiten 4 imagenes por producto");
@@ -79,7 +123,7 @@ class ProductoController
             if (isset($_POST['tallas_activas'])) {
                 $tallaSeleccionada = true;
             }
-            
+
             if (!$tallaSeleccionada) {
                 Producto::setAlerta('error', 'Debe activar al menos una talla');
             }
@@ -101,7 +145,7 @@ class ProductoController
                 $producto->creado = date('Y/m/d');
                 $resultado = $producto->guardar();
                 $producto = Producto::where('referencia', $producto->referencia);
-                
+
                 if ($resultado) {
                     // Guardar imágenes
                     foreach ($imagenesSubidas as $imagen) {
@@ -112,12 +156,12 @@ class ProductoController
                         ]);
                         $productosImagen->guardar();
                     }
-                    
+
                     // Guardar tallas
                     if (isset($_POST['tallas_activas'])) {
                         foreach ($_POST['tallas_activas'] as $talla_id) {
                             $precioTalla = $_POST['talla_precios'][$talla_id] ?? $producto->precio;
-                            
+
                             $productoTalla = new ProductoTalla([
                                 'productos_id' => $producto->id,
                                 'tallas_id' => $talla_id,
@@ -127,7 +171,7 @@ class ProductoController
                             $productoTalla->guardar();
                         }
                     }
-                    
+
                     // Guardar colores
                     foreach ($_POST['colores'] as $color_id) {
                         $productoColor = new ProductoColor([
@@ -154,7 +198,7 @@ class ProductoController
             'coloresSeleccionados' => []
         ]);
     }
-    
+
     public static function actualizar(Router $router)
     {
         session_start();
@@ -170,11 +214,11 @@ class ProductoController
         $imagenes = ProductoImagen::consultarSQL("SELECT * FROM producto_imagen WHERE productos_id = {$id}");
         $tallasActuales = ProductoTalla::consultarSQL("SELECT * FROM productos_tallas WHERE productos_id = {$id}");
         $coloresActuales = ProductoColor::consultarSQL("SELECT * FROM productos_colores WHERE productos_id = {$id}");
-       
+
         // Preparar datos para el formulario
         $preciosTallas = [];
         $tallasActivas = [];
-        
+
         foreach ($tallasActuales as $talla) {
             $preciosTallas[$talla->tallas_id] = $talla->precio;
             if ($talla->activo) {
@@ -182,7 +226,7 @@ class ProductoController
             }
         }
 
-        $coloresSeleccionados = array_map(function($pc) {
+        $coloresSeleccionados = array_map(function ($pc) {
             return $pc->colores_id;
         }, $coloresActuales);
 
@@ -217,7 +261,7 @@ class ProductoController
             if (isset($_POST['tallas_activas']) && !empty($_POST['tallas_activas'])) {
                 $tallaSeleccionada = true;
             }
-            
+
             if (!$tallaSeleccionada) {
                 Producto::setAlerta('error', 'Debe activar al menos una talla');
             }
@@ -248,7 +292,7 @@ class ProductoController
                             $imagenObj?->eliminar();
                         }
                     }
-                    
+
                     // Guardar nuevas imágenes
                     foreach ($imagenesSubidas as $nombreImagen) {
                         $productoImagen = new ProductoImagen([
@@ -258,7 +302,7 @@ class ProductoController
                         ]);
                         $productoImagen->guardar();
                     }
-                    
+
                     // Actualizar tallas
                     foreach ($tallasActuales as $tallaActual) {
                         $tallaActual->eliminar();
@@ -267,7 +311,7 @@ class ProductoController
                     if (isset($_POST['tallas_activas'])) {
                         foreach ($_POST['tallas_activas'] as $talla_id) {
                             $precioTalla = $_POST['talla_precios'][$talla_id] ?? $producto->precio;
-                            
+
                             $productoTalla = new ProductoTalla([
                                 'productos_id' => $producto->id,
                                 'tallas_id' => $talla_id,
@@ -294,12 +338,12 @@ class ProductoController
                             }
                         }
                     }
-                    
+
                     // Actualizar colores
                     foreach ($coloresActuales as $colorActual) {
                         $colorActual->eliminar();
                     }
-        
+
                     foreach ($_POST['colores'] as $color_id) {
                         $productoColor = new ProductoColor([
                             'productos_id' => $producto->id,
@@ -339,7 +383,7 @@ class ProductoController
             // Validar ID
             $id = $_POST['id'];
             $id = filter_var($id, FILTER_VALIDATE_INT);
-            
+
             if ($id) {
                 $producto = Producto::find($id);
 
@@ -351,21 +395,21 @@ class ProductoController
                         $imagen->borrarImagen();
                         $imagen->eliminar();
                     }
-                    
+
                     // Eliminar tallas
                     $query = "SELECT * FROM productos_tallas WHERE productos_id = {$id}";
                     $tallas = ProductoTalla::consultarSQL($query);
                     foreach ($tallas as $talla) {
                         $talla->eliminar();
                     }
-                    
+
                     // Eliminar colores
                     $query = "SELECT * FROM productos_colores WHERE productos_id = {$id}";
                     $colores = ProductoColor::consultarSQL($query);
                     foreach ($colores as $color) {
                         $color->eliminar();
                     }
-                    
+
                     // Eliminar producto
                     $resultado = $producto->eliminar();
 
@@ -375,5 +419,43 @@ class ProductoController
                 }
             }
         }
+    }
+
+    public static function buscar()
+    {
+        header('Content-Type: application/json');
+
+        if (!isset($_GET['q']) || empty($_GET['q'])) {
+            echo json_encode([]);
+            exit;
+        }
+
+        $searchTerm = $_GET['q'];
+
+        $query = "SELECT * FROM productos WHERE 
+                nombre LIKE '%{$searchTerm}%' OR 
+                referencia LIKE '%{$searchTerm}%' OR 
+                descripcion LIKE '%{$searchTerm}%' 
+                LIMIT 6";
+
+        $productos = Producto::consultarSQL($query);
+        $resultados = [];
+
+        foreach ($productos as $producto) {
+            $imagenQuery = "SELECT * FROM producto_imagen WHERE productos_id = {$producto->id} LIMIT 1";
+            $imagenes = ProductoImagen::consultarSQL($imagenQuery);
+
+            $resultados[] = [
+                'id' => $producto->id,
+                'nombre' => $producto->nombre,
+                'precio' => $producto->precio,
+                'slug' => $producto->slug,
+                'referencia' => $producto->referencia,
+                'imagen' => $imagenes[0]->imagen ?? null
+            ];
+        }
+
+        echo json_encode($resultados);
+        exit;
     }
 }

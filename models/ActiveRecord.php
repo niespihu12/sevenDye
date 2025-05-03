@@ -36,8 +36,10 @@ class ActiveRecord
             return $this->crear();
         }
     }
-
-
+    public static function ejecutarSQL($query) {
+        return self::$db->query($query);
+    }
+    
     public function crear()
     {
         $atributos = $this->sanitizarAtributos();
@@ -128,7 +130,7 @@ class ActiveRecord
     }
     public static function all()
     {
-        $query = "SELECT * FROM " . static::$tabla . " ORDER BY id ASC ";
+        $query = "SELECT * FROM " . static::$tabla . " ORDER BY id DESC ";
         $resultado = self::consultarSQL($query);
         return $resultado;
     }

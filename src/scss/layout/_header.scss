@@ -272,7 +272,168 @@
         font-size: 1.8rem;
     }
 
+    .perfil-mobile {
+        width: 2.5rem;
+        border-radius: 50%;
+    }
+
     .like {
         font-size: 1.8rem;
     }
+}
+
+.search-container {
+    position: relative;
+    width: 100%;
+    
+    .container {
+        position: relative;
+        --size-button: 40px;
+        color: v.$violeta;
+    }
+
+    .input {
+        padding-left: var(--size-button);
+        height: var(--size-button);
+        font-size: 15px;
+        border: none;
+        color: v.$violeta;
+        outline: none;
+        width: var(--size-button);
+        transition: all ease 0.3s;
+        background-color: transparent;
+        border-radius: 50px;
+        cursor: pointer;
+    }
+
+    .input:focus,
+    .input:not(:invalid) {
+        width: 200px;
+        cursor: text;
+        box-shadow: 0px 0px 0px v.$violeta, 0px 0px 0px rgb(95 94 94 / 25%), 
+                   inset 1.5px 1.5px 3px v.$violeta, inset -1.5px -1.5px 3px v.$violeta;
+    }
+
+    .input:focus+.icon,
+    .input:not(:invalid)+.icon {
+        pointer-events: all;
+        cursor: pointer;
+    }
+
+    .container .icon {
+        position: absolute;
+        width: var(--size-button);
+        height: var(--size-button);
+        top: 0;
+        left: 0;
+        padding: 8px;
+        pointer-events: none;
+    }
+
+    .container .icon svg {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+// Estilos para los resultados de búsqueda
+.search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: 0;
+    overflow: hidden;
+    background-color: v.$blanco;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    opacity: 0;
+    transition: all 0.3s ease;
+    
+    &.show {
+        max-height: 400px;
+        opacity: 1;
+        overflow-y: auto;
+        border: 1px solid #eee;
+        border-top: none;
+    }
+    
+    .loading, .no-results, .error {
+        padding: 15px;
+        text-align: center;
+        color: #666;
+    }
+    
+    .error {
+        color: v.$rojo;
+    }
+}
+
+// Estilos para cada elemento de resultado
+.search-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.2s ease;
+    text-decoration: none;
+    color: v.$negro;
+    
+    &:hover {
+        background-color: #f9f9f9;
+    }
+    
+    &:last-child {
+        border-bottom: none;
+    }
+    
+    .search-item-image {
+        width: 50px;
+        height: 50px;
+        margin-right: 15px;
+        border-radius: 4px;
+        overflow: hidden;
+        
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+    
+    .search-item-info {
+        flex: 1;
+        
+        .search-item-name {
+            font-weight: 500;
+            margin-bottom: 5px;
+            color: v.$negro;
+        }
+        
+        .search-item-price {
+            color: v.$violeta;
+            font-weight: 600;
+        }
+    }
+}
+
+// Ajustes responsive
+@include m.tablet {
+    .search-container {
+        width: auto;
+        
+        .search-results {
+            width: 300px;
+            left: auto;
+            right: 0;
+        }
+    }
+}
+
+// Destacar coincidencias en resultados de búsqueda
+.highlight {
+    background-color: rgba(v.$violeta, 0.1);
+    font-weight: bold;
+    padding: 0 2px;
 }

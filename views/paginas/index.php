@@ -205,8 +205,6 @@
                             <img loading="lazy" width="100" height="100" class="imgg" src="/imagenes/<?php echo $imagenes[$producto->id]; ?>"
                                 alt="<?php echo $producto->nombre; ?>">
 
-                            <p data-descripcion="<?php echo $producto->descripcion ?>"></p>
-
                             <div class="quick-actions">
                                 <button class="quick-views" aria-label="Quick views">
                                     <i class="fas fa-eye"></i>
@@ -347,7 +345,7 @@
 <!-- Apartadoo de las ofertas -->
 
 <section class="products-section">
-    <h2 class="section-title">OFFERS</h2>
+    <h2 class="section-title">BEST SELLER</h2>
 
     <div class="products-carousel">
         <div class="carousel-container">

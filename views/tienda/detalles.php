@@ -3,8 +3,8 @@
 <section class="producto-contenedor">
     <div class="producto-gallery">
         <?php foreach ($productoImagenes as $i => $imagen): ?>
-            <div class="image-box<?php echo $i === 0 ? ' active' : ''; ?>" 
-                 onclick="img('/imagenes/<?php echo $imagen->imagen ?>', this)">
+            <div class="image-box<?php echo $i === 0 ? ' active' : ''; ?>"
+                onclick="img('/imagenes/<?php echo $imagen->imagen ?>', this)">
                 <img loading="lazy" width="100" height="100" src="/imagenes/<?php echo $imagen->imagen ?>">
             </div>
         <?php endforeach; ?>
@@ -18,7 +18,11 @@
         <div class="producto-extrellas">
             <div class="producto-extrella">
                 <ul>
-                    <li>⭐</li><li>⭐</li><li>⭐</li><li>⭐</li><li>⭐</li>
+                    <li>⭐</li>
+                    <li>⭐</li>
+                    <li>⭐</li>
+                    <li>⭐</li>
+                    <li>⭐</li>
                 </ul>
                 <p>(150 Reviews)</p>
             </div>
@@ -40,10 +44,10 @@
                     <label class="producto-radio">
                         <?php foreach ($tallas as $talla): ?>
                             <?php if ($productoTalla->tallas_id == $talla->id): ?>
-                                <input type="radio" name="radio" 
-                                       value="<?php echo $talla->id; ?>" 
-                                       data-precio="<?php echo $productoTalla->precio ?? $producto->precio; ?>"
-                                       data-talla-id="<?php echo $talla->id; ?>">
+                                <input type="radio" name="radio"
+                                    value="<?php echo $talla->id; ?>"
+                                    data-precio="<?php echo $productoTalla->precio ?? $producto->precio; ?>"
+                                    data-talla-id="<?php echo $talla->id; ?>">
                                 <span class="producto-size"><?php echo $talla->nombre ?></span>
                             <?php endif; ?>
                         <?php endforeach; ?>
@@ -166,7 +170,7 @@
     // Agregar al carrito
     const addToCartButtons = document.querySelectorAll('.add-to-cart');
     addToCartButtons.forEach(button => {
-        button.addEventListener('click', function (e) {
+        button.addEventListener('click', function(e) {
             e.preventDefault();
             const id = this.getAttribute('data-id');
             const token = this.getAttribute('data-token');
@@ -179,19 +183,20 @@
             const talla = tallaInput.value;
 
             fetch('/carrito/agregar', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: `id=${encodeURIComponent(id)}&token=${encodeURIComponent(token)}&cantidad=${encodeURIComponent(cantidad)}&talla=${encodeURIComponent(talla)}`
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.ok) {
-                    alert('Producto añadido al carrito');
-                }
-            })
-            .catch(error => console.error('Error:', error));
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: `id=${encodeURIComponent(id)}&token=${encodeURIComponent(token)}&cantidad=${encodeURIComponent(cantidad)}&talla=${encodeURIComponent(talla)}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.ok) {
+                        alert('Producto añadido al carrito');
+                        window.location.reload();
+                    }
+                })
+                .catch(error => console.error('Error:', error));
         });
     });
 
@@ -220,10 +225,10 @@
         const producto = this.dataset.producto;
         const icon = this.querySelector('i');
         const isInWishlist = icon.classList.contains('fas');
-        
+
         try {
             let url, method;
-            
+
             if (isInWishlist) {
                 url = '/deseos/eliminar';
                 method = 'POST';
@@ -231,7 +236,7 @@
                 url = '/deseos/guardar';
                 method = 'POST';
             }
-            
+
             const response = await fetch(url, {
                 method: method,
                 headers: {
@@ -242,9 +247,9 @@
                     producto
                 })
             });
-            
+
             const data = await response.json();
-            
+
             if (data.resultado) {
                 // Cambiar el ícono
                 if (isInWishlist) {
@@ -254,16 +259,16 @@
                 }
 
                 console.log(data.mensaje);
-                
+
                 // Mostrar mensaje
                 alert(data.mensaje || (isInWishlist ? 'Removed from wishlist' : 'Added to wishlist'));
 
-                
+                window.location.reload();
 
             } else {
                 // Mostrar error
                 alert(data.mensaje || 'An error occurred');
-                if(data.mensaje == 'Usuario no autenticado'){
+                if (data.mensaje == 'Usuario no autenticado') {
                     window.location.href = "/login";
                 }
             }

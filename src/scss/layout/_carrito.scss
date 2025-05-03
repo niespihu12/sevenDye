@@ -653,3 +653,16 @@
         }
     }
 }
+
+.cupon-message {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+  }
+  
+  .cupon-message.error {
+    color: red;
+  }
+  
+  .cupon-message.success {
+    color: green;
+}
