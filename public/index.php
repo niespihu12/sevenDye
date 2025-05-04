@@ -140,6 +140,8 @@ $router->post('/carrito/agregar', [CarritoController::class, 'agregar']);
 $router->post('/carrito/actualizar', [CarritoController::class, 'actualizar']);
 $router->post('/carrito/eliminar', [CarritoController::class, 'eliminar']);
 $router->get('/carrito/count', [CarritoController::class, 'contarCarrito']);
+$router->post('/carrito/aplicar-cupon', [CarritoController::class, 'aplicarCupon']);
+$router->post('/carrito/quitar-cupon', [CarritoController::class, 'quitarCupon']);
 
 
 // Tienda 

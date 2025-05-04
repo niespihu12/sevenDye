@@ -1,12 +1,14 @@
 <?php
+
 namespace Controllers;
 
 use MVC\Router;
-use Model\Carrito;
 use Model\Producto;
-use Model\ProductoImagen;
+use Model\Carrito;
+use Model\ProductoTalla;
 use Model\Talla;
 use Model\Cupon;
+use Model\ProductoImagen;
 
 class CarritoController
 {
@@ -40,7 +42,7 @@ class CarritoController
             $id = $_POST['id'];
             $token = $_POST['token'];
             $token_tmp = hash_hmac('sha1', $id, KEY_TOKEN);
-            
+
             if ($token === $token_tmp) {
                 $producto = Producto::find($id);
 
@@ -52,7 +54,7 @@ class CarritoController
 
                 $cantidad = isset($_POST['cantidad']) ? intval($_POST['cantidad']) : 1;
                 $talla = isset($_POST['talla']) ? intval($_POST['talla']) : null;
-                
+
                 $numItems = Carrito::añadirproducto($id, $cantidad, $talla);
 
                 $datos['numero'] = $numItems;
@@ -69,112 +71,110 @@ class CarritoController
     public static function actualizar()
     {
         session_start();
-        $jsonData = file_get_contents('php://input');
-        $data = json_decode($jsonData, true);
-        $clave = isset($data['clave']) ? $data['clave'] : null;
-        $cantidad = isset($data['cantidad']) ? $data['cantidad'] : null;
 
-        if (!$clave || $cantidad <= 0 || !is_numeric($cantidad)) {
-            $datos['ok'] = false;
-            echo json_encode($datos);
-            return;
-        }
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
+            // Obtener datos del JSON
+            $datos = json_decode(file_get_contents('php://input'), true);
 
-        $respuesta = Carrito::actualizarProducto($clave, $cantidad);
+            if (isset($datos['clave']) && isset($datos['cantidad'])) {
+                $resultado = Carrito::actualizarproducto($datos['clave'], $datos['cantidad']);
 
-        if ($respuesta > 0) {
-            $datos['ok'] = true;
-            $datos['subTotal'] = MONEDA . number_format($respuesta, 2);
+                echo json_encode([
+                    'ok' => true,
+                    'subtotal' => $resultado
+                ]);
+            } else {
+                echo json_encode([
+                    'ok' => false,
+                    'mensaje' => 'Datos incompletos'
+                ]);
+            }
         } else {
-            $datos['ok'] = false;
+            header('Location: /carrito');
         }
-        echo json_encode($datos);
     }
 
     public static function eliminar()
     {
         session_start();
-        $jsonData = file_get_contents('php://input');
-        $data = json_decode($jsonData, true);
-        $clave = $data['clave'] ?? null;
 
-        if (!$clave) {
-            error_log("Error al eliminar el producto del carrito");
-            $datos['ok'] = false;
-            echo json_encode($datos);
-            return;
-        }
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
+            // Obtener datos del JSON
+            $datos = json_decode(file_get_contents('php://input'), true);
 
-        $respuesta = Carrito::eliminarProducto($clave);
+            if (isset($datos['clave'])) {
+                $resultado = Carrito::eliminarProducto($datos['clave']);
 
-        if ($respuesta) {
-            $datos['ok'] = true;
+                echo json_encode([
+                    'ok' => $resultado
+                ]);
+            } else {
+                echo json_encode([
+                    'ok' => false,
+                    'mensaje' => 'Datos incompletos'
+                ]);
+            }
         } else {
-            $datos['ok'] = false;
+            header('Location: /carrito');
         }
-
-        echo json_encode($datos);
     }
-    
+
     public static function aplicarCupon()
     {
         session_start();
-        $jsonData = file_get_contents('php://input');
-        $data = json_decode($jsonData, true);
-        $codigo = $data['codigo'] ?? null;
-        
-        if (!$codigo) {
-            $datos['ok'] = false;
-            $datos['mensaje'] = 'El código de cupón es requerido';
-            echo json_encode($datos);
-            return;
-        }
-        
-        $respuesta = Carrito::aplicarCupon($codigo);
-        
-        if ($respuesta) {
-            $totalConDescuento = Carrito::obtenerTotalConDescuento();
-            $total = Carrito::obtenerTotal();
-            $descuentoAplicado = $total - $totalConDescuento;
-            
-            $datos['ok'] = true;
-            $datos['mensaje'] = 'Cupón aplicado correctamente';
-            $datos['descuento'] = [
-                'porcentaje' => $respuesta['descuento'],
-                'monto' => MONEDA . number_format($descuentoAplicado, 2)
-            ];
-            $datos['totalConDescuento'] = MONEDA . number_format($totalConDescuento, 2);
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
+            // Obtener datos del JSON
+            $datos = json_decode(file_get_contents('php://input'), true);
+
+            if (isset($datos['codigo'])) {
+                $cupon = Carrito::aplicarCupon($datos['codigo']);
+
+                if ($cupon) {
+                    echo json_encode([
+                        'ok' => true,
+                        'mensaje' => 'Coupon applied successfully',
+                        'cupon' => $cupon
+                    ]);
+                } else {
+                    echo json_encode([
+                        'ok' => false,
+                        'mensaje' => 'Invalid or expired coupon'
+                    ]);
+                }
+            } else {
+                echo json_encode([
+                    'ok' => false,
+                    'mensaje' => 'Coupon code is required'
+                ]);
+            }
         } else {
-            $datos['ok'] = false;
-            $datos['mensaje'] = 'El cupón no es válido o está expirado';
+            header('Location: /carrito');
         }
-        
-        echo json_encode($datos);
     }
-    
+
     public static function quitarCupon()
     {
         session_start();
-        $respuesta = Carrito::quitarCupon();
-        
-        if ($respuesta) {
-            $datos['ok'] = true;
-            $datos['mensaje'] = 'Cupón eliminado correctamente';
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
+            $resultado = Carrito::quitarCupon();
+
+            echo json_encode([
+                'ok' => $resultado
+            ]);
         } else {
-            $datos['ok'] = false;
-            $datos['mensaje'] = 'Error al eliminar el cupón';
+            header('Location: /carrito');
         }
-        
-        echo json_encode($datos);
     }
 
-
-    public static function contarCarrito() {
+    public static function contarCarrito()
+    {
         session_start();
-        
+
         $count = Carrito::obtenerCuentaCarrito();
         $count = is_array($count) ? 0 : $count;
-        
+
         echo json_encode(['count' => (int)$count]);
     }
 }

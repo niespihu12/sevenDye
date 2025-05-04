@@ -79,9 +79,14 @@ class Carrito {
     public static function aplicarCupon($codigo) {
         self::carrito();
         
+        // Verificar que el carrito no esté vacío
+        if (empty($_SESSION['carrito']['productos'])) {
+            return false;
+        }
+        
         $cupon = Cupon::verificarCupon($codigo);
         
-        if($cupon) {
+        if ($cupon) {
             $_SESSION['carrito']['cupon'] = $cupon;
             return $cupon;
         }
@@ -164,8 +169,16 @@ class Carrito {
         $total = self::obtenerTotal();
         $cupon = self::obtenerCupon();
         
-        if($cupon) {
-            $descuento = ($total * $cupon['descuento']) / 100;
+        if ($cupon) {
+            if ($cupon['tipo_descuento'] === 'porcentaje') {
+                $descuento = ($total * $cupon['descuento']) / 100;
+            } else { // tipo_descuento === 'monto'
+                $descuento = $cupon['descuento'];
+                // Asegurarse de que el descuento no sea mayor que el total
+                if ($descuento > $total) {
+                    $descuento = $total;
+                }
+            }
             return $total - $descuento;
         }
         
@@ -174,6 +187,6 @@ class Carrito {
 
     public static function obtenerCuentaCarrito() {
         self::carrito();
-        return count($_SESSION['carrito']['productos']) > 0 ? count($_SESSION['carrito']['productos']) : [];
+        return count($_SESSION['carrito']['productos']) > 0 ? count($_SESSION['carrito']['productos']) : 0;
     }
 }

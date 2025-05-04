@@ -48,18 +48,23 @@
 
           <?php if ($cupon): ?>
             <div class="summary-row discount">
-              <span>Discount (<?php echo $cupon['descuento']; ?>%)</span>
-              <span class="discount-amount">-<?php echo $moneda . number_format(($total * $cupon['descuento']) / 100, 2); ?></span>
+              <?php if ($cupon['tipo_descuento'] === 'porcentaje'): ?>
+                <span>Discount (<?php echo $cupon['descuento']; ?>%)</span>
+                <span class="discount-amount">-<?php echo $moneda . number_format(($total * $cupon['descuento']) / 100, 2); ?></span>
+              <?php else: ?>
+                <span>Discount (Fixed)</span>
+                <span class="discount-amount">-<?php echo $moneda . number_format($cupon['descuento'], 2); ?></span>
+              <?php endif; ?>
             </div>
           <?php endif; ?>
 
           <div class="summary-row">
             <?php if ($total > 200): ?>
-              <span>Delivery Free</span>
-              <span>$0</span>
+              <span>Shipping</span>
+              <span>Free</span>
             <?php else: ?>
-              <span>Delivery Free</span>
-              <span>$7</span>
+              <span>Shipping</span>
+              <span><?php echo $moneda; ?>7.00</span>
             <?php endif; ?>
           </div>
 
@@ -82,7 +87,17 @@
           <?php endif; ?>
         </div>
 
-        <div id="cupon-message" class="cupon-message"></div>
+        <div id="cupon-message" class="cupon-message <?php echo isset($_SESSION['cupon_error']) ? 'error' : ''; ?>">
+          <?php 
+            if (isset($_SESSION['cupon_error'])) {
+              echo $_SESSION['cupon_error'];
+              unset($_SESSION['cupon_error']);
+            } elseif (isset($_SESSION['cupon_success'])) {
+              echo $_SESSION['cupon_success'];
+              unset($_SESSION['cupon_success']);
+            }
+          ?>
+        </div>
 
         <button class="checkout-btn">
           Go to Checkout
@@ -164,6 +179,9 @@
       const cuponInput = document.getElementById('cupon-input');
       const codigo = cuponInput.value.trim();
       const cuponMessage = document.getElementById('cupon-message');
+      
+      cuponMessage.textContent = '';
+      cuponMessage.classList.remove('error', 'success');
 
       if (!codigo) {
         cuponMessage.textContent = 'Please enter a coupon code';
@@ -227,4 +245,38 @@
     });
   }
 </script>
+
+<!-- CSS styles for coupon message display -->
+<style>
+  .cupon-message {
+    margin-top: 10px;
+    padding: 8px;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 14px;
+    display: none;
+  }
+  
+  .cupon-message:not(:empty) {
+    display: block;
+  }
+  
+  .cupon-message.error {
+    background-color: #ffebee;
+    color: #c62828;
+    border: 1px solid #ef9a9a;
+  }
+  
+  .cupon-message.success {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #a5d6a7;
+  }
+  
+  .discount-amount {
+    color: #c62828;
+    font-weight: bold;
+  }
+</style>
+
 <?php include_once __DIR__ . "/../templates/footer-principal.php"; ?>

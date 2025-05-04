@@ -80,8 +80,44 @@ class Cupon extends ActiveRecord
 
         return self::$alertas;
     }
+
     public function estaActivo() {
         $hoy = date('Y-m-d H:i:s');
         return $this->expira > $hoy;
+    }
+
+    public static function verificarCupon($codigo) {
+        // Buscar cupón por código
+        $query = "SELECT * FROM " . static::$tabla . " WHERE codigo = '{$codigo}'";
+        $resultado = self::consultarSQL($query);
+    
+        if (empty($resultado)) {
+            return false;
+        }
+    
+        $cupon = array_shift($resultado);
+    
+        // Verificar si el cupón está activo (no expirado)
+        if (!$cupon->estaActivo()) {
+            return false;
+        }
+    
+        // Verificar requisitos de pedido mínimo
+        if ($cupon->tipo_pedido_minimo !== 'ninguno') {
+            $total = Carrito::obtenerTotal();
+    
+            if ($total < $cupon->minimo_pedido) {
+                return false;
+            }
+        }
+    
+        // Devolver datos necesarios para aplicar el cupón
+        return [
+            'id' => $cupon->id,
+            'codigo' => $cupon->codigo,
+            'descripcion' => $cupon->descripcion,
+            'tipo_descuento' => $cupon->tipo_descuento,
+            'descuento' => $cupon->descuento
+        ];
     }
 }
