@@ -23,9 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 })
 
-function admin() {
 
-}
 
 function cambioArrival() {
   const categoryButtons = document.querySelectorAll('.arrival__contenido--botones button');

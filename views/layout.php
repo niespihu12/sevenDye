@@ -22,10 +22,10 @@
         rel="stylesheet">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=shopping_cart" />
-    <link rel="stylesheet" href="../build/css/app.css">
+    <link rel="stylesheet" href="/../build/css/app.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
-    <link rel="shortcut icon" href="../build/img/cropped-Seven_Isotipo-outline-3-32x32.webp" type="image/x-icon">
+    <link rel="shortcut icon" href="/../build/img/cropped-Seven_Isotipo-outline-3-32x32.webp" type="image/x-icon">
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
     

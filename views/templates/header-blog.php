@@ -18,9 +18,9 @@ $categorias = BlogCategoria::all();
             </a>
         </div>
         <div class="nav-links">
-            <a href="#" class="active">Latest</a>
+            <a href="/blog" class="active">Latest</a>
             <?php foreach ($categorias as $categoria): ?>
-                <a href=""><?php echo $categoria->nombre ?></a>
+                <a href="/blog/categoria/<?php echo urlencode($categoria->slug); ?>"><?php echo $categoria->nombre ?></a>
             <?php endforeach; ?>
         </div>
         <div class="nav-search">

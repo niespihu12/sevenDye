@@ -1,282 +1,493 @@
 <?php include_once __DIR__ . "/../templates/header-principal.php"; ?>
 
-<section class="producto-contenedor">
-    <div class="producto-gallery">
-        <?php foreach ($productoImagenes as $i => $imagen): ?>
-            <div class="image-box<?php echo $i === 0 ? ' active' : ''; ?>"
-                onclick="img('/imagenes/<?php echo $imagen->imagen ?>', this)">
-                <img loading="lazy" width="100" height="100" src="/imagenes/<?php echo $imagen->imagen ?>">
-            </div>
-        <?php endforeach; ?>
-    </div>
-
-    <div class="producto-imagen-centro">
-        <img loading="lazy" width="400" height="400" src="/imagenes/<?php echo $productoImagenPrincipal->imagen ?>" class="image">
-    </div>
-    <div class="producto-descripcion">
-        <h3><?php echo $producto->nombre ?></h3>
-        <div class="producto-extrellas">
-            <div class="producto-extrella">
-                <ul>
-                    <li>⭐</li>
-                    <li>⭐</li>
-                    <li>⭐</li>
-                    <li>⭐</li>
-                    <li>⭐</li>
-                </ul>
-                <p>(150 Reviews)</p>
-            </div>
-            <div class="producto-estado">
-                <p>In Stock</p>
-            </div>
-        </div>
-        <!-- Precio que cambiará dinámicamente -->
-        <p class="producto-precio" id="precio-producto">
-            <?php echo MONEDA . $producto->precio ?>
-        </p>
-        <p class="producto-descripcion-larga">
-            <?php echo $producto->descripcion ?>
-        </p>
-        <form action="" class="product-single-form">
-            <div class="producto-radio-inputs">
-                <p class="producto-radio-titulo">Size: </p>
-                <?php foreach ($productoTallas as $productoTalla): ?>
-                    <label class="producto-radio">
-                        <?php foreach ($tallas as $talla): ?>
-                            <?php if ($productoTalla->tallas_id == $talla->id): ?>
-                                <input type="radio" name="radio"
-                                    value="<?php echo $talla->id; ?>"
-                                    data-precio="<?php echo $productoTalla->precio ?? $producto->precio; ?>"
-                                    data-talla-id="<?php echo $talla->id; ?>">
-                                <span class="producto-size"><?php echo $talla->nombre ?></span>
-                            <?php endif; ?>
-                        <?php endforeach; ?>
-                    </label>
+<div class="container">
+        <div class="product-detail">
+            
+            <div class="product-thumbnails">
+                <?php foreach ($productoImagenes as $i => $imagen): ?>
+                <div class="thumbnail <?php echo $i === 0 ? 'active' : ''; ?>" data-src="/imagenes/<?php echo $imagen->imagen ?>" onclick="changeMainImage(this)">
+                    <img src="/imagenes/<?php echo $imagen->imagen ?>" alt="Product thumbnail">
+                </div>
                 <?php endforeach; ?>
             </div>
-            <div class="producto-footer">
-                <div class="producto-contador">
-                    <button class="contador-boton-decremento" id="decremento">-</button>
-                    <input type="number" class="contador-input" value="1" min="1" max="10" disabled>
-                    <button class="contador-boton-incremento" id="incremento">+</button>
-                </div>
-                <div class="producto-solo-megusta">
-                    <button type="button" id="btn-wishlist" data-producto="<?php echo $producto->id; ?>">
-                        <i class="<?php echo $enListaDeseos ? 'fas' : 'far'; ?> fa-heart"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="producto-solo-metods">
-                <div class="producto-solo-car">
-                    <input
-                        type="submit"
-                        value="Add to cart"
-                        class="add-to-cart"
-                        data-id="<?php echo $producto->id; ?>"
-                        data-token="<?php echo hash_hmac('sha1', $producto->id, KEY_TOKEN); ?>">
-                </div>
-                <div class="producto-solo-checkout">
-                    <input type="submit" value="Buy Now">
-                </div>
-            </div>
-        </form>
-        <div class="producto-incluidos">
-            <div class="producto-incluido">
-                <picture>
-                    <source srcset="/build/img/icon-delivery.avif" type="image/avif">
-                    <source srcset="/build/img/icon-delivery.webp" type="image/webp">
-                    <img loading="lazy" width="100" height="100" src="/build/img/icon-delivery.png" alt="Free Delivery">
-                </picture>
-                <div>
-                    <p class="producto-incluido__titulo">Free Delivery</p>
-                    <p class="producto-incluido__contenido">Enter your postal code for Delivery Availability</p>
-                </div>
-            </div>
-            <div class="producto-incluido">
-                <picture>
-                    <source srcset="/build/img/icon-return.avif" type="image/avif">
-                    <source srcset="/build/img/icon-return.webp" type="image/webp">
-                    <img loading="lazy" width="100" height="100" src="/build/img/icon-return.png" alt="Return Delivery">
-                </picture>
-                <div>
-                    <p class="producto-incluido__titulo">Return Delivery</p>
-                    <p class="producto-incluido__contenido">Free 30 Days Delivery Returns. Details</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="productos-interes">
-    <h2 class="centrar-texto">Te puede interesar</h2>
-    <div class="arrival__contenido--productos">
-        <div class="producto">
-            <div class="producto__imagen">
-                <picture>
-                    <source srcset="/build/img/chaqueta4.avif" type="image/avif">
-                    <source srcset="/build/img/chaqueta4.webp" type="image/webp">
-                    <img loading="lazy" width="100" height="100" src="./build/img/chaqueta4.png"
-                        alt="Eternal Cosmos Denim Jacket">
-                </picture>
-                <div class="quick-actions">
-                    <button class="favorite" aria-label="Add to favorites">
-                        <i class="far fa-heart"></i>
-                    </button>
-                    <button class="quick-view" aria-label="Quick view">
-                        <i class="fas fa-eye"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="producto-info">
-                <p class="producto-titulo">
-                    <a href="#">Eternal Cosmos Denim Jacket T-Shirt Seven Best Tiedye Colorful</a>
-                </p>
-                <div class="producto-precio">$102.40</div>
-                <div class="producto-rating">
-                    <div class="star">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
+            
+            <!-- Main Product Image -->
+            <div class="product-main-image">
+                <div class="main-image-container">
+                    <img class="product-image" src="/imagenes/<?php echo $productoImagenPrincipal->imagen ?>" alt="<?php echo $producto->nombre ?>">
+                    
+                    <!-- Image Navigation -->
+                    <div class="image-nav">
+                        <button class="image-nav-btn prev-image" onclick="navigateImages(-1)">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="image-nav-btn next-image" onclick="navigateImages(1)">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
                     </div>
-                    <span>(65)</span>
+                </div>
+            </div>
+            
+            <!-- Product Information -->
+            <div class="product-info">
+                <h1 class="product-title"><?php echo $producto->nombre ?></h1>
+                
+                <div class="product-meta">
+                    <div class="product-rating">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="review-count">(150 Reviews)</span>
+                    </div>
+                    
+                    <div class="product-availability">
+                        <span class="availability-dot"></span>
+                        <span>In Stock</span>
+                    </div>
+                </div>
+                
+                <div class="product-price" id="precio-producto">
+                    <?php echo MONEDA . $producto->precio ?>
+                    <span class="original-price"><?php echo MONEDA . ($producto->precio * 1.2) ?></span>
+                    <span class="discount-badge">20% OFF</span>
+                </div>
+                
+                <p class="product-description">
+                    <?php echo $producto->descripcion ?>
+                </p>
+                
+                <div class="product-options">
+                    <p class="option-title">Select Size</p>
+                    <div class="size-options">
+                        <?php foreach ($productoTallas as $index => $productoTalla): ?>
+                            <?php foreach ($tallas as $talla): ?>
+                                <?php if ($productoTalla->tallas_id == $talla->id): ?>
+                                <label class="size-option">
+                                    <input type="radio" name="size" 
+                                           value="<?php echo $talla->id; ?>" 
+                                           data-precio="<?php echo $productoTalla->precio ?? $producto->precio; ?>"
+                                           data-talla-id="<?php echo $talla->id; ?>"
+                                           <?php echo $index === 0 ? 'checked' : ''; ?>>
+                                    <span class="size-label"><?php echo $talla->nombre ?></span>
+                                </label>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+                
+                <div class="product-actions">
+                    <div class="quantity-selector">
+                        <span class="quantity-label">Quantity:</span>
+                        <div class="quantity-controls">
+                            <button class="quantity-btn minus-btn" id="decremento">-</button>
+                            <input type="number" id="quantity" class="quantity-input" value="1" min="1" max="10" readonly>
+                            <button class="quantity-btn plus-btn" id="incremento">+</button>
+                        </div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="wishlist-btn" id="btn-wishlist" data-producto="<?php echo $producto->id; ?>">
+                            <i class="<?php echo $enListaDeseos ? 'fas' : 'far'; ?> fa-heart"></i>
+                        </button>
+                        <button class="add-to-cart-btn" 
+                                data-id="<?php echo $producto->id; ?>"
+                                data-token="<?php echo hash_hmac('sha1', $producto->id, KEY_TOKEN); ?>">
+                            <i class="fas fa-shopping-cart"></i>
+                            Add to Cart
+                        </button>
+                        <button class="buy-now-btn">
+                            <i class="fas fa-bolt"></i>
+                            Buy Now
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="product-features">
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <div class="feature-text">
+                            <span class="feature-title">Free Delivery</span>
+                            <span class="feature-desc">Enter your postal code for Delivery Availability</span>
+                        </div>
+                    </div>
+                    
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-undo"></i>
+                        </div>
+                        <div class="feature-text">
+                            <span class="feature-title">Return Delivery</span>
+                            <span class="feature-desc">Free 30 Days Delivery Returns</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        <div class="related-products">
+            <h2 class="section-title">You May Also Like</h2>
+            
+            <div class="products-grid">
+                
+                <div class="product-card">
+                    <div class="product-card-image">
+                        <img src="/src/img/chaqueta1.png" alt="Related Product">
+                        <div class="product-card-actions">
+                            <button class="card-action-btn">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <button class="card-action-btn">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-card-content">
+                        <h3 class="product-card-title">
+                            <a href="#">Eternal Cosmos Denim Jacket</a>
+                        </h3>
+                        <div class="product-card-price">$102.40</div>
+                        <div class="product-card-footer">
+                            <div class="card-rating">
+                                <div class="card-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="card-review-count">(65)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="product-card">
+                    <div class="product-card-image">
+                        <img src="/src/img/chaqueta1.png" alt="Related Product">
+                        <div class="product-card-actions">
+                            <button class="card-action-btn">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <button class="card-action-btn">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-card-content">
+                        <h3 class="product-card-title">
+                            <a href="#">Premium Cotton T-Shirt</a>
+                        </h3>
+                        <div class="product-card-price">$49.99</div>
+                        <div class="product-card-footer">
+                            <div class="card-rating">
+                                <div class="card-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <span class="card-review-count">(42)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+               
+                <div class="product-card">
+                    <div class="product-card-image">
+                        <img src="/src/img/chaqueta1.png" alt="Related Product">
+                        <div class="product-card-actions">
+                            <button class="card-action-btn">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <button class="card-action-btn">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-card-content">
+                        <h3 class="product-card-title">
+                            <a href="#">Urban Street Hoodie</a>
+                        </h3>
+                        <div class="product-card-price">$89.99</div>
+                        <div class="product-card-footer">
+                            <div class="card-rating">
+                                <div class="card-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <span class="card-review-count">(28)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+              
+                <div class="product-card">
+                    <div class="product-card-image">
+                        <img src="/src/img/chaqueta1.png" alt="Related Product">
+                        <div class="product-card-actions">
+                            <button class="card-action-btn">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <button class="card-action-btn">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-card-content">
+                        <h3 class="product-card-title">
+                            <a href="#">Designer Slim Fit Jeans</a>
+                        </h3>
+                        <div class="product-card-price">$79.95</div>
+                        <div class="product-card-footer">
+                            <div class="card-rating">
+                                <div class="card-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <span class="card-review-count">(37)</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</section>
 
-<script>
-    // Cambiar imagen principal
-    function img(src, el) {
-        document.querySelector('.image').src = src;
-        document.querySelectorAll('.producto-gallery .image-box').forEach(box => box.classList.remove('active'));
-        if (el) el.classList.add('active');
-    }
-
-    // Actualizar precio cuando se cambia la talla
-    const radios = document.querySelectorAll('input[name="radio"]');
-    radios.forEach(radio => {
-        radio.addEventListener('change', function() {
-            const precio = this.getAttribute('data-precio');
-            if (precio) {
-                const precioElement = document.getElementById('precio-producto');
-                precioElement.textContent = '<?php echo MONEDA ?>' + precio;
+    <script>
+       
+        let currentImageIndex = 0;
+        const thumbnails = document.querySelectorAll('.thumbnail');
+        function changeMainImage(element) {
+           
+            document.querySelectorAll('.thumbnail').forEach(thumb => {
+                thumb.classList.remove('active');
+            });
+            element.classList.add('active');
+           
+            const mainImage = document.querySelector('.product-image');
+            mainImage.src = element.getAttribute('data-src');
+            
+            currentImageIndex = Array.from(thumbnails).indexOf(element);
+        }
+        
+        function navigateImages(direction) {
+            let newIndex = currentImageIndex + direction;
+            
+          
+            if (newIndex < 0) newIndex = thumbnails.length - 1;
+            if (newIndex >= thumbnails.length) newIndex = 0;
+            
+            
+            thumbnails[newIndex].click();
+        }
+        
+      
+        const decrementBtn = document.getElementById('decremento');
+        const incrementBtn = document.getElementById('incremento');
+        const quantityInput = document.getElementById('quantity');
+        
+        decrementBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            const currentValue = parseInt(quantityInput.value);
+            if (currentValue > 1) {
+                quantityInput.value = currentValue - 1;
             }
         });
-    });
-
-    // Agregar al carrito
-    const addToCartButtons = document.querySelectorAll('.add-to-cart');
-    addToCartButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
+        
+        incrementBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            const currentValue = parseInt(quantityInput.value);
+            const maxValue = parseInt(quantityInput.getAttribute('max') || 10);
+            if (currentValue < maxValue) {
+                quantityInput.value = currentValue + 1;
+            }
+        });
+        
+  
+        const sizeInputs = document.querySelectorAll('input[name="size"]');
+        sizeInputs.forEach(input => {
+            input.addEventListener('change', function() {
+                const precio = this.getAttribute('data-precio');
+                if (precio) {
+                    const precioElement = document.getElementById('precio-producto');
+                    precioElement.innerHTML = `
+                        <?php echo MONEDA ?>${precio}
+                        <span class="original-price"><?php echo MONEDA ?>${(precio * 1.2).toFixed(2)}</span>
+                        <span class="discount-badge">20% OFF</span>
+                    `;
+                }
+            });
+        });
+        
+        
+        const addToCartBtn = document.querySelector('.add-to-cart-btn');
+        addToCartBtn.addEventListener('click', function(e) {
             e.preventDefault();
+            
             const id = this.getAttribute('data-id');
             const token = this.getAttribute('data-token');
-            const cantidad = document.querySelector('.contador-input').value;
-            const tallaInput = document.querySelector('input[name="radio"]:checked');
+            const cantidad = document.getElementById('quantity').value;
+            const tallaInput = document.querySelector('input[name="size"]:checked');
+            
             if (!tallaInput) {
-                alert('Selecciona una talla');
+                alert('Please select a size');
                 return;
             }
-            const talla = tallaInput.value;
-
+            
+            const talla = tallaInput.getAttribute('data-talla-id');
+            
+            this.classList.add('adding');
+            setTimeout(() => this.classList.remove('adding'), 1000);
+            
             fetch('/carrito/agregar', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    body: `id=${encodeURIComponent(id)}&token=${encodeURIComponent(token)}&cantidad=${encodeURIComponent(cantidad)}&talla=${encodeURIComponent(talla)}`
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.ok) {
-                        alert('Producto añadido al carrito');
-                        window.location.reload();
-                    }
-                })
-                .catch(error => console.error('Error:', error));
-        });
-    });
-
-    // Contador de productos
-    const decremento = document.getElementById('decremento');
-    const incremento = document.getElementById('incremento');
-    const input = document.querySelector('.contador-input');
-
-    decremento.addEventListener("click", (event) => {
-        event.preventDefault();
-        if (parseInt(input.value) > parseInt(input.min)) {
-            input.value = parseInt(input.value) - 1;
-        }
-    });
-
-    incremento.addEventListener("click", (event) => {
-        event.preventDefault();
-        if (parseInt(input.value) < parseInt(input.max)) {
-            input.value = parseInt(input.value) + 1;
-        }
-    });
-
-    // Agregar o quitar de la lista de deseos
-    const btnWishlist = document.getElementById('btn-wishlist');
-    btnWishlist.addEventListener('click', async function() {
-        const producto = this.dataset.producto;
-        const icon = this.querySelector('i');
-        const isInWishlist = icon.classList.contains('fas');
-
-        try {
-            let url, method;
-
-            if (isInWishlist) {
-                url = '/deseos/eliminar';
-                method = 'POST';
-            } else {
-                url = '/deseos/guardar';
-                method = 'POST';
-            }
-
-            const response = await fetch(url, {
-                method: method,
+                method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'X-Requested-With': 'XMLHttpRequest'
+                    'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                body: JSON.stringify({
-                    producto
-                })
-            });
-
-            const data = await response.json();
-
-            if (data.resultado) {
-                // Cambiar el ícono
+                body: `id=${encodeURIComponent(id)}&token=${encodeURIComponent(token)}&cantidad=${encodeURIComponent(cantidad)}&talla=${encodeURIComponent(talla)}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.ok) {
+                   
+                    const successMsg = document.createElement('div');
+                    successMsg.className = 'success-toast';
+                    successMsg.innerHTML = `
+                        <i class="fas fa-check-circle"></i>
+                        <span>Product added to cart!</span>
+                    `;
+                    document.body.appendChild(successMsg);
+                    
+                 
+                    setTimeout(() => {
+                        successMsg.classList.add('show');
+                        setTimeout(() => {
+                            successMsg.classList.remove('show');
+                            setTimeout(() => successMsg.remove(), 300);
+                        }, 2000);
+                    }, 100);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+        
+        
+        const btnWishlist = document.getElementById('btn-wishlist');
+        btnWishlist.addEventListener('click', async function() {
+            const producto = this.dataset.producto;
+            const icon = this.querySelector('i');
+            const isInWishlist = icon.classList.contains('fas');
+            
+            
+            this.classList.add('clicked');
+            setTimeout(() => this.classList.remove('clicked'), 300);
+            
+            try {
+                let url, method;
+                
                 if (isInWishlist) {
-                    icon.classList.replace('fas', 'far');
+                    url = '/deseos/eliminar';
+                    method = 'POST';
                 } else {
-                    icon.classList.replace('far', 'fas');
+                    url = '/deseos/guardar';
+                    method = 'POST';
                 }
-
-                console.log(data.mensaje);
-
-                // Mostrar mensaje
-                alert(data.mensaje || (isInWishlist ? 'Removed from wishlist' : 'Added to wishlist'));
-
-                window.location.reload();
-
-            } else {
-                // Mostrar error
-                alert(data.mensaje || 'An error occurred');
-                if (data.mensaje == 'Usuario no autenticado') {
-                    window.location.href = "/login";
+                
+                const response = await fetch(url, {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: JSON.stringify({
+                        producto
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.resultado) {
+                   
+                    if (isInWishlist) {
+                        icon.classList.replace('fas', 'far');
+                        btnWishlist.classList.remove('active');
+                    } else {
+                        icon.classList.replace('far', 'fas');
+                        btnWishlist.classList.add('active');
+                    }
+                    
+                   
+                    const wishlistMsg = document.createElement('div');
+                    wishlistMsg.className = 'wishlist-toast';
+                    wishlistMsg.innerHTML = `
+                        <i class="${isInWishlist ? 'far fa-heart' : 'fas fa-heart'}"></i>
+                        <span>${data.mensaje || (isInWishlist ? 'Removed from wishlist' : 'Added to wishlist')}</span>
+                    `;
+                    document.body.appendChild(wishlistMsg);
+                    
+                  
+                    setTimeout(() => {
+                        wishlistMsg.classList.add('show');
+                        setTimeout(() => {
+                            wishlistMsg.classList.remove('show');
+                            setTimeout(() => wishlistMsg.remove(), 300);
+                        }, 2000);
+                    }, 100);
+                    
+                } else {
+                    if(data.mensaje == 'Usuario no autenticado'){
+                        window.location.href = "/login";
+                    } else {
+                        alert(data.mensaje || 'An error occurred');
+                    }
                 }
+            } catch (error) {
+                console.error('Error:', error);
             }
-        } catch (error) {
-            console.error('Error:', error);
-            alert('Error processing your request');
+        });
+        
+        
+        if (thumbnails.length > 0) {
+            thumbnails[0].classList.add('active');
         }
-    });
-</script>
-
+        
+       
+        const mainImage = document.querySelector('.product-image');
+        const mainImageContainer = document.querySelector('.main-image-container');
+        
+        mainImageContainer.addEventListener('mousemove', function(e) {
+            const { left, top, width, height } = this.getBoundingClientRect();
+            const x = (e.clientX - left) / width;
+            const y = (e.clientY - top) / height;
+            
+            mainImage.style.transformOrigin = `${x * 100}% ${y * 100}%`;
+        });
+        
+        mainImageContainer.addEventListener('mouseenter', function() {
+            mainImage.style.transform = 'scale(1.5)';
+        });
+        
+        mainImageContainer.addEventListener('mouseleave', function() {
+            mainImage.style.transform = 'scale(1)';
+        });
+    </script>
+    
 <?php include_once __DIR__ . "/../templates/footer-principal.php"; ?>

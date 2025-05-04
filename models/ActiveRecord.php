@@ -11,6 +11,7 @@ class ActiveRecord
     {
         self::$db = $database;
     }
+    
 
     public static function setAlerta($tipo,$mensaje) {
         static::$alertas[$tipo][] = $mensaje;

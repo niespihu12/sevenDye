@@ -17,6 +17,7 @@ use Controllers\CategoriaController;
 use Controllers\ClienteController;
 use Controllers\UsuarioController;
 use Controllers\ColorController;
+use Controllers\CuponController;
 use Controllers\DeseoController;
 use Controllers\TallaController;
 use Controllers\ProductoController;
@@ -88,12 +89,17 @@ $router->get('/blog_categorias/actualizar', [BlogCategoriaController::class, 'ac
 $router->post('/blog_categorias/actualizar', [BlogCategoriaController::class, 'actualizar']);
 $router->post('/blog_categorias/eliminar', [BlogCategoriaController::class, 'eliminar']);
 
-
-
-
 $router->get('/clientes/admin', [ClienteController::class, 'index']);
 $router->get('/clientes/actualizar', [ClienteController::class, 'actualizar']);
 $router->post('/clientes/actualizar', [ClienteController::class, 'actualizar']);
+
+
+$router->get('/cupones/admin', [CuponController::class, 'index']);
+$router->get('/cupones/crear', [CuponController::class, 'crear']);
+$router->post('/cupones/crear', [CuponController::class, 'crear']);
+$router->get('/cupones/actualizar', [CuponController::class, 'actualizar']);
+$router->post('/cupones/actualizar', [CuponController::class, 'actualizar']);
+$router->post('/cupones/eliminar', [CuponController::class, 'eliminar']);
 
 // Login 
 $router->get('/login', [LoginController::class, 'login']);
@@ -151,6 +157,9 @@ $router->get('/deseos/count', [DeseoController::class, 'contarDeseos']);
 
 // blog
 $router->get('/blog', [PaginasController::class, 'blog']);
+$router->get('/blog/categoria/{slug}', [PaginasController::class, 'blogCategoria']);
+$router->get('/blog/{slug}', [PaginasController::class, 'blogDetalle']);
+
 
 $router->comprobarRutas();
 

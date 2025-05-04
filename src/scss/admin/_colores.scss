@@ -121,7 +121,6 @@
             transition: all 0.3s ease;
 
             &::placeholder {
-                color: lighten(v.$gris, 30%);
                 font-weight: 400;
             }
 

@@ -9,6 +9,7 @@ use MVC\Router;
 use Model\Producto;
 use Model\ProductoImagen;
 use Model\Blog;
+use Model\BlogCategoria;
 use PHPMailer\PHPMailer\PHPMailer;
 
 
@@ -74,7 +75,7 @@ class PaginasController
         ]);
     }
 
-    public static function entrada(Router $router, $slug)
+    public static function blogDetalle(Router $router, $slug)
     {
         $slug = isset($slug) ? $slug : '';
         $token = isset($_GET['token']) ? $_GET['token'] : '';
@@ -97,8 +98,35 @@ class PaginasController
             return;
         }
 
-        $router->render('blog/index', [
+        $publicaciones = Blog::consultarSQL("SELECT * FROM blog ORDER BY id DESC LIMIT 5");
+
+        $router->render('blogs/entrada', [
             'blog' => $blog,
+            'publicaciones' => $publicaciones
+        ]);
+    }
+    public static function blogCategoria(Router $router, $slug)
+    {
+        $slug = isset($slug) ? $slug : '';
+
+        if ($slug == '') {
+            header('Location: /blog');
+            return;
+        }
+        $blog = BlogCategoria::where('slug', $slug);
+
+        if (!$blog) {
+            header('Location: /blog');
+            return;
+        }
+
+        $blogs = Blog::consultarSQL("SELECT * FROM blog WHERE blog_categorias_id = {$blog->id} ORDER BY id DESC");
+
+        $publicaciones = Blog::consultarSQL("SELECT * FROM blog ORDER BY id DESC LIMIT 5");
+
+        $router->render('blogs/categoria', [
+            'blogs' => $blogs,
+            'publicaciones' => $publicaciones
         ]);
     }
 

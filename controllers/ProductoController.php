@@ -20,45 +20,7 @@ class ProductoController
         session_start();
 
         isAdmin();
-
-        // Pagination setup
-        $itemsPerPage = 10; // Número de productos por página
-        $currentPage = intval($_GET['page'] ?? 1); // Obtener página actual de la URL, por defecto 1
-        if ($currentPage < 1) $currentPage = 1;
-
-        // Obtener término de búsqueda si existe
-        $search = trim($_GET['search'] ?? '');
-
-        // Construir consulta basada en la búsqueda
-        $whereClause = "";
-
-        if (!empty($search)) {
-            $whereClause = "WHERE nombre LIKE '%{$search}%' OR referencia LIKE '%{$search}%' OR descripcion LIKE '%{$search}%'";
-        }
-
-        // Contar total de elementos para la paginación
-        $countQuery = "SELECT COUNT(*) as total FROM productos {$whereClause}";
-        $resultado = Producto::ejecutarSQL($countQuery);
-        $totalItems = $resultado->fetch_assoc()['total'];
-        $totalPages = ceil($totalItems / $itemsPerPage);
-
-        // Ajustar página actual si excede el máximo de páginas
-        if ($currentPage > $totalPages && $totalPages > 0) {
-            $currentPage = $totalPages;
-        }
-
-        // Calcular offset para la consulta SQL
-        $offset = ($currentPage - 1) * $itemsPerPage;
-
-        // Construir y ejecutar la consulta principal con paginación
-        $productsQuery = "SELECT * FROM productos {$whereClause} ORDER BY id DESC LIMIT {$itemsPerPage} OFFSET {$offset}";
-        $productos = Producto::consultarSQL($productsQuery);
-
-        // Calcular detalles de paginación para la vista
-        $firstItemIndex = $totalItems ? ($offset + 1) : 0;
-        $lastItemIndex = min($offset + $itemsPerPage, $totalItems);
-
-        // Obtener imágenes para los productos
+        $productos = Producto::all();
         $imagenes = [];
         foreach ($productos as $producto) {
             $imagen = ProductoImagen::consultarSQL("SELECT * FROM producto_imagen WHERE productos_id = {$producto->id} LIMIT 1");
@@ -68,13 +30,7 @@ class ProductoController
         $router->render('productos/admin', [
             'productos' => $productos,
             'imagenes' => $imagenes,
-            'pageTitle' => 'Productos',
-            'currentPage' => $currentPage,
-            'totalPages' => $totalPages,
-            'totalItems' => $totalItems,
-            'firstItemIndex' => $firstItemIndex,
-            'lastItemIndex' => $lastItemIndex,
-            'search' => $search
+            'pageTitle' => 'Productos'
         ]);
     }
 
@@ -360,6 +316,8 @@ class ProductoController
 
         $alertas = Producto::getAlertas();
 
+        
+
         $router->render('productos/actualizar', [
             'producto' => $producto,
             'alertas' => $alertas,
@@ -419,43 +377,5 @@ class ProductoController
                 }
             }
         }
-    }
-
-    public static function buscar()
-    {
-        header('Content-Type: application/json');
-
-        if (!isset($_GET['q']) || empty($_GET['q'])) {
-            echo json_encode([]);
-            exit;
-        }
-
-        $searchTerm = $_GET['q'];
-
-        $query = "SELECT * FROM productos WHERE 
-                nombre LIKE '%{$searchTerm}%' OR 
-                referencia LIKE '%{$searchTerm}%' OR 
-                descripcion LIKE '%{$searchTerm}%' 
-                LIMIT 6";
-
-        $productos = Producto::consultarSQL($query);
-        $resultados = [];
-
-        foreach ($productos as $producto) {
-            $imagenQuery = "SELECT * FROM producto_imagen WHERE productos_id = {$producto->id} LIMIT 1";
-            $imagenes = ProductoImagen::consultarSQL($imagenQuery);
-
-            $resultados[] = [
-                'id' => $producto->id,
-                'nombre' => $producto->nombre,
-                'precio' => $producto->precio,
-                'slug' => $producto->slug,
-                'referencia' => $producto->referencia,
-                'imagen' => $imagenes[0]->imagen ?? null
-            ];
-        }
-
-        echo json_encode($resultados);
-        exit;
     }
 }

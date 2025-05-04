@@ -57,12 +57,21 @@ class TiendaController
         $categorias = Categoria::all();
         $colores = Color::all();
 
+        $productosTotales = count(Producto::all());
+
         $imagenes = [];
         foreach ($productos as $producto) {
             $imagen = ProductoImagen::consultarSQL("SELECT * FROM producto_imagen WHERE productos_id = {$producto->id} LIMIT 1");
             if (!empty($imagen)) {
                 $imagenes[$producto->id] = $imagen[0]->imagen;
             }
+        }
+
+        $contadorProductos = [];
+        foreach($categorias as $categoria) {
+            $productosCategoria = Producto::consultarSQL("SELECT * FROM productos WHERE categorias_id = {$categoria->id}");
+            $contadorProductos[$categoria->id] = count($productosCategoria);
+
         }
 
         $router->render('tienda/index', [
@@ -76,7 +85,9 @@ class TiendaController
             'max_db' => $max_db,
             'color_id' => $color_id,
             'filtro_precio_activo' => $filtro_precio_activo,
-            'orden' => $_GET['orden'] ?? ''
+            'orden' => $_GET['orden'] ?? '',
+            'contadorProductos' => $contadorProductos,
+            'productosTotales' => $productosTotales
         ]);
     }
 
@@ -130,12 +141,20 @@ class TiendaController
         $categorias = Categoria::all();
         $colores = Color::all();
 
+        $productosTotales = count(Producto::all());
+
         $imagenes = [];
         foreach ($productos as $producto) {
             $imagen = ProductoImagen::consultarSQL("SELECT * FROM producto_imagen WHERE productos_id = {$producto->id} LIMIT 1");
             if (!empty($imagen)) {
                 $imagenes[$producto->id] = $imagen[0]->imagen;
             }
+        }
+        $contadorProductos = [];
+        foreach($categorias as $categoria) {
+            $productosCategoria = Producto::consultarSQL("SELECT * FROM productos WHERE categorias_id = {$categoria->id}");
+            $contadorProductos[$categoria->id] = count($productosCategoria);
+
         }
 
         $router->render('tienda/index', [
@@ -150,7 +169,9 @@ class TiendaController
             'color_id' => $color_id,
             'categoria_slug' => $slug,
             'filtro_precio_activo' => $filtro_precio_activo,
-            'orden' => $_GET['orden'] ?? ''
+            'orden' => $_GET['orden'] ?? '',
+            'contadorProductos' => $contadorProductos,
+            'productosTotales' => $productosTotales
         ]);
     }
     
