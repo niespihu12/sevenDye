@@ -170,8 +170,6 @@
         // Initialize counters
         updateCartCounter();
         updateWishlistCounter();
-
-        // Add event listeners for wishlist buttons
         document.addEventListener('click', function(e) {
             const wishlistBtn = e.target.closest('.wishlist-btn');
             if (wishlistBtn) {
@@ -181,8 +179,6 @@
                 }
             }
         });
-
-        // Listen for custom events from cart operations
         document.addEventListener('cartUpdated', function() {
             updateCartCounter();
         });
@@ -191,11 +187,7 @@
             updateWishlistCounter();
         });
         const KEY_TOKEN = "APR.wqc-354*";
-
-        // Inicializar búsqueda para desktop
         initializeSearch('search-input-desktop', 'search-results-desktop');
-
-        // Inicializar búsqueda para mobile
         initializeSearch('search-input-mobile', 'search-results-mobile');
 
         function initializeSearch(inputId, resultsId) {
@@ -342,10 +334,6 @@
             })
             .catch(error => console.error('Error fetching cart count:', error));
     }
-
-    /**
-     * Updates the wishlist counter in both mobile and desktop views
-     */
     function updateWishlistCounter() {
         fetch('/deseos/count', {
                 method: 'GET',
@@ -367,12 +355,6 @@
             })
             .catch(error => console.error('Error fetching wishlist count:', error));
     }
-
-    /**
-     * Adds or updates a counter badge on an element
-     * @param {HTMLElement} element - The element to add the counter to
-     * @param {number} count - The count to display
-     */
     function updateCounter(element, count) {
         if (!element) return;
 
@@ -390,11 +372,6 @@
             counter.style.display = 'none';
         }
     }
-
-    /**
-     * Toggles a product in the wishlist
-     * @param {number} productId - The ID of the product to toggle
-     */
     function toggleWishlist(productId) {
         fetch(`/deseos/verificar?producto=${productId}`, {
                 method: 'GET',
@@ -429,12 +406,6 @@
             })
             .catch(error => console.error('Error checking wishlist status:', error));
     }
-
-    /**
-     * Updates the visual state of wishlist buttons for a specific product
-     * @param {number} productId - The ID of the product
-     * @param {boolean} isInWishlist - Whether the product is in the wishlist
-     */
     function toggleWishlistButtonState(productId, isInWishlist) {
         const wishlistButtons = document.querySelectorAll(`.wishlist-btn[data-id="${productId}"]`);
 
@@ -454,11 +425,6 @@
             }
         });
     }
-
-    /**
-     * Shows a notification message
-     * @param {string} message - The message to display
-     */
     function showNotification(message) {
         let notificationContainer = document.getElementById('notification-container');
         if (!notificationContainer) {
@@ -480,11 +446,6 @@
             }, 500);
         }, 3000);
     }
-
-    /**
-     * Function to add a product to cart
-     * Can be called from product pages
-     */
     function addToCart(productId, cantidad = 1, talla = null) {
         const formData = new FormData();
         formData.append('id', productId);
@@ -513,9 +474,7 @@
             .catch(error => console.error('Error adding to cart:', error));
     }
 
-    /**
-     * Simple token generator to match PHP hash_hmac implementation
-     */
+    
     function generateToken(id) {
         return 'token_' + id;
     }

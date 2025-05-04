@@ -316,7 +316,7 @@ class ProductoController
 
         $alertas = Producto::getAlertas();
 
-        
+
 
         $router->render('productos/actualizar', [
             'producto' => $producto,
@@ -377,5 +377,43 @@ class ProductoController
                 }
             }
         }
+    }
+
+    public static function buscar()
+    {
+        header('Content-Type: application/json');
+
+        if (!isset($_GET['q']) || empty($_GET['q'])) {
+            echo json_encode([]);
+            exit;
+        }
+
+        $searchTerm = $_GET['q'];
+
+        $query = "SELECT * FROM productos WHERE 
+                    nombre LIKE '%{$searchTerm}%' OR 
+                    referencia LIKE '%{$searchTerm}%' OR 
+                    descripcion LIKE '%{$searchTerm}%' 
+                    LIMIT 6";
+
+        $productos = Producto::consultarSQL($query);
+        $resultados = [];
+
+        foreach ($productos as $producto) {
+            $imagenQuery = "SELECT * FROM producto_imagen WHERE productos_id = {$producto->id} LIMIT 1";
+            $imagenes = ProductoImagen::consultarSQL($imagenQuery);
+
+            $resultados[] = [
+                'id' => $producto->id,
+                'nombre' => $producto->nombre,
+                'precio' => $producto->precio,
+                'slug' => $producto->slug,
+                'referencia' => $producto->referencia,
+                'imagen' => $imagenes[0]->imagen ?? null
+            ];
+        }
+
+        echo json_encode($resultados);
+        exit;
     }
 }
