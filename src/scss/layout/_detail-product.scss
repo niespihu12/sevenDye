@@ -1,7 +1,9 @@
 @use '../base/variables' as v;
 @use '../base/mixins' as m;
 @use 'sass:color';
-
+.productos-gendetails{
+  
+}
 :root {
   --primary: #2A41E8;
   --primary-light: #4559FF;
@@ -129,7 +131,6 @@ button {
 
 .product-image {
   width: 100%;
-  height: 100%;
   object-fit: cover;
   transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
@@ -534,7 +535,7 @@ button {
 
 .product-card-image {
   position: relative;
-  height: 220px;
+  width: auto;
   overflow: hidden;
 }
 

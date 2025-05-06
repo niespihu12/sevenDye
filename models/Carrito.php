@@ -189,4 +189,12 @@ class Carrito {
         self::carrito();
         return count($_SESSION['carrito']['productos']) > 0 ? count($_SESSION['carrito']['productos']) : 0;
     }
+    public static function limpiarCarrito() {
+        self::carrito();
+        $_SESSION['carrito'] = [
+            'productos' => [],
+            'cupon' => null
+        ];
+        return true;
+    }
 }

@@ -203,12 +203,23 @@ class TiendaController
         $productoTallas = ProductoTalla::consultarSQL("SELECT * FROM productos_tallas  WHERE productos_id = {$producto->id}");
         $tallas = Talla::all();
 
+        $productosCategorias = Producto::consultarSQL("SELECT * FROM productos WHERE categorias_id = {$producto->categorias_id} AND activo = 1 LIMIT 4");
+
+        $imagenes = [];
+
+        foreach($productosCategorias as $producto) {
+            $imagenNew = ProductoImagen::consultarSQL("SELECT * FROM producto_imagen WHERE productos_id={$producto->id} LIMIT 1");
+            $imagenes[$producto->id] = $imagenNew[0]->imagen;
+
+        }
         $router->render('tienda/detalles', [
             'producto' => $producto,
             'productoImagenes' => $productoImagenes,
             'productoTallas' => $productoTallas,
             'tallas' => $tallas,
-            'productoImagenPrincipal' => $productoImagenPrincipal
+            'productoImagenPrincipal' => $productoImagenPrincipal,
+            'productoCategorias' => $productosCategorias,
+            'imagenes' => $imagenes
         ]);
     }
     

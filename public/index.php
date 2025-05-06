@@ -19,8 +19,10 @@ use Controllers\UsuarioController;
 use Controllers\ColorController;
 use Controllers\CuponController;
 use Controllers\DeseoController;
+use Controllers\PagoController;
 use Controllers\TallaController;
 use Controllers\ProductoController;
+use Controllers\ReseñaController;
 use Controllers\TiendaController;
 use Model\BlogCategoria;
 
@@ -123,6 +125,11 @@ $router->post('/recuperar', [LoginController::class, 'recuperar']);
 $router->get('/confirmar-cuenta', [LoginController::class, 'confirmar']);
 $router->get('/mensaje', [LoginController::class, 'mensaje']);
 
+
+// reviews
+$router->get('/resenas/producto', [ReseñaController::class, 'obtenerPorProducto']);
+$router->post('/resenas/guardar', [ReseñaController::class, 'guardar']);
+
 // Zona usuario
 $router->get('/perfil', [UsuarioController::class, 'actualizar']);
 $router->post('/perfil', [UsuarioController::class, 'actualizar']);
@@ -161,6 +168,10 @@ $router->get('/deseos/count', [DeseoController::class, 'contarDeseos']);
 $router->get('/blog', [PaginasController::class, 'blog']);
 $router->get('/blog/categoria/{slug}', [PaginasController::class, 'blogCategoria']);
 $router->get('/blog/{slug}', [PaginasController::class, 'blogDetalle']);
+
+// pagos
+$router->get('/pago', [PagoController::class, 'checkout']);
+$router->post('/procesar-pago', [PagoController::class, 'procesarPago']);
 
 
 $router->comprobarRutas();

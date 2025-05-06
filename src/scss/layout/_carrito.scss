@@ -352,9 +352,12 @@
     }
 
     .checkout-btn {
-        width: 100%;
+        width: max-content;
+        text-align: center;
+        display: block;
         padding: 1.3rem;
         font-size: 1.4rem;
+        width: 100%;
         background: v.$violeta;
         color: v.$blanco;
         border: none;

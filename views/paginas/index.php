@@ -128,35 +128,41 @@
 </div>
 
 <section class="promo-container">
+    <div class="ribbon">
+        <div class="ribbon-content">LIMITED!</div>
+    </div>
+
     <div class="promo-text">
         <h1>GET A 20% DISCOUNT</h1>
-        <p>In denim jackets with code <strong>DENIMWEB20</strong>.<br>
+        <p>In denim jackets with code <span class="discount-code">DENIMWEB20</span><br>
             Explore the Seven Dye collection, where timeless classics and innovative designs combine perfectly. Upgrade your
             style today!</p>
         <div class="cta">
             <button class="boton-primario">Buy Now</button>
         </div>
         <div class="promo-timer">
-            Hurry, Before It's Too Late!<br>
+            <span class="timer-label">Hurry, Before It's Too Late!</span>
             <div class="temporizador">
                 <div class="temporizador__valor">
-                    <p id="days">00</p> Days
+                    <p id="days">05</p>
+                    <span>Days</span>
                 </div>
                 <div class="temporizador__valor">
-                    <p id="hours">00</p> Hr
-
+                    <p id="hours">11</p>
+                    <span>Hr</span>
                 </div>
                 <div class="temporizador__valor">
-                    <p id="minutes">00</p> Mins
+                    <p id="minutes">59</p>
+                    <span>Mins</span>
                 </div>
                 <div class="temporizador__valor">
-                    <p id="seconds">00</p> Sec
+                    <p id="seconds">06</p>
+                    <span>Sec</span>
                 </div>
-
             </div>
-
         </div>
     </div>
+
     <div class="dynamic-gallery-wrapper">
         <div class="dynamic-gallery-slider">
             <div class="dynamic-gallery-slide dynamic-gallery-slide--featured">
@@ -181,8 +187,12 @@
                 </picture>
             </div>
         </div>
+        <div class="dynamic-gallery-controls">
+            <div class="gallery-dot active" data-index="0"></div>
+            <div class="gallery-dot" data-index="1"></div>
+            <div class="gallery-dot" data-index="2"></div>
+        </div>
     </div>
-
 </section>
 
 <section class="arrival">
@@ -198,8 +208,8 @@
 
         <?php foreach ($categorias as $categoria) : ?>
             <div class="arrival__contenido--productos" id="categoria-<?php echo $categoria->id; ?>" <?php echo ($categoria !== $categorias[0]) ? 'style="display: none;"' : ''; ?>>
-                <?php foreach ($productosPorCategoria[$categoria->id] as $producto) : 
-                    ?>
+                <?php foreach ($productosPorCategoria[$categoria->id] as $producto) :
+                ?>
                     <div class="producto">
                         <div class="producto__imagen">
                             <img loading="lazy" width="100" height="100" class="imgg" src="/imagenes/<?php echo $imagenes[$producto->id]; ?>"
@@ -344,7 +354,7 @@
 
 <!-- Apartadoo de las ofertas -->
 
-<section class="products-section">
+<section class="valor1">
     <h2 class="section-title">BEST SELLER</h2>
 
     <div class="products-carousel">
@@ -380,7 +390,7 @@
                             </h3>
                             <div class="product-price">
                                 <?php echo MONEDA .  $producto->precio; ?>
-                             
+
                             </div>
                             <div class="product-rating">
                                 <div class="stars">

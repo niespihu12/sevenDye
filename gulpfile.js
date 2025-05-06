@@ -4,36 +4,62 @@ import { glob } from 'glob'
 import { src, dest, watch, series } from 'gulp'
 import * as dartSass from 'sass'
 import gulpSass from 'gulp-sass'
-import terser from 'gulp-terser'
-import sharp from 'sharp'
+
 
 const sass = gulpSass(dartSass)
 
-const paths = {
-    scss: 'src/scss/**/*.scss',
-    js: 'src/js/**/*.js'
+import terser from 'gulp-terser'
+import sharp from 'sharp'
+
+export function js( done ) {
+    src('src/js/**/*.js')
+        .pipe(terser())
+        .pipe( dest('./public/build/js') ) 
+
+    done()
 }
 
 export function css( done ) {
-    src(paths.scss, {sourcemaps: true})
+    src('src/scss/app.scss', {sourcemaps: true})
         .pipe( sass({
-            outputStyle: 'compressed'
+            style: 'compressed'
         }).on('error', sass.logError) )
         .pipe( dest('./public/build/css', {sourcemaps: '.'}) );
     done()
 }
 
-export function js( done ) {
-    src(paths.js)
-      .pipe(terser())
-      .pipe(dest('./public/build/js'))
-    done()
+export async function crop(done) {
+    const inputFolder = 'src/img/gallery/full'
+    const outputFolder = 'src/img/gallery/thumb';
+    const width = 250;
+    const height = 180;
+    if (!fs.existsSync(outputFolder)) {
+        fs.mkdirSync(outputFolder, { recursive: true })
+    }
+    const images = fs.readdirSync(inputFolder).filter(file => {
+        return /\.(jpg)$/i.test(path.extname(file));
+    });
+    try {
+        images.forEach(file => {
+            const inputFile = path.join(inputFolder, file)
+            const outputFile = path.join(outputFolder, file)
+            sharp(inputFile) 
+                .resize(width, height, {
+                    position: 'centre'
+                })
+                .toFile(outputFile)
+        });
+
+        done()
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 export async function imagenes(done) {
     const srcDir = './src/img';
     const buildDir = './public/build/img';
-    const images =  await glob('./src/img/**/*')
+    const images =  await glob('./src/img/**/*{jpg,png}')
 
     images.forEach(file => {
         const relativePath = path.relative(srcDir, path.dirname(file));
@@ -49,27 +75,19 @@ function procesarImagenes(file, outputSubDir) {
     }
     const baseName = path.basename(file, path.extname(file))
     const extName = path.extname(file)
+    const outputFile = path.join(outputSubDir, `${baseName}${extName}`)
+    const outputFileWebp = path.join(outputSubDir, `${baseName}.webp`)
+    const outputFileAvif = path.join(outputSubDir, `${baseName}.avif`)
 
-    if (extName.toLowerCase() === '.svg') {
-        // If it's an SVG file, move it to the output directory
-        const outputFile = path.join(outputSubDir, `${baseName}${extName}`);
-    fs.copyFileSync(file, outputFile);
-    } else {
-        // For other image formats, process them with sharp
-        const outputFile = path.join(outputSubDir, `${baseName}${extName}`);
-        const outputFileWebp = path.join(outputSubDir, `${baseName}.webp`);
-        const outputFileAvif = path.join(outputSubDir, `${baseName}.avif`);
-        const options = { quality: 80 };
-
-        sharp(file).jpeg(options).toFile(outputFile);
-        sharp(file).webp(options).toFile(outputFileWebp);
-        sharp(file).avif().toFile(outputFileAvif);
-    }
+    const options = { quality: 80 }
+    sharp(file).jpeg(options).toFile(outputFile)
+    sharp(file).webp(options).toFile(outputFileWebp)
+    sharp(file).avif().toFile(outputFileAvif)
 }
 
 export function dev() {
-    watch( paths.scss, css );
-    watch( paths.js, js );
+    watch('src/scss/**/*.scss', css)
+    watch('src/js/**/*.js', js)
     watch('src/img/**/*.{png,jpg}', imagenes)
 }
 
