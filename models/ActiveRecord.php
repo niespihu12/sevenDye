@@ -1,6 +1,7 @@
 <?php
 
 namespace Model;
+
 class ActiveRecord
 {
     protected static $db;
@@ -11,9 +12,10 @@ class ActiveRecord
     {
         self::$db = $database;
     }
-    
 
-    public static function setAlerta($tipo,$mensaje) {
+
+    public static function setAlerta($tipo, $mensaje)
+    {
         static::$alertas[$tipo][] = $mensaje;
     }
 
@@ -28,7 +30,7 @@ class ActiveRecord
         return static::$alertas;
     }
 
-    
+
     public function guardar()
     {
         if (!is_null($this->id)) {
@@ -37,10 +39,11 @@ class ActiveRecord
             return $this->crear();
         }
     }
-    public static function ejecutarSQL($query) {
+    public static function ejecutarSQL($query)
+    {
         return self::$db->query($query);
     }
-    
+
     public function crear()
     {
         $atributos = $this->sanitizarAtributos();
@@ -53,21 +56,24 @@ class ActiveRecord
         $resultado = self::$db->query($query);
         return $resultado;
     }
-    
+
     public function actualizar()
     {
         $atributos = $this->sanitizarAtributos();
 
         $valores = [];
         foreach ($atributos as $key => $value) {
-            $valores[] = "{$key}='{$value}'";
+            if ($value === 'NULL') {
+                $valores[] = "{$key}=NULL";
+            } else {
+                $valores[] = "{$key}='{$value}'";
+            }
         }
+
         $query = "UPDATE " . static::$tabla . " SET ";
         $query .= join(', ', $valores);
         $query .= " WHERE id = '" . self::$db->escape_string($this->id) . "' ";
         $query .= "LIMIT 1";
-
-        
 
         $resultado = self::$db->query($query);
         return $resultado;
@@ -96,17 +102,27 @@ class ActiveRecord
         $atributos = $this->atributos();
         $sanitizado = [];
 
-        foreach ($atributos as $key => $value):
-            $sanitizado[$key] = self::$db->escape_string($value);
+        foreach ($atributos as $key => $value) {
+            // Skip NULL values (let them pass through)
+            if ($value === NULL) {
+                $sanitizado[$key] = 'NULL';
+                continue;
+            }
 
-        endforeach;
+            // Convert empty strings to NULL for nullable fields
+            if ($value === '' && in_array($key, ['subcategorias_id'])) {
+                $sanitizado[$key] = 'NULL';
+                continue;
+            }
+
+            $sanitizado[$key] = self::$db->escape_string($value);
+        }
 
         return $sanitizado;
     }
 
-    
 
-    
+
 
     public function setImagen($imagen)
     {
@@ -121,13 +137,12 @@ class ActiveRecord
 
     public function borrarImagen()
     {
-        if(!empty($this->imagen)){
+        if (!empty($this->imagen)) {
             $existeArchivo = file_exists(CARPETA_IMAGENES . $this->imagen);
             if ($existeArchivo) {
                 unlink(CARPETA_IMAGENES . $this->imagen);
             }
         }
-       
     }
     public static function all()
     {
@@ -141,10 +156,11 @@ class ActiveRecord
         $resultado = self::consultarSQL($query);
         return $resultado;
     }
-    public static function where($columna, $valor) {
-        $query = "SELECT * FROM " . static::$tabla  ." WHERE {$columna} = '{$valor}'";
+    public static function where($columna, $valor)
+    {
+        $query = "SELECT * FROM " . static::$tabla  . " WHERE {$columna} = '{$valor}'";
         $resultado = self::consultarSQL($query);
-        return array_shift( $resultado ) ;
+        return array_shift($resultado);
     }
     public static function find($id)
     {

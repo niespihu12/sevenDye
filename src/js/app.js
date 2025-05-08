@@ -1,7 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-  if (window.location.pathname !== "/login" && window.location.pathname !== "/register" && window.location.pathname !== "/blog") {
-    header();
-  }
   if (window.location.pathname === "/") {
     descuento();
     modalProductos();
@@ -11,16 +8,9 @@ document.addEventListener('DOMContentLoaded', function () {
     weekle_categories();
     slider();
     cambioArrival();
-  } else if (window.location.pathname === "/carro") {
-    carro();
-  } else if (window.location.pathname === "/detail-product") {
-    incremento();
   } else if (window.location.pathname === "/register" || window.location.pathname === "/login") {
     login();
-  } else if (window.location.pathname === "/categorias/admin" || window.location.pathname === "/influencers/admin" || window.location.pathname === "/testimonios/admin") {
-    // logica de javaScript
-    admin();
-  }
+  } 
 })
 
 
@@ -171,25 +161,6 @@ function modalProductos() {
 }
 
 
-function carro() {
-  const precioSlider = document.querySelector('.precio-slider input');
-  const precioRango = document.querySelector('.precio-rango span');
-
-  if (precioSlider) {
-    precioSlider.addEventListener('input', function () {
-      precioRango.textContent = `$${this.value} - $565.99`;
-    });
-  }
-
-  const coloresOpciones = document.querySelectorAll('.color-opcion');
-
-  coloresOpciones.forEach(color => {
-    color.addEventListener('click', function () {
-      coloresOpciones.forEach(c => c.classList.remove('activo'));
-      this.classList.add('activo');
-    });
-  });
-}
 
 
 

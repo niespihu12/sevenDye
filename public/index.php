@@ -23,8 +23,10 @@ use Controllers\PagoController;
 use Controllers\TallaController;
 use Controllers\ProductoController;
 use Controllers\ReseñaController;
+use Controllers\SubcategoriaController;
 use Controllers\TiendaController;
 use Model\BlogCategoria;
+use Model\Subcategoria;
 
 $router = new Router();
 
@@ -52,6 +54,21 @@ $router->get('/categorias/actualizar', [CategoriaController::class, 'actualizar'
 $router->post('/categorias/actualizar', [CategoriaController::class, 'actualizar']);
 $router->post('/categorias/eliminar', [CategoriaController::class, 'eliminar']);
 
+$router->get('/categorias/admin', [CategoriaController::class, 'index']);
+$router->get('/categorias/crear', [CategoriaController::class, 'crear']);
+$router->post('/categorias/crear', [CategoriaController::class, 'crear']);
+$router->get('/categorias/actualizar', [CategoriaController::class, 'actualizar']);
+$router->post('/categorias/actualizar', [CategoriaController::class, 'actualizar']);
+$router->post('/categorias/eliminar', [CategoriaController::class, 'eliminar']);
+
+$router->get('/subcategorias/admin', [SubcategoriaController::class, 'index']);
+$router->get('/subcategorias/crear', [SubcategoriaController::class, 'crear']);
+$router->post('/subcategorias/crear', [SubcategoriaController::class, 'crear']);
+$router->get('/subcategorias/actualizar', [SubcategoriaController::class, 'actualizar']);
+$router->post('/subcategorias/actualizar', [SubcategoriaController::class, 'actualizar']);
+$router->post('/subcategorias/eliminar', [SubcategoriaController::class, 'eliminar']);
+
+
 $router->get('/colores/admin', [ColorController::class, 'index']);
 $router->get('/colores/crear', [ColorController::class, 'crear']);
 $router->post('/colores/crear', [ColorController::class, 'crear']);
@@ -74,6 +91,7 @@ $router->get('/productos/actualizar', [ProductoController::class, 'actualizar'])
 $router->post('/productos/actualizar', [ProductoController::class, 'actualizar']);
 $router->post('/productos/eliminar', [ProductoController::class, 'eliminar']);
 $router->get('/productos/buscar', [ProductoController::class, 'buscar']);
+$router->get('/productos/obtener-subcategorias', [ProductoController::class, 'obtenerSubcategorias']);
 
 $router->get('/blog/admin', [BlogController::class, 'index']);
 $router->get('/blog/crear', [BlogController::class, 'crear']);

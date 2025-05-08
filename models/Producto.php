@@ -17,6 +17,7 @@ class Producto extends ActiveRecord
         'destacado',
         'recuento_ventas',
         'categorias_id',
+        'subcategorias_id',
         'creado',
     ];
 
@@ -31,6 +32,7 @@ class Producto extends ActiveRecord
     public $destacado;
     public $recuento_ventas;
     public $categorias_id;
+    public $subcategorias_id;
     public $creado;
 
     public function __construct($args = [])
@@ -46,6 +48,7 @@ class Producto extends ActiveRecord
         $this->destacado = $args['destacado'] ?? '';
         $this->recuento_ventas = $args['recuento_ventas'] ?? '0';
         $this->categorias_id = $args['categorias_id'] ?? '';
+        $this->subcategorias_id = $args['subcategorias_id'] ?? null;
         $this->creado =  $args['creado'] ?? '';
     }
 

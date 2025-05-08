@@ -2,7 +2,6 @@
 
 <main class="blog-indi">
     <div class="blog-indi-individual">
-        <!-- Blog Post Content -->
         <div class="blog-indi-individual-entrada">
             <img class="blog-post-header-image" src="/imagenes/<?php echo $blog->imagen ?>" alt="Featured post image">
 

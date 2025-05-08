@@ -4,475 +4,488 @@
 
 
 
-// Assuming desktop is already defined in your mixins file
 
-.nosotros {
-  background: linear-gradient(v.$violeta, color.scale(v.$violeta, $lightness: 50%));
-  height: auto;
+// Variables
+$primary-color: #6B46C1;
+$secondary-color: #805AD5;
+$text-color: #2D3748;
+$background-color: #F7FAFC;
+$white: #FFFFFF;
+$accent-color: #38B2AC;
+$black: #000000;
+$transition-slow: 0.5s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+$box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+
+// Mixins
+@mixin flex-center {
   display: flex;
-  flex-direction: column; // Stack elements vertically on mobile
   justify-content: center;
   align-items: center;
-  padding: 7rem 1rem 0 1rem; // Reduced padding for mobile
+}
 
-  @include m.tablet {
-    padding: 7rem 1.5rem 0 1.5rem; // Medium padding for tablet
+@mixin card-hover {
+  transition: transform 0.3s ease;
+  &:hover {
+    transform: translateY(-5px);
   }
+}
 
-  @include m.desktop {
-    padding: 7rem 2rem 0 2rem; // Original padding for desktop
-  }
+// Nosotros section
+.nosotros {
+  padding: 9rem 0 4rem 2rem;
+  background: linear-gradient(135deg, $primary-color, $secondary-color);
+  color: $white;
 
   &-titulo {
+    font-size: 3rem;
+    font-weight: bold;
     text-align: center;
-    font-size: 3rem; // Smaller font size for mobile
-
-    @include m.tablet {
-      font-size: 4rem; // Medium font size for tablet
-    }
-
-    @include m.desktop {
-      font-size: 5rem; // Larger font size for desktop
-    }
+    line-height: 1.2;
+    margin-bottom: 2rem;
   }
 }
 
+// Creemos section
 .creemos {
-  display: flex;
-  flex-direction: column; // Stack elements vertically on mobile
-  justify-content: center;
-  margin: 2rem 1rem; // Much smaller margin for mobile
-
-  @include m.tablet {
-    margin: 3rem 5rem; // Increased margin for tablet
-  }
-
-  @include m.desktop {
-    margin: 5rem 10rem; // Larger margin for desktop
-    flex-direction: row; // Original layout for desktop
-  }
+  padding: 4rem 2rem;
+  background-color: $background-color;
 
   &-texto {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: justify;
-    margin: 0 1rem; // Smaller margin for mobile
-
-    @include m.tablet {
-      margin: 0 1.5rem; // Medium margin for tablet
-    }
-
-    @include m.desktop {
-      margin: 0 2rem; // Original margin for desktop
-    }
-  }
-}
-
-.compromiso {
-  &-derecha {
-    background-color: v.$azul;
-    display: flex;
-    flex-direction: column-reverse;
-
-    @include m.tablet {
-      display: grid;
-      grid-template-columns: 1fr 0.4fr; // More balanced columns for tablet
-    }
-
-    @include m.desktop {
-      display: grid;
-      grid-template-columns: 1fr 0.3fr; // Original grid for desktop
-    }
-  }
-
-  &-izquierda {
-    display: flex;
-    flex-direction: column;
-
-    @include m.tablet {
-      display: grid;
-      grid-template-columns: 0.4fr 1fr; // More balanced columns for tablet
-    }
-
-    @include m.desktop {
-      display: grid;
-      grid-template-columns: 0.3fr 1fr; // Original grid for desktop
-    }
-  }
-
-  &-texto {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    max-width: 800px;
+    margin: 0 auto;
     text-align: center;
-    margin: 2rem 1rem; // Smaller margin for mobile
+    line-height: 1.8;
+    color: $text-color;
 
-    @include m.tablet {
-      margin: 2rem 10rem; // Medium margin for tablet
-    }
-
-    @include m.desktop {
-      margin: 0 20rem; // Original margin for desktop
-      text-align: left;
+    p {
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
     }
   }
 }
 
-.conlogos-texto {
-  margin: 2rem 1rem; // Much smaller margin for mobile
-
-  @include m.tablet {
-    margin: 3rem 10rem; // Medium margin for tablet
+// NEW COLLECTION SHOWCASE SECTION WITH SLIDER
+.collection-showcase {
+  padding: 5rem 0;
+  background: linear-gradient(to bottom, $background-color, rgba($primary-color, 0.05));
+  overflow: hidden;
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%236b46c1' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+    opacity: 0.5;
+    z-index: 0;
   }
-
-  @include m.desktop {
-    margin: 5rem 35rem; // Original margin for desktop
+  
+  h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: $primary-color;
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+    z-index: 2;
+    
+    &:after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(to right, $primary-color, $secondary-color);
+      margin: 1rem auto 0;
+      border-radius: 2px;
+    }
   }
 }
 
+.collection-slider-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  padding: 0 1rem;
+  overflow: hidden;
+  z-index: 2;
+}
+
+.collection-slider {
+  display: flex;
+  transition: transform $transition-slow;
+  height: 500px;
+  
+  @media (max-width: 768px) {
+    height: 650px;
+  }
+}
+
+.collection-slide {
+  min-width: 100%;
+  display: flex;
+  flex-direction: row;
+  background: $white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: $box-shadow;
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+    height: 100%;
+  }
+}
+
+.collection-image {
+  width: 50%;
+  position: relative;
+  overflow: hidden;
+  
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 50%;
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba($black, 0.3), transparent);
+    
+    @media (max-width: 768px) {
+      background: linear-gradient(to top, rgba($black, 0.3), transparent);
+    }
+  }
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.8s ease;
+  }
+}
+
+.collection-content {
+  width: 50%;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: 2rem;
+  }
+  
+  h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: $primary-color;
+    margin-bottom: 1.5rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background: $secondary-color;
+    }
+  }
+  
+  p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: $text-color;
+    margin-bottom: 2rem;
+  }
+}
+
+.collection-button {
+  display: inline-block;
+  background: linear-gradient(to right, $primary-color, $secondary-color);
+  color: $white;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.8rem 2rem;
+  border-radius: 30px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  align-self: flex-start;
+  box-shadow: 0 4px 15px rgba($primary-color, 0.3);
+  
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba($primary-color, 0.4);
+  }
+}
+
+.slider-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.slider-prev,
+.slider-next {
+  background: $white;
+  border: none;
+  color: $primary-color;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  @include flex-center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  
+  &:hover {
+    background: $primary-color;
+    color: $white;
+    transform: scale(1.1);
+  }
+  
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.slider-dots {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.slider-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: $white;
+  border: 2px solid $primary-color;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+  
+  &.active {
+    background: $primary-color;
+    transform: scale(1.2);
+  }
+  
+  &:hover {
+    transform: scale(1.2);
+  }
+}
+
+// Animation for slider
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.collection-slide {
+  animation: fadeIn 1s ease;
+}
+
+// Hover effects for collection slider
+.collection-slide:hover {
+  .collection-image img {
+    transform: scale(1.05);
+  }
+}
+
+// Logos section
 .nosotros-conlogos {
-  margin-top: 3rem; // Smaller margin for mobile
-  margin-bottom: 3rem;
+  padding: 4rem 2rem;
+  background-color: $background-color;
 
-  @include m.tablet {
-    margin-top: 5rem; // Medium margin for tablet
-    margin-bottom: 5rem;
+  h2 {
+    color: $primary-color;
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
   }
 
-  @include m.desktop {
-    margin-top: 7rem; // Original margin for desktop
-    margin-bottom: 7rem;
+  .conlogos-texto {
+    max-width: 800px;
+    margin: 0 auto 3rem;
+    line-height: 1.8;
+    color: $text-color;
   }
 
-  .nosotros-conlogos-seccion {
-    display: flex;
-    flex-wrap: wrap; // Allow cards to wrap on smaller screens
-    justify-content: center;
-    gap: 1.5rem; // Increased gap for better spacing when stacked
-    padding: 0 1rem;
-
-    @include m.tablet {
-      gap: 1rem;
-      padding: 0 2rem;
-    }
-
-    @include m.desktop {
-      justify-content: space-evenly;
-      gap: 0.5rem; // Original gap for desktop
-      padding: 0;
-    }
+  &-seccion {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
 
     .card1, .card2, .card3, .card4 {
-      max-width: 100%; // Full width on mobile
-      width: 100%;
-      
-      @include m.telefono {
-        max-width: 45%; // Two cards per row on small devices
-      }
-      
-      @include m.tablet {
-        max-width: 30%; // Three cards per row on tablets
-      }
-      
-      @include m.desktop {
-        max-width: 23ch; // Original width on desktop
-      }
-      
+      @include card-hover;
+      padding: 2rem;
       text-align: center;
-      padding: 1.5em;
-      padding-block: 1.8em;
-      border-radius: 5px;
-      position: relative;
-      overflow: hidden;
-      font-family: v.$fuente-secundaria;
-      transition:
-        0.3s cubic-bezier(0.6, 0.4, 0, 1),
-        transform 0.15s ease;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 1em;
-      color: black;
-    }
-
-    .card1 {
-      background: color.scale(v.$violeta, $lightness: 20%);
-    }
-    
-    .card2 {
-      background: color.scale(v.$azul, $lightness: 20%);
-    }
-    
-    .card3 {
-      background: color.scale(v.$amarillo, $lightness: 20%);
-    }
-    
-    .card4 {
-      background: color.scale(v.$rojo, $lightness: 20%);
-    }
-
-    .card__body {
-      color: v.$negro;
-      line-height: 1.5em;
-      font-size: 1em;
-    }
-
-    .card > :not(span) {
-      transition: 0.3s cubic-bezier(0.6, 0.4, 0, 1);
-    }
-
-    .card > strong {
-      display: block;
-      font-size: 1.4rem;
-      letter-spacing: -0.035em;
-    }
-
-    .card span {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: var(--hover-text);
-      border-radius: 5px;
-      font-weight: bold;
-      top: 100%;
-      transition: all 0.3s cubic-bezier(0.6, 0.4, 0, 1);
-    }
-  }
-}
-
-.nosotros-cards {
-  background: linear-gradient(v.$azul, v.$blanco);
-  padding: 2.5rem 0;
-  
-  .nosotros-card-seccion {
-    display: flex;
-    flex-wrap: wrap; // Allow cards to wrap on smaller screens
-    justify-content: center;
-    gap: 2rem; // Increased gap for better spacing when stacked
-    padding: 0 1rem;
-
-    @include m.tablet {
-      gap: 1rem;
-      justify-content: space-around;
-      padding: 0 2rem;
-    }
-
-    @include m.desktop {
-      justify-content: space-evenly;
-      gap: 0.5rem; // Original gap for desktop
-      padding: 0;
-    }
-
-    .card {
-      padding: 20px;
-      width: 100%; // Full width on mobile
-      max-width: 330px; // Max width to maintain design
-      min-height: 370px;
-      border-radius: 20px;
-      background: #e8e8e8;
-      box-shadow: 5px 5px 6px #dadada,
-        -5px -5px 6px #f6f6f6;
-      transition: 0.4s;
-      margin-bottom: 1.5rem; // Add margin bottom for stacked cards
-
-      @include m.telefono {
-        width: 90%; // Slightly smaller on small devices
-      }
-
-      @include m.tablet {
-        width: 45%; // Two cards per row on tablets
-        margin-bottom: 0;
-      }
-
-      @include m.desktop {
-        width: 330px; // Original width on desktop
-      }
-    }
-
-    .card:hover {
-      translate: 0 -10px;
-    }
-
-    .card-title {
-      font-size: 18px;
-      font-weight: 600;
-      color: #2e54a7;
-      margin: 15px 0 0 10px;
-    }
-
-    .card-image {
-      min-height: 170px;
-      background-color: #c9c9c9;
+      background: $white;
       border-radius: 15px;
-      box-shadow: inset 8px 8px 10px #c3c3c3,
-        inset -8px -8px 10px #cfcfcf;
-    }
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
-    .card-body {
-      margin: 13px 0 0 10px;
-      color: rgb(31, 31, 31);
-      font-size: 15px;
-    }
+      .icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+      }
 
-    .footer {
-      float: right;
-      margin: 28px 0 0 18px;
-      font-size: 13px;
-      color: #636363;
-    }
+      strong {
+        display: block;
+        font-size: 1.2rem;
+        color: $primary-color;
+        margin-bottom: 1rem;
+      }
 
-    .by-name {
-      font-weight: 700;
+      .card__body {
+        color: $text-color;
+        line-height: 1.6;
+      }
     }
   }
 }
 
-.nosotros-redes {
-  margin: 3rem 1rem; // Smaller margin for mobile
+// Compromiso section
+.compromiso {
+  padding: 4rem 2rem;
+  background-color: $white;
 
-  @include m.tablet {
-    margin: 4rem 1rem; // Medium margin for tablet
+  h2 {
+    color: $primary-color;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
   }
 
-  @include m.desktop {
-    margin: 5rem 1rem; // Original margin for desktop
+  &-derecha,
+  &-izquierda {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto 3rem;
+    padding: 2rem;
+
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 15px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  &-texto {
+    h3 {
+      color: $primary-color;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      color: $text-color;
+      line-height: 1.8;
+    }
+  }
+}
+
+// Social Media section
+.nosotros-redes {
+  padding: 4rem 2rem;
+  background-color: $background-color;
+
+  h3 {
+    color: $primary-color;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  &__descripcion {
+    max-width: 800px;
+    margin: 2rem auto;
+    color: $text-color;
+    line-height: 1.8;
   }
 
   .wrapper {
-    display: flex;
-    flex-wrap: wrap; // Allow icons to wrap on smaller screens
-    justify-content: center;
-    gap: 2rem; // Smaller gap for mobile
+    @include flex-center;
     list-style: none;
-    height: auto;
-    width: 100%;
     padding: 0;
-    font-family: "Poppins", sans-serif;
-
-    @include m.tablet {
-      gap: 5rem; // Medium gap for tablet
-    }
-
-    @include m.desktop {
-      gap: 10rem; // Original gap for desktop
-    }
+    gap: 2rem;
 
     .icon {
       position: relative;
-      background: #fff;
+      background: $white;
       border-radius: 50%;
-      width: 60px; // Smaller size for mobile
-      height: 60px;
-      font-size: 16px; // Smaller font for mobile
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+      padding: 15px;
+      margin: 10px;
+      width: 50px;
+      height: 50px;
+      font-size: 18px;
+      @include flex-center;
       cursor: pointer;
       transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-      margin-bottom: 1rem; // Add margin for wrapping
 
-      @include m.tablet {
-        width: 70px; // Medium size for tablet
-        height: 70px;
-        font-size: 17px; // Medium font for tablet
+      &:hover {
+        background: $primary-color;
+        color: $white;
+
+        .tooltip {
+          top: -45px;
+          opacity: 1;
+          visibility: visible;
+        }
       }
 
-      @include m.desktop {
-        width: 80px; // Original size for desktop
-        height: 80px;
-        font-size: 18px; // Original font for desktop
-        margin-bottom: 0;
-      }
-    }
-
-    .tooltip {
-      position: absolute;
-      top: 0;
-      font-size: 14px;
-      background: #fff;
-      color: #fff;
-      padding: 5px 8px;
-      border-radius: 5px;
-      box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
-      opacity: 0;
-      pointer-events: none;
-      transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-
-      &::before {
+      .tooltip {
         position: absolute;
-        content: "";
-        height: 8px;
-        width: 8px;
-        background: #fff;
-        bottom: -3px;
-        left: 50%;
-        transform: translate(-50%) rotate(45deg);
+        top: 0;
+        font-size: 14px;
+        background: $primary-color;
+        color: $white;
+        padding: 5px 8px;
+        border-radius: 5px;
+        box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+        opacity: 0;
+        pointer-events: none;
         transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
       }
     }
   }
+}
 
-  .wrapper .icon:hover .tooltip {
-    top: -45px;
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
+// Responsive adjustments
+@media (max-width: 768px) {
+  .nosotros-titulo {
+    font-size: 2.5rem;
   }
 
-  .wrapper .icon:hover span,
-  .wrapper .icon:hover .tooltip {
-    text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.1);
-  }
-
-  .wrapper .facebook:hover,
-  .wrapper .facebook:hover .tooltip,
-  .wrapper .facebook:hover .tooltip::before {
-    background: #1877f2;
-    color: #fff;
-  }
-
-  .wrapper .tiktok:hover,
-  .wrapper .tiktok:hover .tooltip,
-  .wrapper .tiktok:hover .tooltip::before {
-    background: v.$negro;
-    color: #fff;
-  }
-
-  .wrapper .instagram:hover,
-  .wrapper .instagram:hover .tooltip,
-  .wrapper .instagram:hover .tooltip::before {
-    background: #e4405f;
-    color: #fff;
-  }
-
-  .wrapper .email:hover,
-  .wrapper .email:hover .tooltip,
-  .wrapper .email:hover .tooltip::before {
-    background: red;
-    color: #fff;
-  }
-
-  .nosotros-redes__descripcion {
-    font-family: v.$fuente-principal;
-    font-size: 1.4rem; // Smaller font for mobile
-    font-weight: bold;
-    text-align: center; // Center text on mobile
-
-    @include m.tablet {
-      font-size: 1.6rem; // Medium font for tablet
+  .compromiso {
+    &-derecha,
+    &-izquierda {
+      grid-template-columns: 1fr;
+      text-align: center;
     }
+  }
 
-    @include m.desktop {
-      font-size: 1.8rem; // Original font for desktop
-    }
+  .wrapper {
+    flex-wrap: wrap;
   }
 }

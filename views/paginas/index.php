@@ -174,9 +174,9 @@
             </div>
             <div class="dynamic-gallery-slide">
                 <picture>
-                    <source srcset="/build/img/chaqueta_roja.avif" type="image/avif">
-                    <source srcset="build/img/20231105_170723.webp" type="image/webp">
-                    <img loading="lazy" width="100" height="100" src="build/img/20231105_170723.png" alt="Image 2">
+                    <source srcset="/build/img/imagen_chica_descuento.avif" type="image/avif">
+                    <source srcset="/build/img/imagen_chica_descuento.webp" type="image/webp">
+                    <img loading="lazy" width="100" height="100" src="/build/img/imagen_chica_descuento.jpg" alt="Image 2">
                 </picture>
             </div>
             <div class="dynamic-gallery-slide">
@@ -186,11 +186,6 @@
                     <img loading="lazy" width="100" height="100" src="build/img/denim-jackets.png" alt="Image 3">
                 </picture>
             </div>
-        </div>
-        <div class="dynamic-gallery-controls">
-            <div class="gallery-dot active" data-index="0"></div>
-            <div class="gallery-dot" data-index="1"></div>
-            <div class="gallery-dot" data-index="2"></div>
         </div>
     </div>
 </section>
@@ -252,11 +247,7 @@
 
 <!-- apartado del video y fotos de influencer -->
 <section class="community-section">
-    <div class="section-header">
-        <h2>Dye to be Seen</h2>
-        <p>Get inspired by the best looks from our community and share your authenticity. Upload your photo or video, or
-            share it on social media with #DynamicLooks. Wear your life in color and join the Seven Dye movement!</p>
-    </div>
+    
 
     <div class="featured-video">
         <video muted preload="none">
@@ -377,9 +368,7 @@
                                 <button class="favorite" aria-label="Add to favorites">
                                     <i class="far fa-heart"></i>
                                 </button>
-                                <button class="quick-view" aria-label="Quick view">
-                                    <i class="fas fa-eye"></i>
-                                </button>
+                                
                             </div>
                         </div>
                         <div class="product-info">

@@ -37,6 +37,22 @@
         </div>
 
         <div class="campo-admin">
+            <label for="subcategoria" class="campo-admin__label">Subcategoria</label>
+            <div class="select-wrapper">
+                <select name="subcategorias_id" id="subcategoria">
+                    <option value="">--Seleccione primero una categoría--</option>
+                    <?php foreach ($subcategorias as $subcategoria) { ?>
+                        <option
+                            <?php echo ($producto->subcategorias_id === $subcategoria->id) ? 'selected' : ''; ?>
+                            value="<?php echo s($subcategoria->id) ?>">
+                            <?php echo s($subcategoria->nombre) ?>
+                        </option>
+                    <?php } ?>
+                </select>
+            </div>
+        </div>
+
+        <div class="campo-admin">
             <label for="activo" class="campo-admin__label">Estado</label>
             <div class="select-wrapper">
                 <select name="activo" id="activo">
@@ -156,93 +172,4 @@
     </div>
 </div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const dropZone = document.getElementById('drop-zone');
-        const fileInput = document.querySelector('#drop-zone input[type="file"]');
-        const previsualizacionContainer = document.getElementById('previsualizacion-container');
-
-        // Manejar el evento de arrastrar y soltar
-        dropZone.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            dropZone.classList.add('dragover');
-        });
-
-        dropZone.addEventListener('dragleave', () => {
-            dropZone.classList.remove('dragover');
-        });
-
-        dropZone.addEventListener('drop', (e) => {
-            e.preventDefault();
-            dropZone.classList.remove('dragover');
-            if (e.dataTransfer.files.length) {
-                fileInput.files = e.dataTransfer.files;
-                mostrarPrevisualizaciones(fileInput.files);
-            }
-        });
-
-        // Manejar la selección de archivos
-        fileInput.addEventListener('change', () => {
-            if (fileInput.files.length) {
-                mostrarPrevisualizaciones(fileInput.files);
-            }
-        });
-
-        // Función para mostrar previsualizaciones
-        function mostrarPrevisualizaciones(files) {
-            previsualizacionContainer.innerHTML = '';
-
-            if (files.length > 0) {
-                const titulo = document.createElement('h4');
-                titulo.className = 'previsualizacion-titulo';
-                titulo.textContent = `Imágenes seleccionadas: ${files.length}`;
-                previsualizacionContainer.appendChild(titulo);
-
-                const contenedor = document.createElement('div');
-                contenedor.className = 'previsualizacion-grid';
-                previsualizacionContainer.appendChild(contenedor);
-
-                Array.from(files).forEach((file, index) => {
-                    if (file.type.startsWith('image/')) {
-                        const reader = new FileReader();
-
-                        reader.onload = (e) => {
-                            const prevItem = document.createElement('div');
-                            prevItem.className = 'previsualizacion-item';
-
-                            const img = document.createElement('img');
-                            img.src = e.target.result;
-                            img.alt = `Previsualización ${index + 1}`;
-
-                            const nombre = document.createElement('div');
-                            nombre.className = 'previsualizacion-nombre';
-                            nombre.textContent = file.name.length > 20 ?
-                                file.name.substring(0, 17) + '...' :
-                                file.name;
-
-                            const tamano = document.createElement('div');
-                            tamano.className = 'previsualizacion-tamano';
-                            tamano.textContent = formatFileSize(file.size);
-
-                            prevItem.appendChild(img);
-                            prevItem.appendChild(nombre);
-                            prevItem.appendChild(tamano);
-
-                            contenedor.appendChild(prevItem);
-                        };
-
-                        reader.readAsDataURL(file);
-                    }
-                });
-            }
-        }
-
-        function formatFileSize(bytes) {
-            if (bytes === 0) return '0 Bytes';
-            const k = 1024;
-            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-            const i = Math.floor(Math.log(bytes) / Math.log(k));
-            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-        }
-    });
-</script>
+<?php $script= "<script src='/build/js/productos.js'></script>"; ?>

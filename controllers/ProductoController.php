@@ -7,8 +7,9 @@ use Model\Producto;
 use Model\ProductoImagen;
 use Model\ProductoTalla;
 use Model\Talla;
-use Model\color;
+use Model\Color;
 use Model\Categoria;
+use Model\Subcategoria;
 use Model\ProductoColor;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager as Image;
@@ -42,6 +43,7 @@ class ProductoController
 
         $producto = new Producto;
         $categorias = Categoria::all();
+        $subcategorias = [];
         $tallas = Talla::all();
         $colores = Color::all();
         $alertas = Producto::getAlertas();
@@ -70,20 +72,16 @@ class ProductoController
             }
 
             // Validar colores
-            if (!isset($_POST['colores']) || empty($_POST['colores'])) {
-                Producto::setAlerta('error', 'Debe seleccionar al menos un color');
-            }
+            // if (!isset($_POST['colores']) || empty($_POST['colores'])) {
+            //     Producto::setAlerta('error', 'Debe seleccionar al menos un color');
+            // }
 
             // Validar tallas
             $tallaSeleccionada = false;
             if (isset($_POST['tallas_activas'])) {
                 $tallaSeleccionada = true;
             }
-
-            if (!$tallaSeleccionada) {
-                Producto::setAlerta('error', 'Debe activar al menos una talla');
-            }
-
+            
             // Validar precios de tallas
             if (isset($_POST['talla_precios'])) {
                 foreach ($_POST['talla_precios'] as $talla_id => $precio) {
@@ -97,6 +95,11 @@ class ProductoController
             $alertas = Producto::getAlertas();
 
             if (empty($alertas)) {
+                // Asegurar que subcategorias_id sea NULL y no un string vacío
+                if ($producto->subcategorias_id === '') {
+                    $producto->subcategorias_id = NULL;
+                }
+                
                 $producto->crearReferencia();
                 $producto->creado = date('Y/m/d');
                 $resultado = $producto->guardar();
@@ -148,6 +151,7 @@ class ProductoController
             'producto' => $producto,
             'alertas' => $alertas,
             'categorias' => $categorias,
+            'subcategorias' => $subcategorias,
             'tallas' => $tallas,
             'colores' => $colores,
             'pageTitle' => 'Crear Producto',
@@ -164,6 +168,11 @@ class ProductoController
         $producto = Producto::find($id);
         $alertas = Producto::getAlertas();
         $categorias = Categoria::all();
+
+        // Cargar subcategorías relacionadas con la categoría del producto
+        $subcategorias = $producto->categorias_id ?
+            Subcategoria::porCategoria($producto->categorias_id) : [];
+
         $tallas = Talla::all();
         $colores = Color::all();
 
@@ -188,6 +197,12 @@ class ProductoController
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $args = $_POST;
+
+            // FIJADO: Asegurar que subcategorias_id sea NULL cuando está vacío
+            if(!isset($args['subcategorias_id'])) {
+                $args['subcategorias_id'] = NULL;
+            }
+            
             $producto->sincronizar($args);
             $alertas = $producto->validar();
 
@@ -208,9 +223,9 @@ class ProductoController
             }
 
             // Validar colores
-            if (!isset($_POST['colores']) || empty($_POST['colores'])) {
-                Producto::setAlerta('error', 'Debe seleccionar al menos un color');
-            }
+            // if (!isset($_POST['colores']) || empty($_POST['colores'])) {
+            //     Producto::setAlerta('error', 'Debe seleccionar al menos un color');
+            // }
 
             // Validar tallas
             $tallaSeleccionada = false;
@@ -218,10 +233,7 @@ class ProductoController
                 $tallaSeleccionada = true;
             }
 
-            if (!$tallaSeleccionada) {
-                Producto::setAlerta('error', 'Debe activar al menos una talla');
-            }
-
+           
             // Validar precios de tallas
             if (isset($_POST['talla_precios']) && isset($_POST['tallas_activas'])) {
                 foreach ($_POST['tallas_activas'] as $talla_id) {
@@ -233,8 +245,17 @@ class ProductoController
                 }
             }
 
+
+            $alertas = Producto::getAlertas();
+
             if (empty($alertas)) {
                 $producto->actualizado = date('Y/m/d');
+
+                // PUNTO CLAVE: Asegurar que subcategorias_id sea NULL y no un string vacío
+                if ($producto->subcategorias_id === '') {
+                    $producto->subcategorias_id = NULL;
+                }
+
                 $resultado = $producto->guardar();
 
                 if ($resultado) {
@@ -316,12 +337,11 @@ class ProductoController
 
         $alertas = Producto::getAlertas();
 
-
-
         $router->render('productos/actualizar', [
             'producto' => $producto,
             'alertas' => $alertas,
             'categorias' => $categorias,
+            'subcategorias' => $subcategorias,
             'tallas' => $tallas,
             'colores' => $colores,
             'imagenes' => $imagenes,
@@ -379,6 +399,7 @@ class ProductoController
         }
     }
 
+
     public static function buscar()
     {
         header('Content-Type: application/json');
@@ -414,6 +435,37 @@ class ProductoController
         }
 
         echo json_encode($resultados);
+        exit;
+    }
+
+    // Método para obtener subcategorías por AJAX
+    public static function obtenerSubcategorias()
+    {
+        header('Content-Type: application/json');
+
+        if (!isset($_GET['categoria_id']) || empty($_GET['categoria_id'])) {
+            echo json_encode([]);
+            exit;
+        }
+
+        $categoria_id = filter_var($_GET['categoria_id'], FILTER_VALIDATE_INT);
+
+        if (!$categoria_id) {
+            echo json_encode([]);
+            exit;
+        }
+
+        $subcategorias = Subcategoria::porCategoria($categoria_id);
+        $resultado = [];
+
+        foreach ($subcategorias as $subcategoria) {
+            $resultado[] = [
+                'id' => $subcategoria->id,
+                'nombre' => $subcategoria->nombre
+            ];
+        }
+
+        echo json_encode($resultado);
         exit;
     }
 }

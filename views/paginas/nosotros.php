@@ -1,4 +1,5 @@
 <?php include_once __DIR__ . "/../templates/header-principal.php"; ?>
+
 <div class="nosotros">
   <h1 class="nosotros-titulo">Welcome to Seven Dye: <br>Where Fashion
     Tells Your Story in Color</h1>
@@ -9,62 +10,84 @@
   <div class="creemos-texto">
     <p>At Seven Dye, fashion is more than clothing—it's a way to tell your story. We invite you to embrace your unique style, let your outfits speak for you, and spread positivity wherever you go.</p>
     <p>Born from a passion for genderless, handcrafted tie-dye fashion, Seven Dye celebrates diversity and self-expression. Based in Miami, Florida, we ship across the U.S., offering vibrant, handmade tie-dye clothing for babies, kids, and adults (XS - 5XL).</p>
-
-
+  </div>
 </section>
 
-<section class="nosotros-cards ">
-  <h2 class="centrar-texto">Our Colorful Collection</h2>
-  <div class="nosotros-card-seccion">
-    <div class="card">
-      <div class="card-image">
-        <picture>
-          <source srcset="/build/img/4.8115b2d0.avif" type="image/avif">
-          <source srcset="/build/img/4.8115b2d0.webp" type="image/webp">
-          <img loading="lazy" src="/build/img/4.8115b2d0.jpg" alt="tshirtandtops">
-        </picture>
-
+<!-- Redesigned Collection Section with Slider -->
+<section class="collection-showcase">
+  <h2>Our Colorful Collection</h2>
+  
+  <div class="collection-slider-container">
+    <div class="collection-slider">
+      <!-- Slide 1: T-Shirts & Tops -->
+      <div class="collection-slide">
+        <div class="collection-image">
+          <picture>
+            <source srcset="/build/img/4.8115b2d0.avif" type="image/avif">
+            <source srcset="/build/img/4.8115b2d0.webp" type="image/webp">
+            <img loading="lazy" src="/build/img/4.8115b2d0.jpg" alt="tshirtandtops">
+          </picture>
+        </div>
+        <div class="collection-content">
+          <h3>T-Shirts & Tops</h3>
+          <p>Vibrant tie-dye t-shirts, tank tops, and more for everyday expression. Each piece is uniquely crafted to help you stand out with bold colors and patterns.</p>
+          <a href="#" class="collection-button">Explore</a>
+        </div>
       </div>
-      <p class="card-title">T-Shirts & Tops</p>
-      <p class="card-body">
-        Vibrant tie-dye t-shirts, tank tops, and more for everyday expression.
-      </p>
+      
+      <!-- Slide 2: Hoodies & Jackets -->
+      <div class="collection-slide">
+        <div class="collection-image">
+          <picture>
+            <source srcset="/build/img/Hoodies-sevendye.avif" type="image/avif">
+            <source srcset="/build/img/Hoodies-sevendye.webp" type="image/webp">
+            <img loading="lazy" src="/build/img/Hoodies-sevendye.jpg" alt="hoodiesandjackets">
+          </picture>
+        </div>
+        <div class="collection-content">
+          <h3>Hoodies & Jackets</h3>
+          <p>Cozy hoodies and denim jackets with unique tie-dye patterns. Stay warm while expressing your colorful personality with our handcrafted outerwear.</p>
+          <a href="#" class="collection-button">Explore</a>
+        </div>
+      </div>
+      
+      <!-- Slide 3: Kids & Baby -->
+      <div class="collection-slide">
+        <div class="collection-image">
+          <picture>
+            <source srcset="/build/img/17.a5b79559.avif" type="image/avif">
+            <source srcset="/build/img/17.a5b79559.webp" type="image/webp">
+            <img loading="lazy" src="/build/img/17.a5b79559.jpg" alt="kidsandbabys">
+          </picture>
+        </div>
+        <div class="collection-content">
+          <h3>Kids & Baby</h3>
+          <p>Colorful tie-dye clothing for the little ones in your life. Our kid-friendly designs bring joy and vibrant energy to children's wardrobes with soft, comfortable fabrics.</p>
+          <a href="#" class="collection-button">Explore</a>
+        </div>
+      </div>
     </div>
-    <div class="card">
-      <div class="card-image">
-        <picture>
-          <source srcset="/build/img/Hoodies-sevendye.avif" type="image/avif">
-          <source srcset="/build/img/Hoodies-sevendye.webp" type="image/webp">
-          <img loading="lazy" src="/build/img/Hoodies-sevendye.jpg" alt="hoodiesandjackets">
-        </picture>
-
+    
+    <!-- Slider Navigation -->
+    <div class="slider-nav">
+      <button class="slider-prev" aria-label="Previous slide">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+      <div class="slider-dots">
+        <button class="slider-dot active" aria-label="Go to slide 1"></button>
+        <button class="slider-dot" aria-label="Go to slide 2"></button>
+        <button class="slider-dot" aria-label="Go to slide 3"></button>
       </div>
-      <p class="card-title">Hoodies & Jackets</p>
-      <p class="card-body">
-        Cozy hoodies and denim jackets with unique tie-dye patterns.
-      </p>
-    </div>
-    <div class="card">
-      <div class="card-image">
-        <picture>
-          <source srcset="/build/img/17.a5b79559.avif" type="image/avif">
-          <source srcset="/build/img/17.a5b79559.webp" type="image/webp">
-          <img loading="lazy" src="/build/img/17.a5b79559.jpg" alt="kidsandbabys">
-        </picture>
-      </div>
-      <p class="card-title">Kids & Baby</p>
-      <p class="card-body">
-        Colorful tie-dye clothing for the little ones in your life.
-      </p>
+      <button class="slider-next" aria-label="Next slide">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
     </div>
   </div>
-
-
-
-
-
 </section>
-
 
 <section class="nosotros-conlogos">
   <h2 class="centrar-texto">Fashion Without Limits</h2>
@@ -191,9 +214,13 @@
     </li>
   </ul>
   <p class="centrar-texto nosotros-redes__descripcion">
-    Share your opinion about our products, showcase your favorite looks, or leave us a message of love <br>; we’ll be
+    Share your opinion about our products, showcase your favorite looks, or leave us a message of love <br>; we'll be
     delighted to hear from you.
   </p>
 
 </section>
+
+<?php $script = "<script src='/build/js/nosotros.js'></script>" ?>
+
+
 <?php include_once __DIR__ . "/../templates/footer-principal.php"; ?>

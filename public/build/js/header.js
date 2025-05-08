@@ -1,0 +1,1 @@
+function header(){const e=document.querySelector("#nav-mob"),t=document.querySelector("#abrir"),r=document.querySelector("#cerrar");t.addEventListener("click",(()=>{e.classList.add("mostrar")})),r.addEventListener("click",(()=>{e.classList.remove("mostrar")}))}document.addEventListener("DOMContentLoaded",(function(){header()}));

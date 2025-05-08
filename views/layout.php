@@ -28,7 +28,9 @@
     <link rel="shortcut icon" href="/../build/img/cropped-Seven_Isotipo-outline-3-32x32.webp" type="image/x-icon">
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
-    
+    <?php
+    echo $scriptAntes ?? '';
+    ?>
 </head>
 
 <body>

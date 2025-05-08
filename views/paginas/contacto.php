@@ -35,33 +35,6 @@
                     <p>support@exclusive.com</p>
                 </div>
             </div>
-
-            <div class="social-links">
-                <a href="#" class="social-icon"><i class="fab fa-tiktok"></i>
-                    <picture>
-                        <source srcset="./build/img/tik-tok.avif" type="image/avif">
-                        <source srcset="./build/img/tik-tok.webp" type="image/webp">
-                        <img class="imagen-social" loading="lazy" width="100" height="100" src="./build/img/tik-tok.jpg" alt="TikTok">
-                    </picture>
-                </a>
-
-                <a href="#" class="social-icon"><i class="fab fa-instagram"></i>
-                    <picture>
-                        <source srcset="./build/img/instagram.avif" type="image/avif">
-                        <source srcset="./build/img/instagram.webp" type="image/webp">
-                        <img class="imagen-social" loading="lazy" width="100" height="100" src="./build/img/instagram.jpg" alt="Instagram">
-                    </picture>
-                </a>
-
-                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i>
-                    <picture>
-                        <source class="imagen-social" srcset="./build/img/facebook.avif" type="image/avif">
-                        <source class="imagen-social" srcset="./build/img/facebook.webp" type="image/webp">
-                        <img class="imagen-social" loading="lazy" width="100" height="100" src="./build/img/facebook.jpg" alt="Facebook">
-                    </picture>
-                </a>
-
-            </div>
         </div>
 
         <!-- Formulario -->

@@ -9,6 +9,7 @@ use Model\Categoria;
 use Model\Color;
 use Model\ProductoColor;
 use Model\ProductoTalla;
+use Model\Subcategoria;
 use Model\Talla;
 
 class TiendaController
@@ -99,6 +100,9 @@ class TiendaController
             header('Location: /tienda');
             return;
         }
+        $subcategorias = Subcategoria::porCategoria($categoria->id);
+        $subcategoria_id = isset($_GET['subcategoria']) ? (int)$_GET['subcategoria'] : 0;
+
         
         $db = conectarDB();
         $rangos = $db->query("SELECT min(precio) as min_precio, max(precio) as max_precio FROM productos WHERE categorias_id = {$categoria->id} AND activo = 1")->fetch_assoc();
@@ -118,6 +122,10 @@ class TiendaController
         $color_id = isset($_GET['color']) ? (int)$_GET['color'] : 0;
 
         $query = "SELECT DISTINCT p.* FROM productos p WHERE p.activo = 1 AND p.categorias_id = {$categoria->id}";
+
+        if($subcategoria_id > 0) {
+            $query .= " AND p.subcategorias_id = {$subcategoria_id}";
+        }
 
         if ($filtro_precio_activo) {
             $query .= " AND p.precio BETWEEN {$precio_min} AND {$precio_max}";
@@ -156,6 +164,13 @@ class TiendaController
             $contadorProductos[$categoria->id] = count($productosCategoria);
 
         }
+        $contadorSubcategorias = [];
+        foreach($subcategorias as $subcategoria) {
+            $productosSubcategoria = Producto::consultarSQL("SELECT * FROM productos WHERE subcategorias_id = {$subcategoria->id}");
+            $contadorSubcategorias[$subcategoria->id] = count($productosSubcategoria);
+        }
+    
+
 
         $router->render('tienda/index', [
             'productos' => $productos,
@@ -171,13 +186,16 @@ class TiendaController
             'filtro_precio_activo' => $filtro_precio_activo,
             'orden' => $_GET['orden'] ?? '',
             'contadorProductos' => $contadorProductos,
-            'productosTotales' => $productosTotales
+            'productosTotales' => $productosTotales,
+            'subcategorias' => $subcategorias,
+            'contadorSubcategorias' => $contadorSubcategorias
         ]);
     }
     
     public static function detalles(Router $router, $slug)
     {
         $slug = isset($slug) ? $slug : '';
+       
         $token = isset($_GET['token']) ? $_GET['token'] : '';
 
         if ($slug == '' || $token == '') {
@@ -207,9 +225,9 @@ class TiendaController
 
         $imagenes = [];
 
-        foreach($productosCategorias as $producto) {
-            $imagenNew = ProductoImagen::consultarSQL("SELECT * FROM producto_imagen WHERE productos_id={$producto->id} LIMIT 1");
-            $imagenes[$producto->id] = $imagenNew[0]->imagen;
+        foreach($productosCategorias as $productoNew) {
+            $imagenNew = ProductoImagen::consultarSQL("SELECT * FROM producto_imagen WHERE productos_id={$productoNew->id} LIMIT 1");
+            $imagenes[$productoNew->id] = $imagenNew[0]->imagen;
 
         }
         $router->render('tienda/detalles', [

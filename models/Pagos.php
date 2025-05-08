@@ -72,6 +72,7 @@ class pagos extends ActiveRecord
 
         return self::$alertas;
     }
+
     public function procesarPagoProducto($producto, $sourceId, $idempotencyKey, $cantidad = 1, $talla = null)
     {
         try {
@@ -88,17 +89,11 @@ class pagos extends ActiveRecord
                 }
             }
 
-            $totalCentavos = intval($precioUnitario * $cantidad * 100); // Convertir a centavos
+            $totalCentavos = round($precioUnitario * $cantidad * 100); // Convertir a centavos
 
             // Crear request de pago
-            $request = new CreatePaymentRequest(
-                $sourceId,
-                $idempotencyKey,
-                new Money(
-                    $totalCentavos,
-                    SQUARE_CURRENCY
-                )
-            );
+            $request = new CreatePaymentRequest($sourceId, $idempotencyKey);
+            $request->setAmountMoney(new Money($totalCentavos, SQUARE_CURRENCY));
 
             // Añadir referencia para rastreo
             $request->setReferenceId("producto-{$producto->id}");
@@ -132,6 +127,8 @@ class pagos extends ActiveRecord
             ];
         }
     }
+
+
     public function procesarPagoCarrito($sourceId, $idempotencyKey)
     {
         try {
@@ -141,7 +138,17 @@ class pagos extends ActiveRecord
                 return ['success' => false, 'errors' => 'El carrito está vacío'];
             }
 
-            $lineItems = [];
+            // Validate sourceId and idempotencyKey
+            if (empty($sourceId) || empty($idempotencyKey)) {
+                return [
+                    'success' => false,
+                    'errors' => 'Token de pago o clave de idempotencia no proporcionados'
+                ];
+            }
+
+            // Calculate the total in the base currency (dollars, euros, etc.)
+            $totalBaseAmount = 0;
+
             foreach ($cartItems as $item) {
                 // Validate quantity
                 $quantity = intval($item['cantidad']);
@@ -156,95 +163,76 @@ class pagos extends ActiveRecord
                     ];
                 }
 
-                // Convert to cents (Square requires integer)
-                $amount = (int) round($precio * 100); // ← Cast explícito a entero
-
-                if ($amount <= 0) {
-                    return [
-                        'success' => false,
-                        'errors' => "El precio convertido a centavos no es válido para {$item['producto']->nombre}"
-                    ];
-                }
-
-                // Crear el line item
-                $lineItem = new OrderLineItem(strval($quantity));
-                $lineItem->setName($item['producto']->nombre);
-                $lineItem->setBasePriceMoney(new Money($amount, SQUARE_CURRENCY));
-
-                // Optional: Add variation (e.g., size)
-                if ($item['talla']) {
-                    $lineItem->setVariationName("Talla: {$item['talla']}");
-                }
-
-                $lineItems[] = $lineItem;
+                // Add to total in base currency
+                $totalBaseAmount += $precio * $quantity;
             }
 
-            if (empty($lineItems)) {
-                return ['success' => false, 'errors' => 'No hay productos válidos'];
-            }
-
-            // Create the order
-            $order = new Order(SQUARE_LOCATION_ID);
-            $order->setLineItems($lineItems);
-
-            // Apply coupon if available (optional)
+            // Apply coupon discount if available
             $cupon = Carrito::obtenerCupon();
+            $totalConDescuento = $totalBaseAmount;
+
             if ($cupon) {
-                $descuento = new OrderLineItemDiscount();
-                $descuento->setName("Cupón: {$cupon['codigo']}");
-
                 if ($cupon['tipo_descuento'] === 'porcentaje') {
-                    $descuento->setPercentage(strval($cupon['descuento']));
-                    $descuento->setType(OrderLineItemDiscountType::FIXED_PERCENTAGE);
+                    $descuento = $totalBaseAmount * ($cupon['descuento'] / 100);
+                    $totalConDescuento -= $descuento;
                 } else {
-                    $descuento->setAmountMoney(new Money(
-                        intval($cupon['descuento'] * 100),
-                        SQUARE_CURRENCY
-                    ));
-                    $descuento->setType(OrderLineItemDiscountType::FIXED_AMOUNT);
+                    $descuento = $cupon['descuento'];
+                    $totalConDescuento -= $descuento;
                 }
-
-                $descuento->setScope('ORDER');
-                $order->setDiscounts([$descuento]);
             }
 
-            // Submit the order
-            $orderRequest = new CreateOrderRequest();
-            $orderRequest->setOrder($order);
-            $orderResponse = $this->client->getOrdersApi()->createOrder($orderRequest);
-
-            if ($orderResponse->isError()) {
-                return [
-                    'success' => false,
-                    'errors' => $orderResponse->getErrors()
-                ];
+            // Add shipping cost if applicable ($7.00 for orders under $200)
+            if ($totalConDescuento <= 200) {
+                $totalConDescuento += 7.00;
             }
 
-            // Process payment
-            $createdOrder = $orderResponse->getResult()->getOrder();
-            $totalAmount = $createdOrder->getTotalMoney()->getAmount();
+            // Store the final amount in base currency for later database storage
+            $finalAmountBaseUnits = $totalConDescuento;
 
-            $paymentRequest = new CreatePaymentRequest(
+            // Convert to cents for Square API (Square requires integer amounts in cents)
+            $totalCentavos = round($totalConDescuento * 100);
+
+            // Ensure minimum amount of 1 cent
+            $totalCentavos = max(1, (int)$totalCentavos);
+
+            // Create Money object for Square
+            $money = new Money();
+            $money->setAmount($totalCentavos);
+            $money->setCurrency(SQUARE_CURRENCY);
+
+            // Create the payment request
+            $request = new CreatePaymentRequest(
                 $sourceId,
-                $idempotencyKey,
-                new Money($totalAmount, SQUARE_CURRENCY)
+                $idempotencyKey
             );
-            $paymentRequest->setOrderId($createdOrder->getId());
-            $paymentRequest->setReferenceId("carrito-" . uniqid());
 
-            $paymentResponse = $this->client->getPaymentsApi()->createPayment($paymentRequest);
+            $request->setAmountMoney($money);
+            $request->setAutocomplete(true);
+            $request->setReferenceId("carrito-" . uniqid());
+            $request->setNote("Compra de carrito online");
 
-            if ($paymentResponse->isSuccess()) {
-                $payment = $paymentResponse->getResult()->getPayment();
+            // Execute the payment request
+            $response = $this->client->getPaymentsApi()->createPayment($request);
+
+            if ($response->isSuccess()) {
+                $payment = $response->getResult()->getPayment();
+                $this->referencia = $payment->getId();
+
+                // IMPORTANT FIX: Store the amount in base currency, not cents
+                // This is the original amount we calculated BEFORE converting to cents
+                $this->monto = $finalAmountBaseUnits;
+                $this->estado = 'completado';
+
                 return [
                     'success' => true,
                     'payment_id' => $payment->getId(),
-                    'order_id' => $createdOrder->getId()
+                    'amount' => $finalAmountBaseUnits  // Return the amount in base currency
                 ];
             } else {
+                $errors = $response->getErrors();
                 return [
                     'success' => false,
-                    'errors' => $paymentResponse->getErrors()
+                    'errors' => $errors
                 ];
             }
         } catch (ApiException $e) {
@@ -254,6 +242,7 @@ class pagos extends ActiveRecord
             ];
         }
     }
+
     public function guardarOrden($usuarioId)
     {
         // Crear nueva orden
@@ -266,9 +255,10 @@ class pagos extends ActiveRecord
         ]);
 
         $resultado = $orden->guardar();
+        $orden_id = Orden::where('referencia', $orden->referencia);
 
         if ($resultado) {
-            $ordenId = $orden->id;
+            $ordenId = $orden_id->id;
             $this->ordenes_id = $ordenId;
             $this->guardar();
 

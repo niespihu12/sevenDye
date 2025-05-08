@@ -38,6 +38,7 @@ class PagoController {
     }
     
     public static function procesarPago() {
+        header('Content-Type: application/json');
         session_start();
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
@@ -66,8 +67,6 @@ class PagoController {
             
             // Procesar el pago con el carrito
             $resultado = $squarePayment->procesarPagoCarrito($sourceId, $idempotencyKey);
-
-            debuguear($resultado);
             
             if ($resultado['success']) {
                 // Si el pago es exitoso, guardar la orden
@@ -137,9 +136,9 @@ class PagoController {
             $squarePayment = new Pagos();
             
             // Procesar el pago del producto
-            $resultado = $squarePayment->procesarPagoProducto($producto, $cantidad, $tallaId, $sourceId, $idempotencyKey);
+            // FIX: Corrected parameter order to match the method signature
+            $resultado = $squarePayment->procesarPagoProducto($producto, $sourceId, $idempotencyKey, $cantidad, $tallaId);
             
-
             if ($resultado['success']) {
                 // Si el pago es exitoso, guardar la orden
                 $usuarioId = $_SESSION['usuario_id'] ?? 1; // Usar un valor por defecto si no hay sesión
@@ -175,6 +174,7 @@ class PagoController {
     }
     
     public static function confirmarPago(Router $router) {
+        header('Content-Type: application/json');
         session_start();
         
         // Verificar si hay una orden ID en la sesión
@@ -193,6 +193,7 @@ class PagoController {
     }
     
     public static function verificarCupon() {
+        header('Content-Type: application/json');
         session_start();
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
