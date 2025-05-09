@@ -38,6 +38,7 @@ class UsuarioController{
 
         $router->render('usuario/perfil',[
             'usuario'=>$usuario,
+            'titulo' => 'Profile'
         ]);
     }
 }

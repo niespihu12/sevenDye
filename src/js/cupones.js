@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const campoMinimoPedido = document.getElementById('campo_minimo_pedido');
     const descuentoInput = document.getElementById('descuento');
     
-    // Cambiar placeholder según el tipo de descuento
     tipoDescuentoSelect.addEventListener('change', function() {
         if (this.value === 'porcentaje') {
             descuentoInput.placeholder = 'ej: 15 (para 15%)';
@@ -13,7 +12,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Mostrar/ocultar campo de monto mínimo
     tipoPedidoMinimoSelect.addEventListener('change', function() {
         if (this.value === 'monto') {
             campoMinimoPedido.style.display = 'block';

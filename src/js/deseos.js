@@ -3,7 +3,7 @@ document.querySelectorAll('.wishlist-remove').forEach(btn => {
         const producto = e.target.closest('button').dataset.producto;
 
         try {
-            const response = await fetch('/deseos/eliminar', {
+            const response = await fetch('/wishlist/delete', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

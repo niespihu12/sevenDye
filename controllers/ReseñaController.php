@@ -8,7 +8,6 @@ use Model\Usuario;
 
 class ReseñaController {
     
-    // Método para guardar una nueva reseña
     public static function guardar() {
         session_start();
         if(!isset($_SESSION['login'])) {
@@ -33,7 +32,6 @@ class ReseñaController {
                 return;
             }
             
-            // Crear nueva reseña
             $resena = new ReseñaProducto([
                 'observaciones' => $datos['observaciones'],
                 'calificacion' => $datos['calificacion'],

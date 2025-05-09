@@ -15,7 +15,7 @@
 
             <h2>Productos</h2>
             <div>
-                <a class="c-button c-button--gooey" href="/productos/crear">Admin
+                <a class="c-button c-button--gooey" href="/products/create">Admin
                     <div class="c-button__blobs">
                         <div></div>
                         <div></div>
@@ -66,7 +66,7 @@
                         <td><?php echo $producto->recuento_ventas; ?></td>
                         <td>
                             <div class="influencers__acciones">
-                                <form method="POST" action="/productos/eliminar">
+                                <form method="POST" action="/products/delete">
                                     <input type="hidden" name="id" value="<?php echo $producto->id; ?>">
                                     <button type="submit" class="boton-eliminar">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
@@ -75,7 +75,7 @@
                                         Eliminar
                                     </button>
                                 </form>
-                                <a href="/productos/actualizar?id=<?php echo $producto->id; ?>" class="boton-actualizar">
+                                <a href="/products/update?id=<?php echo $producto->id; ?>" class="boton-actualizar">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
                                         <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
                                     </svg>

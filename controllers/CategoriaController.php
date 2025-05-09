@@ -18,7 +18,8 @@ class CategoriaController
         $categorias = Categoria::all();
         $router->render('categorias/admin', [
             'categorias' => $categorias,
-            'pageTitle' => 'categorias'
+            'pageTitle' => 'categorias',
+            'titulo' => 'admin'
         ]);
     }
     public static function crear(Router $router)
@@ -46,14 +47,15 @@ class CategoriaController
                 $resultado = $categoria->guardar();
 
                 if ($resultado) {
-                    header('location: /categorias/admin?resultado=1');
+                    header('location: /categories/admin?resultado=1');
                 }
             }
         }
         $router->render('categorias/crear', [
             'categoria' => $categoria,
             'alertas' => $alertas,
-            'pageTitle' => 'categorias'
+            'pageTitle' => 'categorias',
+            'titulo' => 'admin'
         ]);
     }
 
@@ -62,7 +64,7 @@ class CategoriaController
         session_start();
 
         isAdmin();
-        $id = validarORedireccionar('/categorias/admin');
+        $id = validarORedireccionar('/categories/admin');
         $categoria = Categoria::find($id);
         $alertas = Categoria::getAlertas();
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -84,7 +86,7 @@ class CategoriaController
                 $resultado = $categoria->guardar();
 
                 if ($resultado) {
-                    header('location: /categorias/admin?resultado=2');
+                    header('location: /categories/admin?resultado=2');
                 }
             }
         }
@@ -92,7 +94,8 @@ class CategoriaController
         $router->render('categorias/actualizar',[
             'categoria' => $categoria,
             'alertas' => $alertas,
-            'pageTitle' => 'categorias'
+            'pageTitle' => 'categorias',
+            'titulo' => 'admin'
         ]);
     }
     public static function eliminar(Router $router)
@@ -109,7 +112,7 @@ class CategoriaController
                 $resultado = $categoria->eliminar();
                 if ($resultado) {
                     $categoria->borrarImagen();
-                    header('location: /categorias/admin?resultado=3');
+                    header('location: /categories/admin?resultado=3');
                 }
             }
         }

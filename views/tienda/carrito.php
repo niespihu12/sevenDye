@@ -99,7 +99,7 @@
           ?>
         </div>
 
-        <a class="checkout-btn" href="/pago">
+        <a class="checkout-btn" href="/payment">
           Go to Checkout
           <span class="arrow">→</span>
         </a>

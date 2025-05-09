@@ -30,169 +30,143 @@ use Model\Subcategoria;
 
 $router = new Router();
 
-// Zona privada
 $router->get('/admin', [DashboardController::class, 'index']);
-$router->get('/testimonios/admin', [TestimonioController::class, 'index']);
-$router->get('/testimonios/crear', [TestimonioController::class, 'crear']);
-$router->post('/testimonios/crear', [TestimonioController::class, 'crear']);
-$router->get('/testimonios/actualizar', [TestimonioController::class, 'actualizar']);
-$router->post('/testimonios/actualizar', [TestimonioController::class, 'actualizar']);
-$router->post('/testimonios/eliminar', [TestimonioController::class, 'eliminar']);
+$router->get('/testimonials/admin', [TestimonioController::class, 'index']);
+$router->get('/testimonials/create', [TestimonioController::class, 'crear']);
+$router->post('/testimonials/create', [TestimonioController::class, 'crear']);
+$router->get('/testimonials/update', [TestimonioController::class, 'actualizar']);
+$router->post('/testimonials/update', [TestimonioController::class, 'actualizar']);
+$router->post('/testimonials/delete', [TestimonioController::class, 'eliminar']);
 
 
 $router->get('/influencers/admin', [InfluencerController::class, 'index']);
-$router->get('/influencers/crear', [InfluencerController::class, 'crear']);
-$router->post('/influencers/crear', [InfluencerController::class, 'crear']);
-$router->get('/influencers/actualizar', [InfluencerController::class, 'actualizar']);
-$router->post('/influencers/actualizar', [InfluencerController::class, 'actualizar']);
-$router->post('/influencers/eliminar', [InfluencerController::class, 'eliminar']);
+$router->get('/influencers/create', [InfluencerController::class, 'crear']);
+$router->post('/influencers/create', [InfluencerController::class, 'crear']);
+$router->get('/influencers/update', [InfluencerController::class, 'actualizar']);
+$router->post('/influencers/update', [InfluencerController::class, 'actualizar']);
+$router->post('/influencers/delete', [InfluencerController::class, 'eliminar']);
 
-$router->get('/categorias/admin', [CategoriaController::class, 'index']);
-$router->get('/categorias/crear', [CategoriaController::class, 'crear']);
-$router->post('/categorias/crear', [CategoriaController::class, 'crear']);
-$router->get('/categorias/actualizar', [CategoriaController::class, 'actualizar']);
-$router->post('/categorias/actualizar', [CategoriaController::class, 'actualizar']);
-$router->post('/categorias/eliminar', [CategoriaController::class, 'eliminar']);
+$router->get('/categories/admin', [CategoriaController::class, 'index']);
+$router->get('/categories/create', [CategoriaController::class, 'crear']);
+$router->post('/categories/create', [CategoriaController::class, 'crear']);
+$router->get('/categories/update', [CategoriaController::class, 'actualizar']);
+$router->post('/categories/update', [CategoriaController::class, 'actualizar']);
+$router->post('/categories/delete', [CategoriaController::class, 'eliminar']);
 
-$router->get('/categorias/admin', [CategoriaController::class, 'index']);
-$router->get('/categorias/crear', [CategoriaController::class, 'crear']);
-$router->post('/categorias/crear', [CategoriaController::class, 'crear']);
-$router->get('/categorias/actualizar', [CategoriaController::class, 'actualizar']);
-$router->post('/categorias/actualizar', [CategoriaController::class, 'actualizar']);
-$router->post('/categorias/eliminar', [CategoriaController::class, 'eliminar']);
-
-$router->get('/subcategorias/admin', [SubcategoriaController::class, 'index']);
-$router->get('/subcategorias/crear', [SubcategoriaController::class, 'crear']);
-$router->post('/subcategorias/crear', [SubcategoriaController::class, 'crear']);
-$router->get('/subcategorias/actualizar', [SubcategoriaController::class, 'actualizar']);
-$router->post('/subcategorias/actualizar', [SubcategoriaController::class, 'actualizar']);
-$router->post('/subcategorias/eliminar', [SubcategoriaController::class, 'eliminar']);
+$router->get('/subcategories/admin', [SubcategoriaController::class, 'index']);
+$router->get('/subcategories/create', [SubcategoriaController::class, 'crear']);
+$router->post('/subcategories/create', [SubcategoriaController::class, 'crear']);
+$router->get('/subcategories/update', [SubcategoriaController::class, 'actualizar']);
+$router->post('/subcategories/update', [SubcategoriaController::class, 'actualizar']);
+$router->post('/subcategories/delete', [SubcategoriaController::class, 'eliminar']);
 
 
-$router->get('/colores/admin', [ColorController::class, 'index']);
-$router->get('/colores/crear', [ColorController::class, 'crear']);
-$router->post('/colores/crear', [ColorController::class, 'crear']);
-$router->get('/colores/actualizar', [ColorController::class, 'actualizar']);
-$router->post('/colores/actualizar', [ColorController::class, 'actualizar']);
-$router->post('/colores/eliminar', [ColorController::class, 'eliminar']);
+$router->get('/colors/admin', [ColorController::class, 'index']);
+$router->get('/colors/create', [ColorController::class, 'crear']);
+$router->post('/colors/create', [ColorController::class, 'crear']);
+$router->get('/colors/update', [ColorController::class, 'actualizar']);
+$router->post('/colors/update', [ColorController::class, 'actualizar']);
+$router->post('/colors/delete', [ColorController::class, 'eliminar']);
 
-$router->get('/tallas/admin', [TallaController::class, 'index']);
-$router->get('/tallas/crear', [TallaController::class, 'crear']);
-$router->post('/tallas/crear', [TallaController::class, 'crear']);
-$router->get('/tallas/actualizar', [TallaController::class, 'actualizar']);
-$router->post('/tallas/actualizar', [TallaController::class, 'actualizar']);
-$router->post('/tallas/eliminar', [TallaController::class, 'eliminar']);
+$router->get('/sizes/admin', [TallaController::class, 'index']);
+$router->get('/sizes/create', [TallaController::class, 'crear']);
+$router->post('/sizes/create', [TallaController::class, 'crear']);
+$router->get('/sizes/update', [TallaController::class, 'actualizar']);
+$router->post('/sizes/update', [TallaController::class, 'actualizar']);
+$router->post('/sizes/delete', [TallaController::class, 'eliminar']);
 
 
-$router->get('/productos/admin', [ProductoController::class, 'index']);
-$router->get('/productos/crear', [ProductoController::class, 'crear']);
-$router->post('/productos/crear', [ProductoController::class, 'crear']);
-$router->get('/productos/actualizar', [ProductoController::class, 'actualizar']);
-$router->post('/productos/actualizar', [ProductoController::class, 'actualizar']);
-$router->post('/productos/eliminar', [ProductoController::class, 'eliminar']);
-$router->get('/productos/buscar', [ProductoController::class, 'buscar']);
-$router->get('/productos/obtener-subcategorias', [ProductoController::class, 'obtenerSubcategorias']);
+$router->get('/products/admin', [ProductoController::class, 'index']);
+$router->get('/products/create', [ProductoController::class, 'crear']);
+$router->post('/products/create', [ProductoController::class, 'crear']);
+$router->get('/products/update', [ProductoController::class, 'actualizar']);
+$router->post('/products/update', [ProductoController::class, 'actualizar']);
+$router->post('/products/delete', [ProductoController::class, 'eliminar']);
+$router->get('/products/search', [ProductoController::class, 'buscar']);
+$router->get('/products/get-subcategories', [ProductoController::class, 'obtenerSubcategorias']);
 
 $router->get('/blog/admin', [BlogController::class, 'index']);
-$router->get('/blog/crear', [BlogController::class, 'crear']);
-$router->post('/blog/crear', [BlogController::class, 'crear']);
-$router->get('/blog/actualizar', [BlogController::class, 'actualizar']);
-$router->post('/blog/actualizar', [BlogController::class, 'actualizar']);
-$router->post('/blog/eliminar', [BlogController::class, 'eliminar']);
-$router->get('/blog/buscar', [BlogController::class, 'buscar']);
+$router->get('/blog/create', [BlogController::class, 'crear']);
+$router->post('/blog/create', [BlogController::class, 'crear']);
+$router->get('/blog/update', [BlogController::class, 'actualizar']);
+$router->post('/blog/update', [BlogController::class, 'actualizar']);
+$router->post('/blog/delete', [BlogController::class, 'eliminar']);
+$router->get('/blog/search', [BlogController::class, 'buscar']);
 
 
-$router->get('/blog_categorias/admin', [BlogCategoriaController::class, 'index']);
-$router->get('/blog_categorias/crear', [BlogCategoriaController::class, 'crear']);
-$router->post('/blog_categorias/crear', [BlogCategoriaController::class, 'crear']);
-$router->get('/blog_categorias/actualizar', [BlogCategoriaController::class, 'actualizar']);
-$router->post('/blog_categorias/actualizar', [BlogCategoriaController::class, 'actualizar']);
-$router->post('/blog_categorias/eliminar', [BlogCategoriaController::class, 'eliminar']);
+$router->get('/blog_categories/admin', [BlogCategoriaController::class, 'index']);
+$router->get('/blog_categories/create', [BlogCategoriaController::class, 'crear']);
+$router->post('/blog_categories/create', [BlogCategoriaController::class, 'crear']);
+$router->get('/blog_categories/update', [BlogCategoriaController::class, 'actualizar']);
+$router->post('/blog_categories/update', [BlogCategoriaController::class, 'actualizar']);
+$router->post('/blog_categories/delete', [BlogCategoriaController::class, 'eliminar']);
 
-$router->get('/clientes/admin', [ClienteController::class, 'index']);
-$router->get('/clientes/actualizar', [ClienteController::class, 'actualizar']);
-$router->post('/clientes/actualizar', [ClienteController::class, 'actualizar']);
+$router->get('/customers/admin', [ClienteController::class, 'index']);
+$router->get('/customers/update', [ClienteController::class, 'actualizar']);
+$router->post('/customers/update', [ClienteController::class, 'actualizar']);
 
 
-$router->get('/cupones/admin', [CuponController::class, 'index']);
-$router->get('/cupones/crear', [CuponController::class, 'crear']);
-$router->post('/cupones/crear', [CuponController::class, 'crear']);
-$router->get('/cupones/actualizar', [CuponController::class, 'actualizar']);
-$router->post('/cupones/actualizar', [CuponController::class, 'actualizar']);
-$router->post('/cupones/eliminar', [CuponController::class, 'eliminar']);
+$router->get('/coupons/admin', [CuponController::class, 'index']);
+$router->get('/coupons/create', [CuponController::class, 'crear']);
+$router->post('/coupons/create', [CuponController::class, 'crear']);
+$router->get('/coupons/update', [CuponController::class, 'actualizar']);
+$router->post('/coupons/update', [CuponController::class, 'actualizar']);
+$router->post('/coupons/delete', [CuponController::class, 'eliminar']);
 
-// Login 
 $router->get('/login', [LoginController::class, 'login']);
 $router->post('/login', [LoginController::class, 'login']);
 $router->get('/register',[LoginController::class, 'registro']);
 $router->post('/register',[LoginController::class, 'registro']);
 $router->get('/logout', [LoginController::class, 'logout']);
 
-// Autenticacion con google Oauth2
 $router->get('/google/login', [GoogleController::class, 'login']);
 $router->get('/google/callback', [GoogleController::class, 'callback']);
 
 
-//recuperar password
-$router->get('/olvide', [LoginController::class, 'olvide']);
-$router->post('/olvide', [LoginController::class, 'olvide']);
-$router->get('/recuperar', [LoginController::class, 'recuperar']);
-$router->post('/recuperar', [LoginController::class, 'recuperar']);
+$router->get('/forgot', [LoginController::class, 'olvide']);
+$router->post('/forgot', [LoginController::class, 'olvide']);
+$router->get('/recover', [LoginController::class, 'recuperar']);
+$router->post('/recover', [LoginController::class, 'recuperar']);
 
-// Confirmar cuenta
-$router->get('/confirmar-cuenta', [LoginController::class, 'confirmar']);
-$router->get('/mensaje', [LoginController::class, 'mensaje']);
+$router->get('/confirm-account', [LoginController::class, 'confirmar']);
+$router->get('/message', [LoginController::class, 'mensaje']);
 
+$router->get('/reviews/product', [ReseñaController::class, 'obtenerPorProducto']);
+$router->post('/reviews/save', [ReseñaController::class, 'guardar']);
 
-// reviews
-$router->get('/resenas/producto', [ReseñaController::class, 'obtenerPorProducto']);
-$router->post('/resenas/guardar', [ReseñaController::class, 'guardar']);
+$router->get('/profile', [UsuarioController::class, 'actualizar']);
+$router->post('/profile', [UsuarioController::class, 'actualizar']);
 
-// Zona usuario
-$router->get('/perfil', [UsuarioController::class, 'actualizar']);
-$router->post('/perfil', [UsuarioController::class, 'actualizar']);
-
-
-// Zona publica
 $router->get('/', [PaginasController::class, 'index']);
-$router->get('/nosotros', [PaginasController::class, 'nosotros']);
-$router->get('/contacto', [PaginasController::class, 'contacto']);
-$router->post('/contacto', [PaginasController::class, 'contacto']);
+$router->get('/about', [PaginasController::class, 'nosotros']);
+$router->get('/contact', [PaginasController::class, 'contacto']);
+$router->post('/contact', [PaginasController::class, 'contacto']);
 
-// Carrito
-$router->get('/carrito', [CarritoController::class, 'index']);
-$router->post('/carrito/agregar', [CarritoController::class, 'agregar']);
-$router->post('/carrito/actualizar', [CarritoController::class, 'actualizar']);
-$router->post('/carrito/eliminar', [CarritoController::class, 'eliminar']);
-$router->get('/carrito/count', [CarritoController::class, 'contarCarrito']);
-$router->post('/carrito/aplicar-cupon', [CarritoController::class, 'aplicarCupon']);
-$router->post('/carrito/quitar-cupon', [CarritoController::class, 'quitarCupon']);
+$router->get('/cart', [CarritoController::class, 'index']);
+$router->post('/cart/add', [CarritoController::class, 'agregar']);
+$router->post('/cart/update', [CarritoController::class, 'actualizar']);
+$router->post('/cart/delete', [CarritoController::class, 'eliminar']);
+$router->get('/cart/count', [CarritoController::class, 'contarCarrito']);
+$router->post('/cart/apply-coupon', [CarritoController::class, 'aplicarCupon']);
+$router->post('/cart/remove-coupon', [CarritoController::class, 'quitarCupon']);
 
+$router->get('/store', [TiendaController::class, 'index']);
+$router->get('/store/{slug}', [TiendaController::class, 'indexSlug']);
+$router->get('/details/{slug}', [TiendaController::class, 'detalles']);
 
-// Tienda 
-$router->get('/tienda', [TiendaController::class, 'index']);
-$router->get('/tienda/{slug}', [TiendaController::class, 'indexSlug']);
-$router->get('/detalles/{slug}', [TiendaController::class, 'detalles']);
+$router->get('/wishlist', [DeseoController::class, 'index']);
+$router->get('/wishlist/verify', [DeseoController::class, 'verificar']);
+$router->post('/wishlist/save', [DeseoController::class, 'guardar']);
+$router->post('/wishlist/delete', [DeseoController::class, 'eliminar']);
+$router->get('/wishlist/count', [DeseoController::class, 'contarDeseos']);
 
-
-// Deseos
-$router->get('/deseos', [DeseoController::class, 'index']);
-$router->get('/deseos/verificar', [DeseoController::class, 'verificar']);
-$router->post('/deseos/guardar', [DeseoController::class, 'guardar']);
-$router->post('/deseos/eliminar', [DeseoController::class, 'eliminar']);
-$router->get('/deseos/count', [DeseoController::class, 'contarDeseos']);
-
-// blog
 $router->get('/blog', [PaginasController::class, 'blog']);
-$router->get('/blog/categoria/{slug}', [PaginasController::class, 'blogCategoria']);
+$router->get('/blog/category/{slug}', [PaginasController::class, 'blogCategoria']);
 $router->get('/blog/{slug}', [PaginasController::class, 'blogDetalle']);
 
-// pagos
-$router->get('/pago', [PagoController::class, 'checkout']);
-$router->post('/procesar-pago', [PagoController::class, 'procesarPago']);
+
+$router->get('/payment', [PagoController::class, 'checkout']);
+$router->post('/process-payment', [PagoController::class, 'procesarPago']);
 
 
 $router->comprobarRutas();
-
-
-

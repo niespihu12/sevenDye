@@ -4,7 +4,7 @@
     <div class="dashboard__breadcrumb">
 
         <p>
-            <a href="/productos/admin">Admin</a>
+            <a href="/products/admin">Admin</a>
             <span>></span>
             <?php echo $pageTitle; ?>
         </p>

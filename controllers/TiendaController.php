@@ -88,7 +88,8 @@ class TiendaController
             'filtro_precio_activo' => $filtro_precio_activo,
             'orden' => $_GET['orden'] ?? '',
             'contadorProductos' => $contadorProductos,
-            'productosTotales' => $productosTotales
+            'productosTotales' => $productosTotales,
+            'titulo' => 'Store'
         ]);
     }
 
@@ -97,7 +98,7 @@ class TiendaController
         $categoria = Categoria::where('slug', $slug);
         
         if (!$categoria) {
-            header('Location: /tienda');
+            header('Location: /store');
             return;
         }
         $subcategorias = Subcategoria::porCategoria($categoria->id);
@@ -188,7 +189,8 @@ class TiendaController
             'contadorProductos' => $contadorProductos,
             'productosTotales' => $productosTotales,
             'subcategorias' => $subcategorias,
-            'contadorSubcategorias' => $contadorSubcategorias
+            'contadorSubcategorias' => $contadorSubcategorias,
+            'titulo' => $slug
         ]);
     }
     
@@ -199,20 +201,20 @@ class TiendaController
         $token = isset($_GET['token']) ? $_GET['token'] : '';
 
         if ($slug == '' || $token == '') {
-            header('Location: /tienda');
+            header('Location: /store');
             return;
         }
         
         $token_tmp = hash_hmac('sha1', $slug, KEY_TOKEN);
         if ($token_tmp != $token) {
-            header('Location: /tienda');
+            header('Location: /store');
             return;
         }
 
         $producto = Producto::where('slug', $slug);
         
         if (!$producto) {
-            header('Location: /tienda');
+            header('Location: /store');
             return;
         }
         
@@ -237,7 +239,9 @@ class TiendaController
             'tallas' => $tallas,
             'productoImagenPrincipal' => $productoImagenPrincipal,
             'productoCategorias' => $productosCategorias,
-            'imagenes' => $imagenes
+            'imagenes' => $imagenes,
+            'titulo' => $producto->nombre
+
         ]);
     }
     

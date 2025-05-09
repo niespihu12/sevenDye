@@ -16,7 +16,8 @@ class ColorController
 
         $router->render('colores/admin',[
             'colores' => $colores,
-            'pageTitle' => "colores"
+            'pageTitle' => "colores",
+            'titulo' => 'admin'
         ]);
     }
     public static function crear(Router $router){
@@ -35,7 +36,7 @@ class ColorController
                 $resultado = $color->guardar();
 
                 if($resultado){
-                    header('Location: /colores/admin');
+                    header('Location: /colors/admin');
                 }
             }
         }
@@ -43,14 +44,15 @@ class ColorController
         $router->render('colores/crear',[
             'alertas' => $alertas,
             'color' => $color,
-            'pageTitle' => "colores"
+            'pageTitle' => "colores",
+            'titulo' => 'admin'
         ]);
     }
     public static function actualizar(Router $router){
         session_start();
 
         isAdmin();
-        $id = validarORedireccionar('/colores/admin');
+        $id = validarORedireccionar('/colors/admin');
 
         $color = Color::find($id);  
         $alertas = Color::getAlertas();
@@ -67,7 +69,7 @@ class ColorController
                 $resultado = $color->guardar();
 
                 if($resultado){
-                    header('Location: /colores/admin');
+                    header('Location: /colors/admin');
                 }
             }
         }
@@ -75,7 +77,8 @@ class ColorController
         $router->render('colores/actualizar',[
             'alertas' => $alertas,
             'color' => $color,
-            'pageTitle' => "colores"
+            'pageTitle' => "colores",
+            'titulo' => 'admin'
         ]);
     }
 
@@ -91,7 +94,7 @@ class ColorController
                 $color = Color::find($id);
                 $resultado = $color->eliminar();
                 if ($resultado) {
-                    header('location: /colores/admin?resultado=3');
+                    header('location: /colors/admin?resultado=3');
                 }
             }
         }

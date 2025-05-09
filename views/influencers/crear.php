@@ -16,7 +16,7 @@
 
 
 
-        <form method="POST" class="profile-card-wide" action="/influencers/crear" enctype="multipart/form-data" >
+        <form method="POST" class="profile-card-wide" action="/influencers/create" enctype="multipart/form-data" >
             <?php include __DIR__ . "/formulario.php"; ?>
         </form>
     </div>

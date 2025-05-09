@@ -13,7 +13,7 @@
     <div class="seccion-admin">
         <h1>Crear Publicación</h1>
 
-        <form method="POST" action="/blog/crear" enctype="multipart/form-data">
+        <form method="POST" action="/blog/create" enctype="multipart/form-data">
             <?php include __DIR__ . "/formulario.php"; ?>
             <input class="boton-primario" type="submit" value="Crear Publicación">
         </form>

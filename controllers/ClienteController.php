@@ -20,7 +20,8 @@ class ClienteController
         $usuarios = Usuario::all();
         $router->render('clientes/admin', [
             'usuarios' => $usuarios,
-            'pageTitle' => 'clientes'
+            'pageTitle' => 'clientes',
+            'titulo' => 'admin'
         ]);
     }
 
@@ -28,7 +29,7 @@ class ClienteController
     {
         session_start();
         isAdmin();
-        $id = validarORedireccionar('/clientes/admin');
+        $id = validarORedireccionar('/customers/admin');
         $usuario = Usuario::find($id);
         $alertas = Usuario::getAlertas();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -36,14 +37,15 @@ class ClienteController
             $alertas = $usuario->validar();
             if (empty($alertas['error'])) {
                 $usuario->guardar();
-                header('Location: /clientes/admin');
+                header('Location: /customers/admin');
             }
         }
         $router->render('/clientes/actualizar', [
             'usuario' => $usuario,
             'alertas' => $alertas,
             'roles' => Rol::all(),
-            'pageTitle' => 'Actualizar cliente'
+            'pageTitle' => 'Actualizar cliente',
+            'titulo' => 'admin'
         ]);
     }
 }

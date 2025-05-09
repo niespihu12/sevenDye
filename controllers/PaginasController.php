@@ -56,12 +56,15 @@ class PaginasController
             'categorias' => $categorias,
             'productosPorCategoria' => $productosPorCategoria,
             'imagenes' => $imagenes,
-            'categoriasCompletas' => $categoriasCompletas
+            'categoriasCompletas' => $categoriasCompletas,
+            'titulo' => 'Home'
         ]);
     }
     public static function nosotros(Router $router)
     {
-        $router->render('paginas/nosotros');
+        $router->render('paginas/nosotros', [
+            'titulo' => 'About Us'
+        ]);
     }
 
 
@@ -71,7 +74,8 @@ class PaginasController
         $blogUnico = Blog::consultarSQL("SELECT * FROM blog ORDER BY id DESC LIMIT 1");
         $router->render('blogs/index', [
             'blogLatest' => $blogLatest,
-            'blogUnico' => $blogUnico[0]
+            'blogUnico' => $blogUnico[0],
+            'titulo' => 'Blog'
         ]);
     }
 
@@ -102,7 +106,8 @@ class PaginasController
 
         $router->render('blogs/entrada', [
             'blog' => $blog,
-            'publicaciones' => $publicaciones
+            'publicaciones' => $publicaciones,
+            'titulo' => $blog->titulo
         ]);
     }
     public static function blogCategoria(Router $router, $slug)
@@ -126,7 +131,8 @@ class PaginasController
 
         $router->render('blogs/categoria', [
             'blogs' => $blogs,
-            'publicaciones' => $publicaciones
+            'publicaciones' => $publicaciones,
+            'titulo' => $blog->nombre
         ]);
     }
 
@@ -137,13 +143,12 @@ class PaginasController
             $respuestas = $_POST['contacto'];
 
             $mail = new PHPMailer();
-
             $mail->isSMTP();
-            $mail->Host = 'sandbox.smtp.mailtrap.io';
+            $mail->Host = $_ENV['EMAIL_HOST'];
             $mail->SMTPAuth = true;
-            $mail->Port = 2525;
-            $mail->Username = '82743787ce19fe';
-            $mail->Password = '6ba657381f8fef';
+            $mail->Port = $_ENV['EMAIL_PORT'];
+            $mail->Username = $_ENV['EMAIL_USER'];
+            $mail->Password = $_ENV['EMAIL_PASS'];
             $mail->SMTPSecure = 'tls';
 
             $mail->setFrom('admin@sevendye.com');
@@ -164,7 +169,6 @@ class PaginasController
             $mail->Body = $contenido;
             $mail->AltBody = "Esto es texto alternativo sin HTML";
 
-            //  Enviar el email
             if ($mail->send()) {
                 $mensaje = "Mensaje enviado correctamente";
             } else {
@@ -173,7 +177,8 @@ class PaginasController
         }
 
         $router->render('paginas/contacto', [
-            'mensaje' => $mensaje
+            'mensaje' => $mensaje,
+            'titulo' => 'Contact'
         ]);
     }
 }

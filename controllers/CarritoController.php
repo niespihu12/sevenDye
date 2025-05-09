@@ -31,7 +31,8 @@ class CarritoController
             'moneda' => MONEDA,
             'imagenes' => $imagenes,
             'cupon' => $cupon,
-            'totalConDescuento' => $totalConDescuento
+            'totalConDescuento' => $totalConDescuento,
+            'titulo' => 'Cart'
         ]);
     }
 
@@ -73,7 +74,7 @@ class CarritoController
         session_start();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
-            // Obtener datos del JSON
+            
             $datos = json_decode(file_get_contents('php://input'), true);
 
             if (isset($datos['clave']) && isset($datos['cantidad'])) {
@@ -90,7 +91,7 @@ class CarritoController
                 ]);
             }
         } else {
-            header('Location: /carrito');
+            header('Location: /cart');
         }
     }
 
@@ -99,7 +100,7 @@ class CarritoController
         session_start();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
-            // Obtener datos del JSON
+           
             $datos = json_decode(file_get_contents('php://input'), true);
 
             if (isset($datos['clave'])) {
@@ -115,7 +116,7 @@ class CarritoController
                 ]);
             }
         } else {
-            header('Location: /carrito');
+            header('Location: /cart');
         }
     }
 
@@ -124,7 +125,7 @@ class CarritoController
         session_start();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
-            // Obtener datos del JSON
+            
             $datos = json_decode(file_get_contents('php://input'), true);
 
             if (isset($datos['codigo'])) {
@@ -149,7 +150,7 @@ class CarritoController
                 ]);
             }
         } else {
-            header('Location: /carrito');
+            header('Location: /cart');
         }
     }
 
@@ -164,7 +165,7 @@ class CarritoController
                 'ok' => $resultado
             ]);
         } else {
-            header('Location: /carrito');
+            header('Location: /cart');
         }
     }
 

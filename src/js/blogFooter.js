@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Inicializar búsqueda para desktop y mobile si están disponibles
     initializeSearch('blog-search-input', 'blog-search-results');
 
     function initializeSearch(inputId, resultsId) {
@@ -18,14 +17,12 @@ document.addEventListener('DOMContentLoaded', function() {
           }
         }, 300));
 
-        // Cerrar resultados cuando se hace clic fuera del buscador
         document.addEventListener('click', function(event) {
           if (!searchInput.contains(event.target) && !searchResults.contains(event.target)) {
             searchResults.classList.remove('show');
           }
         });
 
-        // Mostrar resultados al hacer foco si ya hay texto
         searchInput.addEventListener('focus', function() {
           if (this.value.trim().length >= 2) {
             fetchSearchResults(this.value.trim(), searchResults);
@@ -38,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
       resultsContainer.innerHTML = '<div class="loading">Buscando...</div>';
       resultsContainer.classList.add('show');
 
-      fetch(`/blog/buscar?q=${encodeURIComponent(query)}`)
+      fetch(`/blog/search?q=${encodeURIComponent(query)}`)
         .then(response => response.json())
         .then(data => {
           if (data.length > 0) {
@@ -59,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       results.forEach(blog => {
         const item = document.createElement('a');
-        item.href = `/blog/${blog.slug}`; // Asumiendo que esta es la ruta para ver un blog
+        item.href = `/blog/${blog.slug}`; 
         item.className = 'search-item';
 
         const imageHtml = blog.imagen ?

@@ -38,9 +38,9 @@ class DeseoController
             $imagenes = [];
         }
         $router->render('usuario/listaDeseos', [
-            'titulo' => 'My Wishlist',
+            'titulo' => 'Wishlist',
             'productos' => $productos,
-            'imagenes' => $imagenes
+            'imagenes' => $imagenes,
         ]);
     }
     public static function guardar()

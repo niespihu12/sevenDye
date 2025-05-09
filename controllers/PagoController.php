@@ -13,15 +13,13 @@ class PagoController {
     public static function checkout(Router $router) {
         session_start();
         
-        // Obtener los datos del carrito
         $carItems = Carrito::obtenerCarrito();
         $total = Carrito::obtenerTotal();
         $cupon = Carrito::obtenerCupon();
         $totalConDescuento = Carrito::obtenerTotalConDescuento();
         
-        // Verificar si hay items en el carrito
         if (empty($carItems)) {
-            header('Location: /carrito');
+            header('Location: /cart');
             return;
         }
         
@@ -33,7 +31,8 @@ class PagoController {
             'moneda' => MONEDA,
             'square_application_id' => SQUARE_APPLICATION_ID,
             'square_location_id' => SQUARE_LOCATION_ID,
-            'square_sandbox' => SQUARE_SANDBOX
+            'square_sandbox' => SQUARE_SANDBOX,
+            'titulo' => 'payment'
         ]);
     }
     
@@ -42,7 +41,7 @@ class PagoController {
         session_start();
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
-            // Obtener los datos del JSON
+          
             $datos = json_decode(file_get_contents('php://input'), true);
             
             if (!isset($datos['sourceId']) || !isset($datos['idempotencyKey'])) {
@@ -56,22 +55,14 @@ class PagoController {
             $sourceId = $datos['sourceId'];
             $idempotencyKey = $datos['idempotencyKey'];
             $cuponCodigo = $datos['cuponCodigo'] ?? null;
-            
-            // Si se proporciona un código de cupón y no hay uno aplicado, intentar aplicarlo
             if ($cuponCodigo && !Carrito::obtenerCupon()) {
                 Carrito::aplicarCupon($cuponCodigo);
             }
-            
-            // Crear una instancia de pago Square
             $squarePayment = new Pagos();
-            
-            // Procesar el pago con el carrito
             $resultado = $squarePayment->procesarPagoCarrito($sourceId, $idempotencyKey);
             
             if ($resultado['success']) {
-                // Si el pago es exitoso, guardar la orden
-                // Verificar si el usuario está autenticado
-                $usuarioId = $_SESSION['usuario_id'] ?? 1; // Usar un valor por defecto si no hay sesión
+                $usuarioId = $_SESSION['usuario_id'] ?? 1; 
                 
                 $ordenId = $squarePayment->guardarOrden($usuarioId);
                 
@@ -96,7 +87,7 @@ class PagoController {
                 ]);
             }
         } else {
-            header('Location: /checkout');
+            header('Location: /payment');
         }
     }
     
@@ -104,7 +95,7 @@ class PagoController {
         session_start();
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
-            // Obtener los datos del JSON
+            
             $datos = json_decode(file_get_contents('php://input'), true);
             
             if (!isset($datos['sourceId']) || !isset($datos['idempotencyKey']) || !isset($datos['productoId'])) {
@@ -121,7 +112,7 @@ class PagoController {
             $cantidad = $datos['cantidad'] ?? 1;
             $tallaId = $datos['tallaId'] ?? null;
             
-            // Obtener producto
+       
             $producto = Producto::find($productoId);
             
             if (!$producto || $producto->activo != 1) {
@@ -132,18 +123,14 @@ class PagoController {
                 return;
             }
             
-            // Crear una instancia de pago Square
+        
             $squarePayment = new Pagos();
             
-            // Procesar el pago del producto
-            // FIX: Corrected parameter order to match the method signature
+            
             $resultado = $squarePayment->procesarPagoProducto($producto, $sourceId, $idempotencyKey, $cantidad, $tallaId);
             
             if ($resultado['success']) {
-                // Si el pago es exitoso, guardar la orden
-                $usuarioId = $_SESSION['usuario_id'] ?? 1; // Usar un valor por defecto si no hay sesión
-                
-                // Agregar el producto al carrito temporalmente
+                $usuarioId = $_SESSION['usuario_id'] ?? 1; 
                 Carrito::añadirproducto($productoId, $cantidad, $tallaId);
                 
                 $ordenId = $squarePayment->guardarOrden($usuarioId);
@@ -169,26 +156,23 @@ class PagoController {
                 ]);
             }
         } else {
-            header('Location: /tienda');
+            header('Location: /store');
         }
     }
     
     public static function confirmarPago(Router $router) {
         header('Content-Type: application/json');
         session_start();
-        
-        // Verificar si hay una orden ID en la sesión
         $ordenId = $_GET['orden'] ?? null;
         
         if (!$ordenId) {
-            header('Location: /tienda');
+            header('Location: /store');
             return;
         }
         
-        // Aquí podríamos cargar la orden para mostrar un detalle
-        
         $router->render('tienda/confirmacion', [
-            'ordenId' => $ordenId
+            'ordenId' => $ordenId,
+            'titulo' => 'confirmation'
         ]);
     }
     
@@ -197,7 +181,7 @@ class PagoController {
         session_start();
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
-            // Obtener datos del JSON
+        
             $datos = json_decode(file_get_contents('php://input'), true);
             
             if (!isset($datos['codigo'])) {
@@ -210,7 +194,7 @@ class PagoController {
             
             $codigo = $datos['codigo'];
             
-            // Verificar el cupón
+            
             $cupon = Cupon::verificarCupon($codigo);
             
             if ($cupon) {
@@ -226,7 +210,7 @@ class PagoController {
                 ]);
             }
         } else {
-            header('Location: /checkout');
+            header('Location: /payment');
         }
     }
 }

@@ -19,7 +19,6 @@
   
   <div class="collection-slider-container">
     <div class="collection-slider">
-      <!-- Slide 1: T-Shirts & Tops -->
       <div class="collection-slide">
         <div class="collection-image">
           <picture>
@@ -31,11 +30,10 @@
         <div class="collection-content">
           <h3>T-Shirts & Tops</h3>
           <p>Vibrant tie-dye t-shirts, tank tops, and more for everyday expression. Each piece is uniquely crafted to help you stand out with bold colors and patterns.</p>
-          <a href="#" class="collection-button">Explore</a>
+          <a href="/store" class="collection-button">Explore</a>
         </div>
       </div>
       
-      <!-- Slide 2: Hoodies & Jackets -->
       <div class="collection-slide">
         <div class="collection-image">
           <picture>
@@ -47,11 +45,10 @@
         <div class="collection-content">
           <h3>Hoodies & Jackets</h3>
           <p>Cozy hoodies and denim jackets with unique tie-dye patterns. Stay warm while expressing your colorful personality with our handcrafted outerwear.</p>
-          <a href="#" class="collection-button">Explore</a>
+          <a href="/store" class="collection-button">Explore</a>
         </div>
       </div>
       
-      <!-- Slide 3: Kids & Baby -->
       <div class="collection-slide">
         <div class="collection-image">
           <picture>
@@ -63,12 +60,11 @@
         <div class="collection-content">
           <h3>Kids & Baby</h3>
           <p>Colorful tie-dye clothing for the little ones in your life. Our kid-friendly designs bring joy and vibrant energy to children's wardrobes with soft, comfortable fabrics.</p>
-          <a href="#" class="collection-button">Explore</a>
+          <a href="/store" class="collection-button">Explore</a>
         </div>
       </div>
     </div>
     
-    <!-- Slider Navigation -->
     <div class="slider-nav">
       <button class="slider-prev" aria-label="Previous slide">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

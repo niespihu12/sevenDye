@@ -26,26 +26,26 @@ if ($auth) {
     </div>
     <div class="barra-mobile">
         <?php if ($auth) { ?>
-            <a href="/perfil" class="perfil-mobile">
+            <a href="/profile" class="perfil-mobile">
                 <img loading="lazy" src="/imagenes/<?php echo $foto ?>" alt="profile" width="100" height="100">
             </a>
         <?php } else { ?>
             <a class="profile" href="/login"><i class="bi bi-person-fill"></i></i></a>
         <?php } ?>
         <?php if ($auth) { ?>
-            <a class="like" href="/deseos"><i class="bi bi-heart-fill"></i></a>
+            <a class="like" href="/wishlist"><i class="bi bi-heart-fill"></i></a>
         <?php } ?>
-        <a class="carrito" href="/carrito"><i class="bi bi-bag-fill"></i></a>
+        <a class="carrito" href="/cart"><i class="bi bi-bag-fill"></i></a>
         <button id="abrir" class="abrir-menu"><i class="bi bi-list"></i></button>
 
     </div>
 
     <nav class="navegacion-principal">
         <a href="/">HOME</a>
-        <a href="/tienda">SHOP</a>
-        <a href="/nosotros">ABOUT US</a>
+        <a href="/store">SHOP</a>
+        <a href="/about">ABOUT US</a>
         <a href="/blog">BLOG</a>
-        <a href="/contacto">CONTACT</a>
+        <a href="/contact">CONTACT</a>
     </nav>
     <nav class="navegacion-secundaria">
         <div class="search-container">
@@ -64,11 +64,11 @@ if ($auth) {
         </div>
         <?php if ($auth) { ?>
             <?php if ($foto) { ?>
-                <a href="/perfil" class="perfil">
+                <a href="/profile" class="perfil">
                     <img loading="lazy" src="/imagenes/<?php echo $foto ?>" alt="profile" width="100" height="100">
                 </a>
             <?php } else { ?>
-                <a href="/perfil" class="perfil">
+                <a href="/profile" class="perfil">
                     <picture>
                         <source srcset="/build/img/default_pfp.avif" type="image/avif">
                         <source srcset="/build/img/default_pfp.webp" type="image/webp">
@@ -80,7 +80,7 @@ if ($auth) {
             <a class="sign-in-button" href="/login">Sign In</a>
         <?php } ?>
         <?php if ($auth) { ?>
-            <a class="favoritos" href="/deseos">
+            <a class="favoritos" href="/wishlist">
                 <picture>
                     <source srcset="/build/img/favorite.avif" type="image/avif">
                     <source srcset="/build/img/favorite.webp" type="image/webp">
@@ -88,7 +88,7 @@ if ($auth) {
                 </picture>
             </a>
         <?php } ?>
-        <a class="carrito" href="/carrito"><i class="bi bi-bag-fill"></i></a>
+        <a class="carrito" href="/cart"><i class="bi bi-bag-fill"></i></a>
     </nav>
 
     <nav class="navegacion-mobile" id="nav-mob">
@@ -108,10 +108,10 @@ if ($auth) {
             </div>
         </div>
         <a href="/">HOME</a>
-        <a href="/tienda">SHOP</a>
-        <a href="/nosotros">ABOUT US</a>
+        <a href="/store">SHOP</a>
+        <a href="/about">ABOUT US</a>
         <a href="/blog">BLOG</a>
-        <a href="/contacto">CONTACT</a>
+        <a href="/contact">CONTACT</a>
     </nav>
 
 </header>

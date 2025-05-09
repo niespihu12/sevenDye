@@ -45,7 +45,7 @@
 
     <!-- Botones de acción -->
     <div class="formulario-admin__actions">
-        <a type="button" class="btn btn--cancelar" href="/colores/admin">Cancelar</a>
+        <a type="button" class="btn btn--cancelar" href="/colors/admin">Cancelar</a>
         <button type="submit" class="btn btn--guardar">Guardar Color</button>
     </div>
 </div>

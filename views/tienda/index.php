@@ -25,13 +25,13 @@
                     <div class="filter-section">
                         <h2 class="filter-title">Categorías</h2>
                         <div class="categories">
-                            <a class="categories__item <?php echo !isset($categoria_slug) ? 'active' : ''; ?>" href="/tienda">
+                            <a class="categories__item <?php echo !isset($categoria_slug) ? 'active' : ''; ?>" href="/store">
                                 <span class="name">Todos</span>
                                 <span class="count"><?php echo $productosTotales ?></span>
                             </a>
                             <?php foreach ($categorias as $categoria): ?>
                                 <a class="categories__item <?php echo (isset($categoria_slug) && $categoria_slug === $categoria->slug) ? 'active' : ''; ?>"
-                                    href="/tienda/<?php echo urlencode($categoria->slug); ?>">
+                                    href="/store/<?php echo urlencode($categoria->slug); ?>">
                                     <span class="name"><?php echo $categoria->nombre ?></span>
                                     <span class="count"><?php echo $contadorProductos[$categoria->id] ?></span>
                                 </a>
@@ -41,7 +41,7 @@
                                     <div class="subcategories">
                                         <?php foreach ($subcategorias as $subcategoria): ?>
                                             <a class="subcategories__item <?php echo (isset($_GET['subcategoria']) && $_GET['subcategoria'] == $subcategoria->id) ? 'active' : ''; ?>"
-                                                href="/tienda/<?php echo $categoria->slug; ?>?subcategoria=<?php echo $subcategoria->id; ?>"
+                                                href="/store/<?php echo $categoria->slug; ?>?subcategoria=<?php echo $subcategoria->id; ?>"
                                                 data-subcategoria-id="<?php echo $subcategoria->id; ?>">
                                                 <span class="name"><?php echo $subcategoria->nombre ?></span>
                                                 <span class="count"><?php echo $contadorSubcategorias[$subcategoria->id] ?? 0 ?></span>
@@ -128,7 +128,7 @@
 
             <div class="products">
                 <?php foreach ($productos as $producto): ?>
-                    <a class="products__card" href="/detalles/<?php echo urlencode($producto->slug); ?>?token=<?php echo hash_hmac('sha1', $producto->slug, KEY_TOKEN); ?>">
+                    <a class="products__card" href="/details/<?php echo urlencode($producto->slug); ?>?token=<?php echo hash_hmac('sha1', $producto->slug, KEY_TOKEN); ?>">
                         <div class="products__image">
                             <?php if (isset($imagenes[$producto->id])): ?>
                                 <img loading="lazy" src="/imagenes/<?php echo $imagenes[$producto->id] ?>" alt="<?php echo $producto->nombre ?>">

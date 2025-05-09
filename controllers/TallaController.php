@@ -16,7 +16,8 @@ class TallaController{
 
         $router->render('tallas/admin', [
             'tallas' => $tallas,
-            'pageTitle' => 'Tallas'
+            'pageTitle' => 'Tallas',
+            'titulo' => 'admin'
         ]);
     }
 
@@ -36,7 +37,7 @@ class TallaController{
                 $resultado = $talla->guardar();
 
                 if($resultado){
-                    header('Location: /tallas/admin');
+                    header('Location: /sizes/admin');
                 }
             }
         }
@@ -44,14 +45,15 @@ class TallaController{
         $router->render('tallas/crear',[
             'alertas' => $alertas,
             'talla' => $talla,
-            'pageTitle' => "tallas"
+            'pageTitle' => "tallas",
+            'titulo' => 'admin'
         ]);
     }
     public static function actualizar(Router $router){
         session_start();
 
         isAdmin();
-        $id = validarORedireccionar('/tallas/admin');
+        $id = validarORedireccionar('/sizes/admin');
 
         $talla = Talla::find($id);  
         $alertas = Talla::getAlertas();
@@ -68,7 +70,7 @@ class TallaController{
                 $resultado = $talla->guardar();
 
                 if($resultado){
-                    header('Location: /tallas/admin');
+                    header('Location: /sizes/admin');
                 }
             }
         }
@@ -76,7 +78,8 @@ class TallaController{
         $router->render('tallas/actualizar',[
             'alertas' => $alertas,
             'talla' => $talla,
-            'pageTitle' => "tallas"
+            'pageTitle' => "tallas",
+            'titulo' => 'admin'
         ]);
     }
 
@@ -96,7 +99,7 @@ class TallaController{
                 }
                 $resultado = $talla->eliminar();
                 if ($resultado) {
-                    header('location: /tallas/admin?resultado=3');
+                    header('location: /sizes/admin?resultado=3');
                 }
             }
         }

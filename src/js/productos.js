@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             subcategoriaSelect.innerHTML = '<option value="">Cargando subcategorías...</option>';
 
-            fetch(`/productos/obtener-subcategorias?categoria_id=${categoriaId}`)
+            fetch(`/products/get-subcategories?categoria_id=${categoriaId}`)
                 .then(response => response.json())
                 .then(subcategorias => {
                     subcategoriaSelect.innerHTML = '';

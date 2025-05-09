@@ -1,9 +1,5 @@
 <?php include_once __DIR__ . "/../templates/header-principal.php"; ?>
 
-<
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-<link rel="stylesheet" href="/perfil-edit.css">
 
 <section class="profile-principal">
   <div class="decorative-circle circle-1"></div>
@@ -23,7 +19,7 @@
       </div>
       <h3><?php echo s($usuario->nombre); ?></h3>
       <div class="profile-enlaces">
-        <a href="/deseos"><i class="fas fa-heart"></i> Favoritos</a>
+        <a href="/wishlist"><i class="fas fa-heart"></i> Favoritos</a>
         <?php if($usuario->rolId == 2): ?>
           <a href="/admin"><i class="fas fa-user-shield"></i> Administrador</a>
         <?php endif; ?>

@@ -24,7 +24,8 @@ class SubcategoriaController
         $router->render('subcategorias/admin', [
             'subcategorias' => $subcategorias,
             'categorias' => $categorias,
-            'pageTitle' => 'Subcategorías'
+            'pageTitle' => 'Subcategorías',
+            'titulo' => 'admin'
         ]);
     }
 
@@ -47,7 +48,7 @@ class SubcategoriaController
                 $resultado = $subcategoria->guardar();
 
                 if ($resultado) {
-                    header('Location: /subcategorias/admin');
+                    header('Location: /subcategories/admin');
                 }
             }
         }
@@ -58,7 +59,8 @@ class SubcategoriaController
             'subcategoria' => $subcategoria,
             'alertas' => $alertas,
             'categorias' => $categorias,
-            'pageTitle' => 'Crear Subcategoría'
+            'pageTitle' => 'Crear Subcategoría',
+            'titulo' => 'admin'
         ]);
     }
 
@@ -67,7 +69,7 @@ class SubcategoriaController
         session_start();
 
         isAdmin();
-        $id = validarORedireccionar('/subcategorias/admin');
+        $id = validarORedireccionar('/subcategories/admin');
         $subcategoria = Subcategoria::find($id);
         $alertas = Subcategoria::getAlertas();
         $categorias = Categoria::all();
@@ -81,7 +83,7 @@ class SubcategoriaController
                 $resultado = $subcategoria->guardar();
 
                 if ($resultado) {
-                    header('Location: /subcategorias/admin');
+                    header('Location: /subcategories/admin');
                     exit;
                 }
             }
@@ -93,7 +95,8 @@ class SubcategoriaController
             'subcategoria' => $subcategoria,
             'alertas' => $alertas,
             'categorias' => $categorias,
-            'pageTitle' => 'Editar Subcategoría'
+            'pageTitle' => 'Editar Subcategoría',
+            'titulo' => 'admin'
         ]);
     }
 
@@ -103,7 +106,6 @@ class SubcategoriaController
 
         isAdmin();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Validar ID
             $id = $_POST['id'];
             $id = filter_var($id, FILTER_VALIDATE_INT);
 
@@ -111,22 +113,18 @@ class SubcategoriaController
                 $subcategoria = Subcategoria::find($id);
 
                 if ($subcategoria) {
-                    // Verificar si hay productos usando esta subcategoría
                     $query = "SELECT COUNT(*) as total FROM productos WHERE subcategorias_id = {$id}";
                     $resultado = Subcategoria::ejecutarSQL($query);
                     $total = $resultado->fetch_assoc()['total'];
 
                     if ($total > 0) {
-                        // Hay productos con esta subcategoría, actualizar a null
                         $queryUpdate = "UPDATE productos SET subcategorias_id = NULL WHERE subcategorias_id = {$id}";
                         Subcategoria::ejecutarSQL($queryUpdate);
                     }
-
-                    // Eliminar subcategoría
                     $resultado = $subcategoria->eliminar();
 
                     if ($resultado) {
-                        header('Location: /subcategorias/admin');
+                        header('Location: /subcategories/admin');
                     }
                 }
             }

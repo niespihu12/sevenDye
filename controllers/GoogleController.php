@@ -25,13 +25,11 @@ class GoogleController
             exit;
         }
 
-        // Obtener token y datos
         $token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
         $client->setAccessToken($token['access_token']);
         $oauth = new Google_Service_Oauth2($client);
         $google_user = $oauth->userinfo->get();
 
-        // Buscar o crear usuario
         $usuario = Usuario::where('email', $google_user->email);
 
         session_start();
@@ -51,7 +49,6 @@ class GoogleController
         
         $usuario = Usuario::where('email', $google_user->email);
 
-        // Iniciar sesión
         $_SESSION['id'] = $usuario->id;
         $_SESSION['email'] = $usuario->email;
         $_SESSION['login'] = true;

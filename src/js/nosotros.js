@@ -7,10 +7,8 @@ document.addEventListener('DOMContentLoaded', function () {
     let currentSlide = 0;
     const slideCount = slides.length;
 
-    // Show initial slide
     updateSlider();
 
-    // Handle dot navigation
     dots.forEach((dot, index) => {
         dot.addEventListener('click', () => {
             currentSlide = index;
@@ -18,7 +16,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Handle prev/next buttons
     prevBtn.addEventListener('click', () => {
         currentSlide = (currentSlide - 1 + slideCount) % slideCount;
         updateSlider();
@@ -29,13 +26,10 @@ document.addEventListener('DOMContentLoaded', function () {
         updateSlider();
     });
 
-    // Update slider position and active state
     function updateSlider() {
-        // Update slider position
         const translateValue = -currentSlide * 100;
         slider.style.transform = `translateX(${translateValue}%)`;
 
-        // Update active dot
         dots.forEach((dot, index) => {
             if (index === currentSlide) {
                 dot.classList.add('active');
@@ -45,7 +39,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Auto-advance slides every 5 seconds
     setInterval(() => {
         currentSlide = (currentSlide + 1) % slideCount;
         updateSlider();

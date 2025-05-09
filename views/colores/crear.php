@@ -5,7 +5,7 @@
     <div class="dashboard__breadcrumb">
 
         <p>
-            <a href="/colores/admin">Admin</a>
+            <a href="/colors/admin">Admin</a>
             <span>></span>
             <?php echo $pageTitle; ?>
         </p>
@@ -13,7 +13,7 @@
 
     <div class="seccion-admin">
 
-        <form method="POST" action="/colores/crear" enctype="multipart/form-data">
+        <form method="POST" action="/colors/create" enctype="multipart/form-data">
             <?php include __DIR__ . "/formulario.php"; ?>
         </form>
     </div>

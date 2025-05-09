@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Avatar upload functionality
     const avatarDrop = document.getElementById('avatarDrop');
     const avatarInput = document.getElementById('imagen');
     let avatarPreview = document.getElementById('avatarPreview');
@@ -7,12 +6,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const avatarError = document.getElementById('avatarError');
     const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
   
-    // Handle file selection
     avatarInput.addEventListener('change', function(e) {
       handleFiles(e.target.files);
     });
   
-    // Drag and drop functionality
     ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
       avatarDrop.addEventListener(eventName, preventDefaults, false);
     });
@@ -44,19 +41,16 @@ document.addEventListener('DOMContentLoaded', function() {
       handleFiles(files);
     });
   
-    // Handle the selected files
     function handleFiles(files) {
       if (files.length > 0) {
         const file = files[0];
         
-        // Validate file type
         const validTypes = ['image/jpeg', 'image/png', 'image/webp'];
         if (!validTypes.includes(file.type)) {
           avatarError.textContent = 'Formato no válido. Solo JPG, PNG o WEBP.';
           return;
         }
         
-        // Validate file size
         if (file.size > MAX_FILE_SIZE) {
           avatarError.textContent = 'El archivo es demasiado grande (máx 5MB).';
           return;
@@ -64,7 +58,6 @@ document.addEventListener('DOMContentLoaded', function() {
         
         avatarError.textContent = '';
         
-        // Display file size
         avatarSize.textContent = formatFileSize(file.size);
         
         // Preview the image

@@ -5,7 +5,7 @@
     <div class="dashboard__breadcrumb">
 
         <p>
-            <a href="/subcategorias/admin">Admin</a>
+            <a href="/subcategories/admin">Admin</a>
             <span>></span>
             <?php echo $pageTitle; ?>
         </p>
@@ -14,7 +14,7 @@
     <div class="seccion-admin">
         <h1><i class="fas fa-folder-plus"></i> Crear Subcategoría</h1>
 
-        <form method="POST" action="/subcategorias/crear">
+        <form method="POST" action="/subcategories/create">
             <?php include __DIR__ . "/formulario.php"; ?>
             <input class="boton-primario" type="submit" value="Crear Subcategoría">
         </form>

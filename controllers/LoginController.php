@@ -46,7 +46,8 @@ class LoginController{
         
         $alertas = Usuario::getAlertas();
         $router->render('auth/login', [
-            'alertas' => $alertas
+            'alertas' => $alertas,
+            'titulo' => 'login'
         ]);
     }
 
@@ -79,7 +80,8 @@ class LoginController{
         $alertas = Usuario::getAlertas();
 
         $router->render('auth/olvide-password', [
-            'alertas' => $alertas
+            'alertas' => $alertas,
+            'titulo' => 'forgot'
         ]);
     }
 
@@ -120,7 +122,8 @@ class LoginController{
         $alertas = Usuario::getAlertas();
         $router->render('auth/recuperar-password', [
             'alertas' => $alertas, 
-            'error' => $error
+            'error' => $error,
+            'titulo' => 'recover'
         ]);
     }
 
@@ -150,7 +153,7 @@ class LoginController{
                     $resultado = $usuario->guardar();
 
                     if($resultado){
-                        header('Location: /mensaje');
+                        header('Location: /message');
                     }
                 }
             }
@@ -160,6 +163,7 @@ class LoginController{
         $router ->render('auth/register',[
             'usuario' => $usuario,
             'alertas' => $alertas,
+            'titulo' => 'register'
         ]);
 
     }
@@ -170,23 +174,18 @@ class LoginController{
         $usuario = Usuario::where('token', $token);
 
         if(empty($usuario)) {
-            // Mostrar mensaje de error
             Usuario::setAlerta('error','Token No Válido');
         } else {
-            // Modificar a usuario confirmado
             $usuario->confirmado = "1";
             $usuario->token = '';
             $usuario->creado = date('Y/m/d');
             $usuario->guardar();
             Usuario::setAlerta('exito','Cuenta Comprobada Correctamente');
         }
-       
-        // Obtener alertas
         $alertas = Usuario::getAlertas();
-
-        // Renderizar la vista
         $router->render('auth/confirmar-cuenta', [
-            'alertas' => $alertas
+            'alertas' => $alertas,
+            'titulo' => 'confirm'
         ]);
     }
 
@@ -197,6 +196,8 @@ class LoginController{
     }
 
     public static function mensaje(Router $router) {
-        $router->render('auth/mensaje');
+        $router->render('auth/mensaje', [
+            'titulo' => 'message'
+        ]);
     }
 }

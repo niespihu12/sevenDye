@@ -42,7 +42,7 @@
             <?php if ($mensaje) { ?>
                 <p class="alerta texto"><?php echo $mensaje; ?></p>
             <?php } ?>
-            <form id="contactForm" action="/contacto" method="post">
+            <form id="contactForm" action="/contact" method="post">
                 <div class="form-row">
                     <input type="text" name="contacto[nombre]" placeholder="Your Name" required>
                     <input type="email" name="contacto[email]" placeholder="Your Email" required>

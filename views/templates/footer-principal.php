@@ -125,7 +125,7 @@
     </div>
 
     <nav class="footer__nav contenedor">
-        <a href="/contacto">Support Center</a>
+        <a href="/contact">Support Center</a>
         <a href="#">Privacy Policy</a>
         <a href="#">Frequently Asked Questions</a>
         <a href="#">Blog</a>

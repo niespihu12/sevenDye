@@ -5,7 +5,7 @@
     <div class="dashboard__breadcrumb">
 
         <p>
-            <a href="/blog_categorias/admin">Admin</a>
+            <a href="/blog_categories/admin">Admin</a>
             <span>></span>
             <?php echo $pageTitle; ?>
         </p>
@@ -14,7 +14,7 @@
     <div class="seccion-admin">
         <h1>Crear Talla</h1>
 
-        <form method="POST" action="/blog_categorias/crear" enctype="multipart/form-data">
+        <form method="POST" action="/blog_categories/create" enctype="multipart/form-data">
             <?php include __DIR__ . "/formulario.php"; ?>
         </form>
     </div>

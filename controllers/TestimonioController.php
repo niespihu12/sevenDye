@@ -17,7 +17,8 @@ class TestimonioController
         $testimonios = Testimonio::all();
         $router->render('/testimonios/admin', [
             'testimonios' => $testimonios,
-            'pageTitle' => 'testimonios'
+            'pageTitle' => 'testimonios',
+            'titulo' => 'admin'
         ]);
     }
 
@@ -49,7 +50,7 @@ class TestimonioController
                 $resultado = $testimonio->guardar();
 
                 if ($resultado) {
-                    header('location: /testimonios/admin?resultado=1');
+                    header('location: /testimonials/admin?resultado=1');
                 }
             }
         }
@@ -57,7 +58,8 @@ class TestimonioController
         $router->render('/testimonios/crear', [
             'testimonio' => $testimonio,
             'alertas' => $alertas,
-            'pageTitle' => 'testimonios'
+            'pageTitle' => 'testimonios',
+            'titulo' => 'admin'
         ]);
     }
     public static function actualizar(Router $router)
@@ -65,7 +67,7 @@ class TestimonioController
         session_start();
 
         isAdmin();
-        $id = validarORedireccionar('/testimonios/admin');
+        $id = validarORedireccionar('/testimonials/admin');
         $testimonio = Testimonio::find($id);
         $alertas = Testimonio::getAlertas();
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -90,14 +92,15 @@ class TestimonioController
                 $resultado = $testimonio->guardar();
 
                 if ($resultado) {
-                    header('location: /testimonios/admin?resultado=2');
+                    header('location: /testimonials/admin?resultado=2');
                 }
             }
         }
         $router->render('/testimonios/actualizar', [
             'testimonio' => $testimonio,
             'alertas' => $alertas,
-            'pageTitle' => 'testimonios'
+            'pageTitle' => 'testimonios',
+            'titulo' => 'admin'
         ]);
     }
 
@@ -114,7 +117,7 @@ class TestimonioController
                 $resultado = $testimonio->eliminar();
                 if ($resultado) {
                     $testimonio->borrarImagen();
-                    header('location: /testimonios/admin?resultado=3');
+                    header('location: /testimonials/admin?resultado=3');
                 }
             }
         }

@@ -1,12 +1,16 @@
 <?php
 
+use Model\ActiveRecord;
+require __DIR__ . '/../vendor/autoload.php';
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->safeLoad();
+
 require 'funciones.php';
 require 'config/database.php';
 require 'config/google.php';
 require 'config/square.php';
-require __DIR__ . '/../vendor/autoload.php';
 
 $db = conectarDB();
-use Model\ActiveRecord;
 ActiveRecord::setDB($db);
 

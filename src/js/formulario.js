@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const fileInput = document.getElementById('imagen');
 
     if (uploadArea && fileInput) {
-        // Cambiar estilo al arrastrar sobre el área
         uploadArea.addEventListener('dragover', (e) => {
             e.preventDefault();
             uploadArea.classList.add('active');
@@ -22,7 +21,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // Cambiar estilo al seleccionar archivo
         fileInput.addEventListener('change', updateFileName);
 
         function updateFileName() {

@@ -21,7 +21,7 @@ class Router {
     }
 
     public function comprobarRutas() {
-        $urlActual = $_SERVER['PATH_INFO'] ?? '/';
+        $urlActual = strtok($_SERVER['REQUEST_URI'], '?') ?? '/';
         $metodo = $_SERVER['REQUEST_METHOD'];
         $rutas = $metodo === 'GET' ? $this->rutasGET : $this->rutasPOST;
 

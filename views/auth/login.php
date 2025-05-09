@@ -26,7 +26,7 @@
                         </div>
                     </div>
                     <div class="campo">
-                        <a href="/olvide" class="campo__clave">Forgot Password?</a>
+                        <a href="/forgot" class="campo__clave">Forgot Password?</a>
                         <input type="submit" value="SIGN IN" class="boton-enviar">
                     </div>
                 </form>

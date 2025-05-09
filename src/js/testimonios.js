@@ -1,18 +1,15 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Avatar upload functionality
     const testimonialAvatarDrop = document.getElementById('testimonialAvatarDrop');
     const testimonialAvatarInput = document.getElementById('imagen');
     let testimonialAvatarPreview = document.getElementById('testimonialAvatarPreview');
     const testimonialAvatarSize = document.getElementById('testimonialAvatarSize');
     const testimonialAvatarError = document.getElementById('testimonialAvatarError');
-    const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+    const MAX_FILE_SIZE = 5 * 1024 * 1024; 
 
-    // Handle file selection
     testimonialAvatarInput.addEventListener('change', function(e) {
         handleFiles(e.target.files);
     });
 
-    // Drag and drop functionality
     ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
         testimonialAvatarDrop.addEventListener(eventName, preventDefaults, false);
     });
@@ -44,19 +41,16 @@ document.addEventListener('DOMContentLoaded', function() {
         handleFiles(files);
     });
 
-    // Handle the selected files
     function handleFiles(files) {
         if (files.length > 0) {
             const file = files[0];
 
-            // Validate file type
             const validTypes = ['image/jpeg', 'image/png', 'image/webp'];
             if (!validTypes.includes(file.type)) {
                 testimonialAvatarError.textContent = 'Formato no válido. Solo JPG, PNG o WEBP.';
                 return;
             }
 
-            // Validate file size
             if (file.size > MAX_FILE_SIZE) {
                 testimonialAvatarError.textContent = 'El archivo es demasiado grande (máx 5MB).';
                 return;
@@ -64,10 +58,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
             testimonialAvatarError.textContent = '';
 
-            // Display file size
             testimonialAvatarSize.textContent = formatFileSize(file.size);
 
-            // Preview the image
             const reader = new FileReader();
             reader.onload = function(e) {
                 if (testimonialAvatarPreview.tagName === 'IMG') {
@@ -85,7 +77,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Format file size
     function formatFileSize(bytes) {
         if (bytes === 0) return '0 Bytes';
         const k = 1024;
@@ -94,7 +85,6 @@ document.addEventListener('DOMContentLoaded', function() {
         return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
     }
 
-    // Character counter for testimonial
     const testimonialTextarea = document.getElementById('mensaje');
     const testimonialCounter = document.getElementById('testimonialCounter');
 

@@ -16,7 +16,8 @@ class BlogCategoriaController
 
         $router->render('blog_categorias/admin', [
             'categorias' => $categorias,
-            'pageTitle' => "Blog categorias"
+            'pageTitle' => "Blog categorias",
+            'titulo' => 'admin'
         ]);
     }
 
@@ -36,7 +37,7 @@ class BlogCategoriaController
                 $resultado = $categoria->guardar();
 
                 if($resultado){
-                    header('Location: /blog_categorias/admin');
+                    header('Location: /blog_categories/admin');
                 }
             }
         }
@@ -44,14 +45,15 @@ class BlogCategoriaController
         $router->render('blog_categorias/crear',[
             'alertas' => $alertas,
             'categoria' => $categoria,
-            'pageTitle' => "blog categorias"
+            'pageTitle' => "blog categorias",
+            'titulo' => 'admin'
         ]);
     }
     public static function actualizar(Router $router){
         session_start();
 
         isAdmin();
-        $id = validarORedireccionar('/blog_categorias/admin');
+        $id = validarORedireccionar('/blog_categories/admin');
 
         $categoria = BlogCategoria::find($id);  
         $alertas = BlogCategoria::getAlertas();
@@ -68,7 +70,7 @@ class BlogCategoriaController
                 $resultado = $categoria->guardar();
 
                 if($resultado){
-                    header('Location: /blog_categorias/admin');
+                    header('Location: /blog_categories/admin');
                 }
             }
         }
@@ -76,7 +78,8 @@ class BlogCategoriaController
         $router->render('blog_categorias/actualizar',[
             'alertas' => $alertas,
             'categoria' => $categoria,
-            'pageTitle' => "tallas"
+            'pageTitle' => "tallas",
+            'titulo' => 'admin'
         ]);
     }
 
@@ -95,7 +98,7 @@ class BlogCategoriaController
                 $categoria = BlogCategoria::find($id);
                 $resultado = $categoria->eliminar();
                 if ($resultado) {
-                    header('location: /blog_categorias/admin?resultado=3');
+                    header('location: /blog_categories/admin?resultado=3');
                 }
             }
         }

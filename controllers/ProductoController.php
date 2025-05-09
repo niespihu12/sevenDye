@@ -31,7 +31,8 @@ class ProductoController
         $router->render('productos/admin', [
             'productos' => $productos,
             'imagenes' => $imagenes,
-            'pageTitle' => 'Productos'
+            'pageTitle' => 'Productos',
+            'titulo' => 'admin'
         ]);
     }
 
@@ -81,8 +82,6 @@ class ProductoController
             if (isset($_POST['tallas_activas'])) {
                 $tallaSeleccionada = true;
             }
-            
-            // Validar precios de tallas
             if (isset($_POST['talla_precios'])) {
                 foreach ($_POST['talla_precios'] as $talla_id => $precio) {
                     if (isset($_POST['tallas_activas']) && in_array($talla_id, $_POST['tallas_activas']) && (empty($precio) || !is_numeric($precio))) {
@@ -95,7 +94,6 @@ class ProductoController
             $alertas = Producto::getAlertas();
 
             if (empty($alertas)) {
-                // Asegurar que subcategorias_id sea NULL y no un string vacío
                 if ($producto->subcategorias_id === '') {
                     $producto->subcategorias_id = NULL;
                 }
@@ -140,7 +138,7 @@ class ProductoController
                         $productoColor->guardar();
                     }
 
-                    header('Location: /productos/admin');
+                    header('Location: /products/admin');
                 }
             }
         }
@@ -155,7 +153,8 @@ class ProductoController
             'tallas' => $tallas,
             'colores' => $colores,
             'pageTitle' => 'Crear Producto',
-            'coloresSeleccionados' => []
+            'coloresSeleccionados' => [],
+            'titulo' => 'admin'
         ]);
     }
 
@@ -164,7 +163,7 @@ class ProductoController
         session_start();
 
         isAdmin();
-        $id = validarORedireccionar('/productos/admin');
+        $id = validarORedireccionar('/products/admin');
         $producto = Producto::find($id);
         $alertas = Producto::getAlertas();
         $categorias = Categoria::all();
@@ -198,15 +197,12 @@ class ProductoController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $args = $_POST;
 
-            // FIJADO: Asegurar que subcategorias_id sea NULL cuando está vacío
             if(!isset($args['subcategorias_id'])) {
                 $args['subcategorias_id'] = NULL;
             }
             
             $producto->sincronizar($args);
             $alertas = $producto->validar();
-
-            // Validar imágenes
             $imagenesSubidas = [];
             if (!empty($_FILES['imagen']['tmp_name'][0])) {
                 if (count($_FILES['imagen']['tmp_name']) > 4) {
@@ -221,20 +217,10 @@ class ProductoController
                     }
                 }
             }
-
-            // Validar colores
-            // if (!isset($_POST['colores']) || empty($_POST['colores'])) {
-            //     Producto::setAlerta('error', 'Debe seleccionar al menos un color');
-            // }
-
-            // Validar tallas
             $tallaSeleccionada = false;
             if (isset($_POST['tallas_activas']) && !empty($_POST['tallas_activas'])) {
                 $tallaSeleccionada = true;
             }
-
-           
-            // Validar precios de tallas
             if (isset($_POST['talla_precios']) && isset($_POST['tallas_activas'])) {
                 foreach ($_POST['tallas_activas'] as $talla_id) {
                     $precio = $_POST['talla_precios'][$talla_id] ?? '';
@@ -250,8 +236,6 @@ class ProductoController
 
             if (empty($alertas)) {
                 $producto->actualizado = date('Y/m/d');
-
-                // PUNTO CLAVE: Asegurar que subcategorias_id sea NULL y no un string vacío
                 if ($producto->subcategorias_id === '') {
                     $producto->subcategorias_id = NULL;
                 }
@@ -259,7 +243,6 @@ class ProductoController
                 $resultado = $producto->guardar();
 
                 if ($resultado) {
-                    // Procesar imágenes a eliminar
                     if (!empty($_POST['eliminar_imagenes'])) {
                         foreach ($_POST['eliminar_imagenes'] as $idImagenEliminar) {
                             $imagenObj = ProductoImagen::find($idImagenEliminar);
@@ -279,8 +262,6 @@ class ProductoController
                         ]);
                         $productoImagen->guardar();
                     }
-
-                    // Actualizar tallas
                     foreach ($tallasActuales as $tallaActual) {
                         $tallaActual->eliminar();
                     }
@@ -298,8 +279,6 @@ class ProductoController
                             $productoTalla->guardar();
                         }
                     }
-
-                    // Para las tallas no activas pero con precio definido
                     if (isset($_POST['talla_precios'])) {
                         $tallasInactivas = array_diff(array_keys($_POST['talla_precios']), $_POST['tallas_activas'] ?? []);
                         foreach ($tallasInactivas as $talla_id) {
@@ -329,7 +308,7 @@ class ProductoController
                         $productoColor->guardar();
                     }
 
-                    header('Location: /productos/admin');
+                    header('Location: /products/admin');
                     exit;
                 }
             }
@@ -348,7 +327,8 @@ class ProductoController
             'preciosTallas' => $preciosTallas,
             'tallasActivas' => $tallasActivas,
             'coloresSeleccionados' => $coloresSeleccionados,
-            'pageTitle' => 'Editar Producto'
+            'pageTitle' => 'Editar Producto',
+            'titulo' => 'admin'
         ]);
     }
 
@@ -366,7 +346,6 @@ class ProductoController
                 $producto = Producto::find($id);
 
                 if ($producto) {
-                    // Eliminar imágenes
                     $query = "SELECT * FROM producto_imagen WHERE productos_id = {$id}";
                     $imagenes = ProductoImagen::consultarSQL($query);
                     foreach ($imagenes as $imagen) {
@@ -374,25 +353,22 @@ class ProductoController
                         $imagen->eliminar();
                     }
 
-                    // Eliminar tallas
                     $query = "SELECT * FROM productos_tallas WHERE productos_id = {$id}";
                     $tallas = ProductoTalla::consultarSQL($query);
                     foreach ($tallas as $talla) {
                         $talla->eliminar();
                     }
 
-                    // Eliminar colores
                     $query = "SELECT * FROM productos_colores WHERE productos_id = {$id}";
                     $colores = ProductoColor::consultarSQL($query);
                     foreach ($colores as $color) {
                         $color->eliminar();
                     }
 
-                    // Eliminar producto
                     $resultado = $producto->eliminar();
 
                     if ($resultado) {
-                        header('Location: /productos/admin');
+                        header('Location: /products/admin');
                     }
                 }
             }
@@ -438,7 +414,6 @@ class ProductoController
         exit;
     }
 
-    // Método para obtener subcategorías por AJAX
     public static function obtenerSubcategorias()
     {
         header('Content-Type: application/json');

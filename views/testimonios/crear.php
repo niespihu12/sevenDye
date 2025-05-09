@@ -4,13 +4,13 @@
     <div class="dashboard__breadcrumb">
 
         <p>
-            <a href="/testimonios/admin">Admin</a>
+            <a href="/testimonials/admin">Admin</a>
             <span>></span>
             <?php echo $pageTitle; ?>
         </p>
     </div>
     <div  class="testimonial-form-wide">
-        <form method="POST" class="testimonial-card-wide" action="/testimonios/crear" enctype="multipart/form-data" id="testimonialForm">
+        <form method="POST" class="testimonial-card-wide" action="/testimonials/create" enctype="multipart/form-data" id="testimonialForm">
             <?php include __DIR__ . "/formulario.php"; ?>
         </form>
     </div>

@@ -10,7 +10,7 @@ document.querySelectorAll('.quantity-btn').forEach(btn => {
         const clave = e.target.dataset.clave;
 
         try {
-            const response = await fetch('/carrito/actualizar', {
+            const response = await fetch('/cart/update', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -38,7 +38,7 @@ document.querySelectorAll('.cart-item__remove').forEach(btn => {
         const clave = e.target.closest('button').dataset.clave;
 
         try {
-            const response = await fetch('/carrito/eliminar', {
+            const response = await fetch('/cart/delete', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -76,7 +76,7 @@ if (applyCuponBtn) {
         }
 
         try {
-            const response = await fetch('/carrito/aplicar-cupon', {
+            const response = await fetch('/cart/apply-coupon', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -110,7 +110,7 @@ const removeCuponBtn = document.getElementById('remove-cupon-btn');
 if (removeCuponBtn) {
     removeCuponBtn.addEventListener('click', async () => {
         try {
-            const response = await fetch('/carrito/quitar-cupon', {
+            const response = await fetch('/cart/remove-coupon', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

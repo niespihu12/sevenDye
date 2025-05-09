@@ -83,7 +83,7 @@ addToCartBtn.addEventListener('click', function(e) {
     this.classList.add('adding');
     setTimeout(() => this.classList.remove('adding'), 1000);
 
-    fetch('/carrito/agregar', {
+    fetch('/cart/add', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -130,10 +130,10 @@ btnWishlist.addEventListener('click', async function() {
         let url, method;
 
         if (isInWishlist) {
-            url = '/deseos/eliminar';
+            url = '/wishlist/delete';
             method = 'POST';
         } else {
-            url = '/deseos/guardar';
+            url = '/wishlist/save';
             method = 'POST';
         }
 

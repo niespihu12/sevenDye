@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             }
 
             try {
-                const response = await fetch('carrito/aplicar-cupon', {
+                const response = await fetch('/cart/apply-coupon', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     if (removeCouponBtn) {
         removeCouponBtn.addEventListener('click', async () => {
             try {
-                const response = await fetch('carrito/quitar-cupon', {
+                const response = await fetch('/cart/remove-coupon', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                 const totalAmount = parseFloat(totalAmountStr);
                 const amountInCents = Math.round(totalAmount * 100);
 
-                const paymentResponse = await fetch('/procesar-pago', {
+                const paymentResponse = await fetch('/process-payment', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

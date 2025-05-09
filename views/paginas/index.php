@@ -20,7 +20,7 @@
                 <span class="sale">SALE</span>
             </h2>
             <p class="collection-text centrar-texto">NEW COLLECTION</p>
-            <a class="shop-button" href="tienda">SHOP NOW</a>
+            <a class="shop-button" href="/store">SHOP NOW</a>
         </div>
 
         <div class="bottom-image">
@@ -54,7 +54,7 @@
         <div class="categories-slider">
             <!-- Categoría 1: Pullovers -->
             <?php foreach ($categoriasCompletas as $categoria): ?>
-                <a class="category-item" href="/tienda/<?php echo urlencode($categoria->slug); ?>">
+                <a class="category-item" href="/store/<?php echo urlencode($categoria->slug); ?>">
 
                     <img loading="lazy" width="100" height="100" src="/imagenes/<?php echo $categoria->imagen ?>" alt="Pullovers"
                         class="category-image">
@@ -218,7 +218,7 @@
                         </div>
                         <div class="producto-info">
                             <p class="producto-titulo">
-                                <a href="/detalles/<?php echo urlencode($producto->slug); ?>?token=<?php echo hash_hmac('sha1', $producto->slug, KEY_TOKEN); ?>"><?php echo $producto->nombre; ?></a>
+                                <a href="/details/<?php echo urlencode($producto->slug); ?>?token=<?php echo hash_hmac('sha1', $producto->slug, KEY_TOKEN); ?>"><?php echo $producto->nombre; ?></a>
                             </p>
                             <div class="producto-precio">$<?php echo $producto->precio; ?></div>
                             <div class="producto-rating">
@@ -239,7 +239,7 @@
     </div>
 
     <div class="arrival__contenido--mas">
-        <a href="/tienda">SEE MORE</a>
+        <a href="/store">SEE MORE</a>
     </div>
 
 
@@ -373,7 +373,7 @@
                         </div>
                         <div class="product-info">
                             <h3 class="product-title">
-                                <a href="/detalles/<?php echo urlencode($producto->slug); ?>?token=<?php echo hash_hmac('sha1', $producto->slug, KEY_TOKEN); ?>">
+                                <a href="/details/<?php echo urlencode($producto->slug); ?>?token=<?php echo hash_hmac('sha1', $producto->slug, KEY_TOKEN); ?>">
                                     <?php echo $producto->nombre; ?>
                                 </a>
                             </h3>

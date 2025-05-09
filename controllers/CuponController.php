@@ -16,7 +16,8 @@ class CuponController
         
         $router->render('cupones/admin', [
             'cupones' => $cupones,
-            'pageTitle' => 'cupones'
+            'pageTitle' => 'cupones',
+            'titulo' => 'admin'
         ]);
     }
     
@@ -42,7 +43,7 @@ class CuponController
                 $resultado = $cupon->guardar();
 
                 if ($resultado) {
-                    header('location: /cupones/admin?resultado=1');
+                    header('location: /coupons/admin?resultado=1');
                 }
             }
         }
@@ -50,7 +51,8 @@ class CuponController
         $router->render('cupones/crear', [
             'cupon' => $cupon,
             'alertas' => $alertas,
-            'pageTitle' => 'cupones'
+            'pageTitle' => 'cupones',
+            'titulo' => 'admin'
         ]);
     }
 
@@ -59,7 +61,7 @@ class CuponController
         session_start();
 
         isAdmin();
-        $id = validarORedireccionar('/cupones/admin');
+        $id = validarORedireccionar('/coupons/admin');
         $cupon = Cupon::find($id);
         $alertas = Cupon::getAlertas();
         
@@ -77,7 +79,7 @@ class CuponController
                 $resultado = $cupon->guardar();
 
                 if ($resultado) {
-                    header('location: /cupones/admin?resultado=2');
+                    header('location: /coupons/admin?resultado=2');
                 }
             }
         }
@@ -85,7 +87,8 @@ class CuponController
         $router->render('cupones/actualizar', [
             'cupon' => $cupon,
             'alertas' => $alertas,
-            'pageTitle' => 'cupones'
+            'pageTitle' => 'cupones',
+            'titulo' => 'admin'
         ]);
     }
     
@@ -103,7 +106,7 @@ class CuponController
                 $resultado = $cupon->eliminar();
                 
                 if ($resultado) {
-                    header('location: /cupones/admin?resultado=3');
+                    header('location: /coupons/admin?resultado=3');
                 }
             }
         }

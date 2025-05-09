@@ -4,7 +4,7 @@
     <?php include_once __DIR__ . "/../templates/alertas.php"; ?>
     <div class="dashboard__breadcrumb">
         <p>
-            <a href="/cupones/admin">Admin</a>
+            <a href="/coupons/admin">Admin</a>
             <span>></span>
             <?php echo $pageTitle; ?>
         </p>

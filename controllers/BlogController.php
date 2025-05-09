@@ -18,7 +18,8 @@ class BlogController
         $blogs = Blog::all();
         $router->render('blog/admin', [
             'blogs' => $blogs,
-            'pageTitle' => 'blogs'
+            'pageTitle' => 'blogs',
+            'titulo' => 'admin'
         ]);
     }
 
@@ -61,7 +62,8 @@ class BlogController
             'blog' => $blog,
             'alertas' => $alertas,
             'categorias' => $categorias,
-            'pageTitle' => 'blogs'
+            'pageTitle' => 'blogs',
+            'titulo' => 'admin'
         ]);
     }
 
@@ -107,7 +109,8 @@ class BlogController
             'blog' => $blog,
             'alertas' => $alertas,
             'categorias' => $categorias,
-            'pageTitle' => 'blogs'
+            'pageTitle' => 'blogs',
+            'titulo' => 'admin'
         ]);
     }
 

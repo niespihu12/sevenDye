@@ -1,6 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-
-    // Initialize counters
     updateCartCounter();
     updateWishlistCounter();
     document.addEventListener('click', function(e) {
@@ -57,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
         resultsContainer.innerHTML = '<div class="loading">Buscando...</div>';
         resultsContainer.classList.add('show');
 
-        fetch(`/productos/buscar?q=${encodeURIComponent(query)}`)
+        fetch(`/products/search?q=${encodeURIComponent(query)}`)
             .then(response => response.json())
             .then(data => {
                 if (data.length > 0) {
@@ -147,7 +145,7 @@ ${imageHtml}
 });
 
 function updateCartCounter() {
-    fetch('/carrito/count', {
+    fetch('/cart/count', {
             method: 'GET',
             headers: {
                 'Accept': 'application/json'
@@ -156,11 +154,9 @@ function updateCartCounter() {
         .then(response => response.json())
         .then(data => {
             if (data.count) {
-                // Update desktop counter
                 const desktopCartIcon = document.querySelector('.navegacion-secundaria .carrito');
                 updateCounter(desktopCartIcon, data.count);
 
-                // Update mobile counter
                 const mobileCartIcon = document.querySelector('.barra-mobile .carrito');
                 updateCounter(mobileCartIcon, data.count);
             }
@@ -169,7 +165,7 @@ function updateCartCounter() {
 }
 
 function updateWishlistCounter() {
-    fetch('/deseos/count', {
+    fetch('/wishlist/count', {
             method: 'GET',
             headers: {
                 'Accept': 'application/json'
@@ -209,7 +205,7 @@ function updateCounter(element, count) {
 }
 
 function toggleWishlist(productId) {
-    fetch(`/deseos/verificar?producto=${productId}`, {
+    fetch(`/wishlist/verify?producto=${productId}`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json'
@@ -218,7 +214,7 @@ function toggleWishlist(productId) {
         .then(response => response.json())
         .then(data => {
             const isInWishlist = data.enLista;
-            const url = '/deseos/' + (isInWishlist ? 'eliminar' : 'guardar');
+            const url = '/wishlist/' + (isInWishlist ? 'delete' : 'save');
 
             fetch(url, {
                     method: 'POST',
@@ -297,7 +293,7 @@ function addToCart(productId, cantidad = 1, talla = null) {
         formData.append('talla', talla);
     }
 
-    fetch('/carrito/agregar', {
+    fetch('/cart/add', {
             method: 'POST',
             body: formData
         })

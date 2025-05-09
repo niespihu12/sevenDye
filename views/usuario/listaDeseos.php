@@ -23,7 +23,7 @@
                         ?>
                         <img loading="lazy" src="/imagenes/<?php echo $imagenPrincipal ?>" alt="<?php echo $producto->nombre ?>">
                     </div>
-                    <a class="deseo-item__info" href="/detalles/<?php echo urlencode($producto->slug); ?>?token=<?php echo hash_hmac('sha1', $producto->slug, KEY_TOKEN); ?>">
+                    <a class="deseo-item__info" href="/details/<?php echo urlencode($producto->slug); ?>?token=<?php echo hash_hmac('sha1', $producto->slug, KEY_TOKEN); ?>">
                         <h3><?php echo $producto->nombre; ?></h3>
                         <div class="deseo-item__details">
                             <p class="price"><?php echo MONEDA . number_format($producto->precio, 2); ?></p>
