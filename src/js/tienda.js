@@ -20,10 +20,10 @@ function initializeVariables(config) {
 function applyFilters() {
     let url = currentCategorySlug ? `/store/${currentCategorySlug}` : '/store';
     let params = [];
-    
- 
+
+
     const subcategoria = document.querySelector('.subcategories__item.active')?.dataset.subcategoriaId;
-    if(subcategoria) {
+    if (subcategoria) {
         params.push(`subcategoria=${subcategoria}`);
     }
 
@@ -87,7 +87,7 @@ function setupFilterControls() {
     const enablePriceFilter = document.getElementById('enablePriceFilter');
 
     if (rangeInput) {
-        rangeInput.addEventListener('input', function() {
+        rangeInput.addEventListener('input', function () {
             const value = parseFloat(this.value);
             if (priceRangeDisplay) {
                 const moneda = priceRangeDisplay.textContent.trim().charAt(0) || '$';
@@ -97,17 +97,17 @@ function setupFilterControls() {
             updateSliderBackground(this);
         });
 
-        rangeInput.addEventListener('change', function() {
+        rangeInput.addEventListener('change', function () {
             if (isPriceFilterActive) {
                 applyFilters();
             }
         });
-        
+
         updateSliderBackground(rangeInput);
     }
 
     if (enablePriceFilter) {
-        enablePriceFilter.addEventListener('change', function() {
+        enablePriceFilter.addEventListener('change', function () {
             isPriceFilterActive = this.checked;
             if (rangeInput) {
                 rangeInput.disabled = !isPriceFilterActive;
@@ -125,7 +125,7 @@ function setupFilterControls() {
 
     const colorDots = document.querySelectorAll('.colors__dot');
     colorDots.forEach(dot => {
-        dot.addEventListener('click', function() {
+        dot.addEventListener('click', function () {
             colorDots.forEach(d => d.classList.remove('active'));
             this.classList.add('active');
             currentColorId = parseInt(this.dataset.colorId) || 0;
@@ -145,14 +145,14 @@ function setupFilterControls() {
 
     const sortOrderSelect = document.getElementById('sortOrder');
     if (sortOrderSelect) {
-        sortOrderSelect.addEventListener('change', function() {
+        sortOrderSelect.addEventListener('change', function () {
             applyFilters();
         });
     }
 }
 
 function setupPagination() {
-    const productsPerPage = 15; 
+    const productsPerPage = 15;
     let currentPage = 1;
 
     const productsContainer = document.querySelector('.products');
@@ -242,7 +242,7 @@ function setupPagination() {
     }
     function addPaginationStyles() {
         if (document.getElementById('pagination-styles')) return;
-        
+
         const style = document.createElement('style');
         style.id = 'pagination-styles';
         style.textContent = `
@@ -311,7 +311,7 @@ function setupPagination() {
     };
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     setupFilterDrawer();
     setupFilterControls();
     setupPagination();
@@ -322,3 +322,69 @@ window.tiendaSystem = {
     clearFilters,
     initializeVariables
 };
+document.querySelectorAll('.favorite').forEach(button => {
+    button.addEventListener('click', async function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const icon = this.querySelector('i');
+        const isInWishlist = icon.classList.contains('fas');
+        const producto = this.dataset.producto;
+
+        // Add click animation
+        this.classList.add('clicked');
+        setTimeout(() => this.classList.remove('clicked'), 300);
+
+        try {
+            let url, method;
+
+            if (isInWishlist) {
+                url = '/wishlist/delete';
+                method = 'POST';
+            } else {
+                url = '/wishlist/save';
+                method = 'POST';
+            }
+
+            const response = await fetch(url, {
+                method: method,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify({
+                    producto
+                })
+            });
+
+            const data = await response.json();
+
+            if (data.resultado) {
+                if (isInWishlist) {
+                    icon.classList.replace('fas', 'far');
+                    this.classList.remove('active');
+                    showNotification(data.mensaje || 'Eliminado de favoritos');
+                } else {
+                    icon.classList.replace('far', 'fas');
+                    this.classList.add('active');
+
+                    // Add heart animation
+                    const heart = document.createElement('div');
+                    heart.classList.add('heart-animation');
+                    this.appendChild(heart);
+                    setTimeout(() => heart.remove(), 1000);
+
+                    showNotification(data.mensaje || '¡Añadido a favoritos!');
+                }
+            } else {
+                if (data.mensaje == 'Usuario no autenticado') {
+                    window.location.href = "/login";
+                } else {
+                    alert(data.mensaje || 'An error occurred');
+                }
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    });
+});

@@ -211,9 +211,10 @@
                                 alt="<?php echo $producto->nombre; ?>">
 
                             <div class="quick-actions">
-                                <button class="quick-views" aria-label="Quick views">
-                                    <i class="fas fa-eye"></i>
+                                <button class="favorite" aria-label="Add to favorites" data-producto="<?php echo $producto->id; ?>">
+                                    <i class="far fa-heart"></i>
                                 </button>
+                                
                             </div>
                         </div>
                         <div class="producto-info">
@@ -275,7 +276,6 @@
                         <p><?php echo $influencer->descripcion; ?></p>
                         <div class="social-share">
                             <p class="share-text">¡Comparte tu estilo en redes!</p>
-                            <!-- From Uiverse.io by GigioBagigi0 -->
                             <div class="card">
                                 <?php if ($influencer->youtube != ''): ?>
                                     <div class="social-icons">
@@ -343,8 +343,6 @@
     </div>
 </section>
 
-<!-- Apartadoo de las ofertas -->
-
 <section class="valor1">
     <h2 class="section-title">BEST SELLER</h2>
 
@@ -365,7 +363,7 @@
                                 alt="<?php echo $producto->nombre; ?>">
 
                             <div class="quick-actions">
-                                <button class="favorite" aria-label="Add to favorites">
+                                <button class="favorite" aria-label="Add to favorites" data-producto="<?php echo $producto->id; ?>">
                                     <i class="far fa-heart"></i>
                                 </button>
                                 
@@ -405,10 +403,6 @@
         </div>
     </div>
 </section>
-
-
-
-<!-- Apartado de las reseñas -->
 <section class="testimonial-general">
     <h2>This Is What Our Customers Say</h2>
     <section class="testimonials">

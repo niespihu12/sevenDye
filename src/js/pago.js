@@ -2,7 +2,7 @@
 let appId, locationId;
 let card;
 
-document.addEventListener('DOMContentLoaded', async function() {
+document.addEventListener('DOMContentLoaded', async function () {
     if (!window.Square) {
         console.error('Square.js failed to load properly');
         showMessage('Payment system is currently unavailable. Please try again later.', 'error');
@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     const payButton = document.getElementById('place-order-btn');
-    payButton.addEventListener('click', async function(event) {
+    payButton.addEventListener('click', async function (event) {
         event.preventDefault();
 
         const billingForm = document.getElementById('billing-form');
@@ -104,15 +104,26 @@ document.addEventListener('DOMContentLoaded', async function() {
             if (result.status === 'OK') {
                 console.log('Payment token generated:', result.token);
 
+                // Collect billing details
+                const billingDetails = {
+                    nombre: document.getElementById('nombre').value,
+                    apellido: document.getElementById('apellido').value,
+                    compania: document.getElementById('compañia').value,
+                    direccion: document.getElementById('address').value,
+                    apartamento: document.getElementById('apartment').value,
+                    ciudad: document.getElementById('town').value,
+                    postal: document.getElementById('postal').value,
+                    telefono: document.getElementById('phone').value,
+                    email: document.getElementById('email').value,
+                    terminos: document.getElementById('termsandcondition').checked
+                };
+
+                
+
                 const cuponInput = document.getElementById('cupon-code');
                 const cuponCodigo = cuponInput ? cuponInput.value.trim() : '';
 
                 const idempotencyKey = crypto.randomUUID ? crypto.randomUUID() : generateUUID();
-
-                const totalAmountStr = document.getElementById('total-amount').textContent.replace(/[^\d.-]/g, '');
-                console.log(totalAmountStr);
-                const totalAmount = parseFloat(totalAmountStr);
-                const amountInCents = Math.round(totalAmount * 100);
 
                 const paymentResponse = await fetch('/process-payment', {
                     method: 'POST',
@@ -123,7 +134,8 @@ document.addEventListener('DOMContentLoaded', async function() {
                     body: JSON.stringify({
                         sourceId: result.token,
                         idempotencyKey: idempotencyKey,
-                        cuponCodigo: cuponCodigo
+                        cuponCodigo: cuponCodigo,
+                        billingDetails: billingDetails
                     })
                 });
 
@@ -135,6 +147,15 @@ document.addEventListener('DOMContentLoaded', async function() {
                     let errorMessage = paymentData.message || 'Payment failed. Please try again.';
                     if (paymentData.errors) {
                         console.error('Square Payment Error:', paymentData.errors);
+
+                        // Display validation errors if present
+                        if (typeof paymentData.errors === 'object' && Object.keys(paymentData.errors).length > 0) {
+                            const errorMessages = [];
+                            for (const field in paymentData.errors) {
+                                errorMessages.push(paymentData.errors[field]);
+                            }
+                            errorMessage = errorMessages.join('<br>');
+                        }
                     }
                     showMessage(errorMessage, 'error');
                     payButton.disabled = false;
@@ -156,7 +177,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 });
 
 function generateUUID() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
         const r = Math.random() * 16 | 0;
         const v = c === 'x' ? r : (r & 0x3 | 0x8);
         return v.toString(16);

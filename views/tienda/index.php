@@ -128,16 +128,22 @@
 
             <div class="products">
                 <?php foreach ($productos as $producto): ?>
-                    <a class="products__card" href="/details/<?php echo urlencode($producto->slug); ?>?token=<?php echo hash_hmac('sha1', $producto->slug, KEY_TOKEN); ?>">
+                    <div class="products__card">
                         <div class="products__image">
                             <?php if (isset($imagenes[$producto->id])): ?>
                                 <img loading="lazy" src="/imagenes/<?php echo $imagenes[$producto->id] ?>" alt="<?php echo $producto->nombre ?>">
                             <?php else: ?>
                                 <img loading="lazy" src="/imagenes/no-image.jpg" alt="No disponible">
                             <?php endif; ?>
+
+                            <button class="favorite" data-producto="<?php echo $producto->id; ?>" class="<?php echo isset($enWishlist) ? 'active' : ''; ?>">
+                                <i class="<?php echo isset($enWishlist) ? 'fas' : 'far'; ?> fa-heart"></i>
+                            </button>
                         </div>
                         <div class="products__info">
-                            <h3 class="products__title"><?php echo $producto->nombre ?></h3>
+                            <a href="/details/<?php echo urlencode($producto->slug); ?>?token=<?php echo hash_hmac('sha1', $producto->slug, KEY_TOKEN); ?>">
+                                <h3 class="products__title"><?php echo $producto->nombre ?></h3>
+                            </a>
                             <div class="products__rating">★★★★★</div>
                             <div class="products__prices">
                                 <span class="products__current-price"><?php echo MONEDA . $producto->precio ?></span>
@@ -149,7 +155,7 @@
                                 <?php endif; ?>
                             </div>
                         </div>
-                    </a>
+                    </div>
                 <?php endforeach; ?>
             </div>
 

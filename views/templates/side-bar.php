@@ -1,9 +1,9 @@
 <aside class="admin-sidebar">
     <a class="admin-sidebar__logo" href="/">
         <picture>
-            <source srcset="/build/img/Seven_logo_blanco.avif" type="image/avif">
-            <source srcset="/build/img/Seven_logo_blanco.webp" type="image/webp">
-            <img src="/build/img/Seven_logo_blanco.png" alt="Seven Logo">
+            <source srcset="/build/img/seven-blanco.avif" type="image/avif">
+            <source srcset="/build/img/seven-blanco.webp" type="image/webp">
+            <img src="/build/img/seven-blanco.png" alt="Seven Logo">
         </picture>
     </a>
 

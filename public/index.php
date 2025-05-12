@@ -19,6 +19,7 @@ use Controllers\UsuarioController;
 use Controllers\ColorController;
 use Controllers\CuponController;
 use Controllers\DeseoController;
+use Controllers\OrdenController;
 use Controllers\PagoController;
 use Controllers\TallaController;
 use Controllers\ProductoController;
@@ -26,11 +27,17 @@ use Controllers\ReseñaController;
 use Controllers\SubcategoriaController;
 use Controllers\TiendaController;
 use Model\BlogCategoria;
+use Model\Orden;
 use Model\Subcategoria;
 
 $router = new Router();
 
 $router->get('/admin', [DashboardController::class, 'index']);
+
+$router->get('/orders/admin', [OrdenController::class, 'index']);
+$router->get("/orders/see", [OrdenController::class, 'see']);
+
+
 $router->get('/testimonials/admin', [TestimonioController::class, 'index']);
 $router->get('/testimonials/create', [TestimonioController::class, 'crear']);
 $router->post('/testimonials/create', [TestimonioController::class, 'crear']);
@@ -167,6 +174,8 @@ $router->get('/blog/{slug}', [PaginasController::class, 'blogDetalle']);
 
 $router->get('/payment', [PagoController::class, 'checkout']);
 $router->post('/process-payment', [PagoController::class, 'procesarPago']);
+$router->post('/process-payment-product', [PagoController::class, 'procesarPagoProducto']);
+$router->get('/buy-now', [PagoController::class, 'buyNow']);
 
 
 $router->comprobarRutas();

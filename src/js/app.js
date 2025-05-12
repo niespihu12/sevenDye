@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
     cambioArrival();
   } else if (window.location.pathname === "/register" || window.location.pathname === "/login") {
     login();
-  } 
+  }
 })
 
 
@@ -388,26 +388,68 @@ function ofertas() {
   });
 
   document.querySelectorAll('.favorite').forEach(button => {
-    button.addEventListener('click', function (e) {
+    button.addEventListener('click', async function (e) {
       e.preventDefault();
       e.stopPropagation();
-      this.classList.toggle('active');
 
       const icon = this.querySelector('i');
-      if (icon.classList.contains('far')) {
-        icon.classList.remove('far');
-        icon.classList.add('fas');
+      const isInWishlist = icon.classList.contains('fas');
+      const producto = this.dataset.producto;
 
-        const heart = document.createElement('div');
-        heart.classList.add('heart-animation');
-        this.appendChild(heart);
-        setTimeout(() => heart.remove(), 1000);
+      // Add click animation
+      this.classList.add('clicked');
+      setTimeout(() => this.classList.remove('clicked'), 300);
 
-        showNotification('¡Añadido a favoritos!');
-      } else {
-        icon.classList.remove('fas');
-        icon.classList.add('far');
-        showNotification('Eliminado de favoritos');
+      try {
+        let url, method;
+
+        if (isInWishlist) {
+          url = '/wishlist/delete';
+          method = 'POST';
+        } else {
+          url = '/wishlist/save';
+          method = 'POST';
+        }
+
+        const response = await fetch(url, {
+          method: method,
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+          },
+          body: JSON.stringify({
+            producto
+          })
+        });
+
+        const data = await response.json();
+
+        if (data.resultado) {
+          if (isInWishlist) {
+            icon.classList.replace('fas', 'far');
+            this.classList.remove('active');
+            showNotification(data.mensaje || 'Eliminado de favoritos');
+          } else {
+            icon.classList.replace('far', 'fas');
+            this.classList.add('active');
+
+            // Add heart animation
+            const heart = document.createElement('div');
+            heart.classList.add('heart-animation');
+            this.appendChild(heart);
+            setTimeout(() => heart.remove(), 1000);
+
+            showNotification(data.mensaje || '¡Añadido a favoritos!');
+          }
+        } else {
+          if (data.mensaje == 'Usuario no autenticado') {
+            window.location.href = "/login";
+          } else {
+            alert(data.mensaje || 'An error occurred');
+          }
+        }
+      } catch (error) {
+        console.error('Error:', error);
       }
     });
   });

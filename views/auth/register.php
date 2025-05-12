@@ -7,9 +7,9 @@ include_once __DIR__ . "/../templates/alertas.php";
             <div class="register__contenido--interno">
                 <a href="/" class="register__logo">
                     <picture>
-                        <source srcset="/build/img/seven_Logo_blanco.avif" type="image/avif">
-                        <source srcset="/build/img/seven_Logo_blanco.webp" type="image/webp">
-                        <img loading="lazy" width="100" height="100" src="/build/img/seven_Logo_blanco.png" alt="">
+                        <source srcset="/build/img/seven-blanco.avif" type="image/avif">
+                        <source srcset="/build/img/seven-blanco.webp" type="image/webp">
+                        <img loading="lazy" width="100" height="100" src="/build/img/seven-blanco.png" alt="">
                     </picture>
                 </a>
                 <h3>Register</h3>

@@ -50,7 +50,7 @@ incrementBtn.addEventListener('click', (event) => {
 
 const sizeInputs = document.querySelectorAll('input[name="size"]');
 sizeInputs.forEach(input => {
-    input.addEventListener('change', function() {
+    input.addEventListener('change', function () {
         const precio = this.getAttribute('data-precio');
         if (precio) {
             const precioElement = document.getElementById('precio-producto');
@@ -65,7 +65,7 @@ sizeInputs.forEach(input => {
 
 
 const addToCartBtn = document.querySelector('.add-to-cart-btn');
-addToCartBtn.addEventListener('click', function(e) {
+addToCartBtn.addEventListener('click', function (e) {
     e.preventDefault();
 
     const id = this.getAttribute('data-id');
@@ -84,12 +84,12 @@ addToCartBtn.addEventListener('click', function(e) {
     setTimeout(() => this.classList.remove('adding'), 1000);
 
     fetch('/cart/add', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: `id=${encodeURIComponent(id)}&token=${encodeURIComponent(token)}&cantidad=${encodeURIComponent(cantidad)}&talla=${encodeURIComponent(talla)}`
-        })
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `id=${encodeURIComponent(id)}&token=${encodeURIComponent(token)}&cantidad=${encodeURIComponent(cantidad)}&talla=${encodeURIComponent(talla)}`
+    })
         .then(response => response.json())
         .then(data => {
             if (data.ok) {
@@ -117,7 +117,7 @@ addToCartBtn.addEventListener('click', function(e) {
 
 
 const btnWishlist = document.getElementById('btn-wishlist');
-btnWishlist.addEventListener('click', async function() {
+btnWishlist.addEventListener('click', async function () {
     const producto = this.dataset.producto;
     const icon = this.querySelector('i');
     const isInWishlist = icon.classList.contains('fas');
@@ -192,7 +192,7 @@ btnWishlist.addEventListener('click', async function() {
 });
 
 // Reviews handling
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Load reviews when page loads
     const productId = document.querySelector('.add-to-cart-btn').getAttribute('data-id');
     if (productId) {
@@ -341,16 +341,16 @@ function submitReview(e) {
     this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
 
     fetch('/resenas/guardar', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                observaciones: reviewContent,
-                calificacion: rating,
-                producto_id: productId
-            })
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            observaciones: reviewContent,
+            calificacion: rating,
+            producto_id: productId
         })
+    })
         .then(response => response.json())
         .then(data => {
             this.disabled = false;
@@ -373,15 +373,12 @@ function submitReview(e) {
                         setTimeout(() => successMsg.remove(), 300);
                     }, 2000);
                 }, 100);
-
-                // Clear review form
                 document.getElementById('review-content').value = '';
                 document.getElementById('star5').checked = true;
 
                 // Reload reviews
                 loadReviews(productId);
             } else {
-                // Show error message
                 alert(data.mensaje || 'Error submitting review.');
             }
         })
@@ -392,17 +389,13 @@ function submitReview(e) {
             alert('Error submitting review. Please try again later.');
         });
 }
-
-// Complete the missing code in the existing script section
 if (thumbnails.length > 0) {
     thumbnails[0].classList.add('active');
 }
-
-// Main image zoom effect
 const mainImage = document.querySelector('.product-image');
 const mainImageContainer = document.querySelector('.main-image-container');
 
-mainImageContainer.addEventListener('mousemove', function(e) {
+mainImageContainer.addEventListener('mousemove', function (e) {
     const {
         left,
         top,
@@ -415,10 +408,36 @@ mainImageContainer.addEventListener('mousemove', function(e) {
     mainImage.style.transformOrigin = `${x * 100}% ${y * 100}%`;
 });
 
-mainImageContainer.addEventListener('mouseenter', function() {
+mainImageContainer.addEventListener('mouseenter', function () {
     mainImage.style.transform = 'scale(1.5)';
 });
 
-mainImageContainer.addEventListener('mouseleave', function() {
+mainImageContainer.addEventListener('mouseleave', function () {
     mainImage.style.transform = 'scale(1)';
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    const buyNowBtn = document.querySelector('.buy-now-btn');
+    if (buyNowBtn) {
+        buyNowBtn.addEventListener('click', processBuyNow);
+    }
+});
+
+function processBuyNow(e) {
+    e.preventDefault();
+    const addToCartBtn = document.querySelector('.add-to-cart-btn');
+    const productId = addToCartBtn.getAttribute('data-id');
+    const token = addToCartBtn.getAttribute('data-token');
+    const cantidad = document.getElementById('quantity').value;
+    const tallaInput = document.querySelector('input[name="size"]:checked');
+
+    if (!tallaInput) {
+        alert('Please select a size');
+        return;
+    }
+
+    const tallaId = tallaInput.getAttribute('data-talla-id');
+    this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+    this.disabled = true;
+    window.location.href = `/buy-now?id=${encodeURIComponent(productId)}&token=${encodeURIComponent(token)}&cantidad=${encodeURIComponent(cantidad)}&talla=${encodeURIComponent(tallaId)}`;
+}

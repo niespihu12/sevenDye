@@ -1,0 +1,186 @@
+.buy-now-page {
+    padding: 2rem 0;
+}
+
+.buy-now-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.page-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: #2c3e50;
+}
+
+.buy-now-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+@media (max-width: 768px) {
+    .buy-now-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Estilos para el resumen del pedido */
+.order-summary {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.order-summary h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #e1e4e8;
+    color: #2c3e50;
+}
+
+.product-summary {
+    display: flex;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #e1e4e8;
+}
+
+.product-summary-image {
+    flex: 0 0 100px;
+    margin-right: 1rem;
+}
+
+.product-summary-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+.product-summary-info {
+    flex: 1;
+}
+
+.product-summary-info h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    color: #2c3e50;
+}
+
+.product-summary-price {
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.product-summary-quantity,
+.product-summary-size {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin-bottom: 0.25rem;
+}
+
+.order-details {
+    margin-top: 1rem;
+}
+
+.order-detail-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+    font-size: 0.95rem;
+    color: #6c757d;
+}
+
+.order-detail-row.total {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #2c3e50;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e1e4e8;
+}
+
+.payment-section {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.payment-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #e1e4e8;
+    color: #2c3e50;
+}
+
+.payment-form {
+    margin-top: 1.5rem;
+}
+
+#card-container {
+    min-height: 90px;
+    margin-bottom: 1.5rem;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    padding: 12px;
+}
+
+.buy-now-pay-button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+.buy-now-pay-button:hover {
+    background-color: #2980b9;
+}
+
+.buy-now-pay-button:disabled {
+    background-color: #95a5a6;
+    cursor: not-allowed;
+}
+
+#payment-status-container {
+    margin-top: 1rem;
+    padding: 1rem 0;
+}
+
+.payment-success,
+.payment-error {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    border-radius: 4px;
+    font-size: 0.95rem;
+}
+
+.payment-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.payment-error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.payment-success i,
+.payment-error i {
+    font-size: 1.2rem;
+}

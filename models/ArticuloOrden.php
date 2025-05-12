@@ -8,6 +8,7 @@ class ArticuloOrden extends ActiveRecord {
         'id',
         'cantidad',
         'costo_por_unidad',
+        'tallas_id',
         'ordenes_id',
         'productos_id'
     ];
@@ -15,6 +16,7 @@ class ArticuloOrden extends ActiveRecord {
     public $id;
     public $cantidad;
     public $costo_por_unidad;
+    public $tallas_id;
     public $ordenes_id;
     public $productos_id;
     
@@ -22,6 +24,7 @@ class ArticuloOrden extends ActiveRecord {
         $this->id = $args['id'] ?? null;
         $this->cantidad = $args['cantidad'] ?? '';
         $this->costo_por_unidad = $args['costo_por_unidad'] ?? '';
+        $this->tallas_id = $args['tallas_id'] ?? null;
         $this->ordenes_id = $args['ordenes_id'] ?? null;
         $this->productos_id = $args['productos_id'] ?? null;
     }
@@ -38,7 +41,9 @@ class ArticuloOrden extends ActiveRecord {
         if (!$this->ordenes_id) {
             self::$alertas['error'][] = 'La orden es obligatoria';
         }
-        
+        if (!$this->tallas_id) {
+            self::$alertas['error'][] = 'La talla es obligatoria';
+        }
         if (!$this->productos_id) {
             self::$alertas['error'][] = 'El producto es obligatorio';
         }

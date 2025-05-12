@@ -89,17 +89,14 @@ class pagos extends ActiveRecord
                 }
             }
 
-            $totalCentavos = round($precioUnitario * $cantidad * 100); // Convertir a centavos
-
-            // Crear request de pago
+            $totalCentavos = round($precioUnitario * $cantidad * 100);
+            $money = new Money();
+            $money->setAmount($totalCentavos);
+            $money->setCurrency(SQUARE_CURRENCY);
             $request = new CreatePaymentRequest($sourceId, $idempotencyKey);
-            $request->setAmountMoney(new Money($totalCentavos, SQUARE_CURRENCY));
-
-            // Añadir referencia para rastreo
+            $request->setAmountMoney($money);
             $request->setReferenceId("producto-{$producto->id}");
             $request->setNote("Compra de {$cantidad} unidad(es) de {$producto->nombre}");
-
-            // Ejecutar la solicitud de pago
             $response = $this->client->getPaymentsApi()->createPayment($request);
 
             if ($response->isSuccess()) {
@@ -243,7 +240,7 @@ class pagos extends ActiveRecord
         }
     }
 
-    public function guardarOrden($usuarioId)
+    public function guardarOrden($usuarioId, $billingData = null)
     {
         // Crear nueva orden
         $orden = new Orden([
@@ -262,12 +259,22 @@ class pagos extends ActiveRecord
             $this->ordenes_id = $ordenId;
             $this->guardar();
 
+            // Guardar los datos de facturación si están disponibles
+            if ($billingData) {
+                $billingData['ordenes_id'] = $ordenId;
+                $billingDetails = new BillingDetail($billingData);
+                $billingDetails->guardar();
+            }
+
             // Guardar los artículos de la orden
             $cartItems = Carrito::obtenerCarrito();
+            
+            
             foreach ($cartItems as $item) {
                 $articuloOrden = new ArticuloOrden([
                     'cantidad' => $item['cantidad'],
                     'costo_por_unidad' => $item['precio'],
+                    'tallas_id' => Talla::consultarSQL("SELECT * FROM tallas WHERE nombre='{$item['talla']}' LIMIT 1")[0]->id,
                     'ordenes_id' => $ordenId,
                     'productos_id' => $item['id']
                 ]);

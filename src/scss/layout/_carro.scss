@@ -2,7 +2,7 @@
 @use '../base/mixins' as m;
 
 .shop-complete {
-    
+
     .shop {
         background: v.$blanco;
         min-height: 100vh;
@@ -16,7 +16,7 @@
         flex-direction: column;
         gap: 2rem;
         padding: 9rem 1rem 1rem 1rem;
-        
+
 
         @include m.tablet {
             flex-direction: row;
@@ -58,7 +58,7 @@
                 display: block;
             }
 
-            
+
 
             @include m.tablet {
                 margin: 60px;
@@ -259,7 +259,7 @@
             margin: 0.5rem 0;
             --slider-percentage: 50%;
 
-            
+
         }
 
         &__input {
@@ -726,7 +726,7 @@
         padding-left: 1.5rem;
         margin-top: 0.5rem;
     }
-    
+
     .subcategories__item {
         display: flex;
         align-items: center;
@@ -737,26 +737,223 @@
         color: var(--dark);
         transition: all 0.3s ease;
     }
-    
+
     .subcategories__item:hover {
         background-color: var(--light-grey);
     }
-    
+
     .subcategories__item.active {
         background-color: var(--primary-light);
         color: var(--dark);
         font-weight: 500;
     }
-    
+
     .subcategories__item .name {
         flex-grow: 1;
     }
-    
+
     .subcategories__item .count {
         font-size: 0.9em;
         color: var(--grey);
         margin-left: 1rem;
     }
 
+    /* Estilos para el botón wishlist en página de detalles */
+    .favorite {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background-color: #fff;
+        border: 1px solid #e0e0e0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+        position: relative;
+        bottom: 246px;
+        left: 206px;
+    }
+
+    .favorite:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    .favorite i {
+        font-size: 22px;
+        color: #ff4757;
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .favorite.active {
+        background-color: #fff5f5;
+        border-color: #ffcdd2;
+    }
+
+    .favorite.clicked {
+        transform: scale(0.85);
+    }
+
+    /* Botón wishlist en lista de productos */
+    .products__card {
+        position: relative;
+    }
+
+    .favorite {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.9);
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        z-index: 2;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .favorite i {
+        font-size: 18px;
+        color: #ff4757;
+        transition: all 0.3s ease;
+    }
+
+    .favorite:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .favorite.active {
+        background-color: #fff5f5;
+    }
+
+    .favorite.clicked {
+        transform: scale(0.85);
+    }
+
+    /* Efecto de pulsación del corazón */
+    .heart-pulse {
+        animation: heartPulse 0.5s cubic-bezier(0.66, 0, 0.33, 1);
+    }
+
+    @keyframes heartPulse {
+        0% {
+            transform: scale(1);
+        }
+
+        15% {
+            transform: scale(1.4);
+        }
+
+        30% {
+            transform: scale(0.8);
+        }
+
+        45% {
+            transform: scale(1.2);
+        }
+
+        60% {
+            transform: scale(0.9);
+        }
+
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    /* Notificaciones toast */
+    .wishlist-toast {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        min-width: 250px;
+        max-width: 350px;
+        background-color: #fff;
+        color: #333;
+        padding: 0;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        z-index: 1000;
+        overflow: hidden;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .wishlist-toast.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .wishlist-toast-content {
+        display: flex;
+        align-items: center;
+        padding: 15px;
+    }
+
+    .wishlist-toast i {
+        font-size: 20px;
+        margin-right: 10px;
+        color: #ff4757;
+    }
+
+    .wishlist-toast.error-toast i {
+        color: #ff4757;
+    }
+
+    .wishlist-toast span {
+        font-size: 14px;
+        flex-grow: 1;
+    }
+
+    .wishlist-toast .progress-bar {
+        height: 3px;
+        width: 100%;
+        background-color: #ff4757;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
+
+    .error-toast .progress-bar {
+        background-color: #ff4757;
+    }
+
+    /* Estilos para dispositivos móviles */
+    @media (max-width: 767px) {
+        .wishlist-toast {
+            left: 20px;
+            right: 20px;
+            max-width: none;
+        }
+
+        .favorite {
+            width: 42px;
+            height: 42px;
+        }
+
+        .favorite i {
+            font-size: 18px;
+        }
+
+        .favorite {
+            width: 36px;
+            height: 36px;
+        }
+
+        .favorite i {
+            font-size: 16px;
+        }
+    }
 
 }

@@ -14,53 +14,53 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="nombre">First Name</label>
-                            <input type="text" id="nombre" required>
+                            <input type="text" id="nombre" name="nombre" required>
                         </div>
                         <div class="form-group">
                             <label for="apellido">Last Name</label>
-                            <input type="text" id="apellido" required>
+                            <input type="text" id="apellido" name="apellido" required>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="company">Company Name (optional)</label>
-                        <input type="text" id="company">
+                        <label for="compañia">Company Name (optional)</label>
+                        <input type="text" id="compañia" name="compañia">
                     </div>
 
                     <div class="form-group">
-                        <label for="adress">Street Address</label>
-                        <input type="text" id="adress" required>
+                        <label for="address">Street Address</label>
+                        <input type="text" id="address" name="address" required>
                     </div>
 
                     <div class="form-group">
                         <label for="apartment">Apartment, floor, etc. (optional)</label>
-                        <input type="text" id="apartment">
+                        <input type="text" id="apartment" name="apartment">
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
                             <label for="town">Town/City</label>
-                            <input type="text" id="town" required>
+                            <input type="text" id="town" name="town" required>
                         </div>
                         <div class="form-group">
                             <label for="postal">Postal Code</label>
-                            <input type="text" id="postal" required>
+                            <input type="text" id="postal" name="postal" required>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" required>
+                        <input type="tel" id="phone" name="phone" required>
                     </div>
 
                     <div class="form-group">
                         <label for="email">Email Address</label>
-                        <input type="email" id="email" required>
+                        <input type="email" id="email" name="email" required>
                     </div>
 
                     <div class="form-group checkbox">
-                        <input type="checkbox" id="saveInfo">
-                        <label for="saveInfo">Save this information for faster check-out next time</label>
+                        <input type="checkbox" id="termsandcondition" required>
+                        <label for="termsandcondition"> I have read and agree to the website terms and conditions *</label>
                     </div>
                 </form>
             </div>
@@ -73,7 +73,7 @@
                 <?php foreach ($carItems as $item): ?>
                     <div class="order-item">
                         <div class="item-image">
-                            <img src="/imagenes/<?php echo $item['producto']->imagen_principal; ?>" alt="<?php echo $item['producto']->nombre; ?>">
+                            <img src="/imagenes/<?php echo $imagenes[$item['clave']][0]->imagen; ?>" alt="<?php echo $item['producto']->nombre; ?>">
                             <span class="item-quantity"><?php echo $item['cantidad']; ?></span>
                         </div>
                         <div class="item-details">
@@ -171,6 +171,5 @@
         );
     });
 </script>
-
 
 <?php include_once __DIR__ . "/../templates/footer-principal.php"; ?>
