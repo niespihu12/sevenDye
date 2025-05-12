@@ -1,7 +1,5 @@
 <?php include_once __DIR__ . "/../templates/header-principal.php"; ?>
-<!-- Load Square.js before your script -->
 <script type="text/javascript" src="https://sandbox.web.squarecdn.com/v1/square.js"></script>
-<!-- Load our custom script -->
 <?php  $script = "<script  src='/build/js/pago.js'></script>" ?>
 <div class="container">
     <h1 class="centrar-texto titulo-checkout">Checkout</h1>

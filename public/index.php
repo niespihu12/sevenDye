@@ -21,6 +21,7 @@ use Controllers\CuponController;
 use Controllers\DeseoController;
 use Controllers\OrdenController;
 use Controllers\PagoController;
+use Controllers\PagosController;
 use Controllers\TallaController;
 use Controllers\ProductoController;
 use Controllers\ReseñaController;
@@ -36,6 +37,8 @@ $router->get('/admin', [DashboardController::class, 'index']);
 
 $router->get('/orders/admin', [OrdenController::class, 'index']);
 $router->get("/orders/see", [OrdenController::class, 'see']);
+
+$router->get("/checkout/admin", [PagosController::class, 'index']);
 
 
 $router->get('/testimonials/admin', [TestimonioController::class, 'index']);

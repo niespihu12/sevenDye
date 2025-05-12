@@ -14,26 +14,12 @@
         <div class="influencers__header">
 
             <h2>Productos</h2>
-            <div>
-                <a class="c-button c-button--gooey" href="/products/create">Admin
-                    <div class="c-button__blobs">
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                    </div>
-                </a>
-
-                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="display: block; height: 0; width: 0;">
-                    <defs>
-                        <filter id="goo">
-                            <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur"></feGaussianBlur>
-                            <feColorMatrix in="blur" mode="matrix"
-                                values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo"></feColorMatrix>
-                            <feBlend in="SourceGraphic" in2="goo"></feBlend>
-                        </filter>
-                    </defs>
+            <a href="/products/create" class="influencers__nuevo">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
                 </svg>
-            </div>
+                Nuevo Producto
+            </a>
 
         </div>
 

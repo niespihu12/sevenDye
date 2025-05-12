@@ -1,0 +1,1 @@
+document.addEventListener("DOMContentLoaded",(function(){if(window.innerWidth<=768){const t=document.querySelector(".productos-tabla"),e=t.querySelectorAll("thead th"),n=t.querySelectorAll("tbody td");for(let t=0;t<n.length;t++){const o=t%e.length;n[t].setAttribute("data-label",e[o].textContent)}}}));

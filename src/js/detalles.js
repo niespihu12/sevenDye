@@ -210,7 +210,7 @@ document.addEventListener('DOMContentLoaded', function () {
 function loadReviews(productId) {
     const reviewsContainer = document.getElementById('reviews-container');
 
-    fetch(`/resenas/producto?id=${productId}`)
+    fetch(`/reviews/product?id=${productId}`)
         .then(response => response.json())
         .then(data => {
             if (data.resultado) {
@@ -340,7 +340,7 @@ function submitReview(e) {
     this.disabled = true;
     this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
 
-    fetch('/resenas/guardar', {
+    fetch('/reviews/save', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
