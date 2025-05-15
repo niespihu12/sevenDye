@@ -82,18 +82,13 @@ class PaginasController
     public static function blogDetalle(Router $router, $slug)
     {
         $slug = isset($slug) ? $slug : '';
-        $token = isset($_GET['token']) ? $_GET['token'] : '';
 
-        if ($slug == '' || $token == '') {
+        if ($slug == '') {
             header('Location: /blog');
             return;
         }
 
-        $token_tmp = hash_hmac('sha1', $slug, KEY_TOKEN);
-        if ($token_tmp != $token) {
-            header('Location: /blog');
-            return;
-        }
+        
 
         $blog = Blog::where('slug', $slug);
 

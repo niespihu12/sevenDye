@@ -10,6 +10,8 @@ use Model\Pagos;
 use Model\BillingDetail;
 use Model\ProductoImagen;
 use Model\ProductoTalla;
+use Model\Orden;
+use Model\ArticuloOrden;
 
 class PagoController
 {
@@ -126,15 +128,15 @@ class PagoController
             $sourceId = $datos['sourceId'];
             $idempotencyKey = $datos['idempotencyKey'];
             $cuponCodigo = $datos['cuponCodigo'] ?? null;
-            
+
             // Obtener datos de facturación
             $billingData = isset($datos['billingDetails']) ? $datos['billingDetails'] : null;
-            
+
             // Validar datos de facturación
             if ($billingData) {
                 $billingDetail = new BillingDetail($billingData);
                 $alertas = $billingDetail->validar();
-                
+
                 if (!empty($alertas)) {
                     echo json_encode([
                         'success' => false,
@@ -144,7 +146,7 @@ class PagoController
                     return;
                 }
             }
-            
+
             if ($cuponCodigo && !Carrito::obtenerCupon()) {
                 Carrito::aplicarCupon($cuponCodigo);
             }
@@ -203,12 +205,12 @@ class PagoController
             $cantidad = $datos['cantidad'] ?? 1;
             $tallaId = $datos['tallaId'] ?? null;
             $billingData = isset($datos['billingDetails']) ? $datos['billingDetails'] : null;
-            
+
             // Validar datos de facturación
             if ($billingData) {
                 $billingDetail = new BillingDetail($billingData);
                 $alertas = $billingDetail->validar();
-                
+
                 if (!empty($alertas)) {
                     echo json_encode([
                         'success' => false,
@@ -229,17 +231,23 @@ class PagoController
                 return;
             }
 
-
             $squarePayment = new Pagos();
-
-
             $resultado = $squarePayment->procesarPagoProducto($producto, $sourceId, $idempotencyKey, $cantidad, $tallaId);
 
             if ($resultado['success']) {
                 $usuarioId = $_SESSION['usuario_id'] ?? 1;
-                Carrito::añadirproducto($productoId, $cantidad, $tallaId);
 
-                $ordenId = $squarePayment->guardarOrden($usuarioId, $billingData);
+                // Ahora usamos un método específico para guardar órdenes de productos individuales
+                // en lugar de añadir al carrito
+                $ordenId = self::guardarOrdenProductoIndividual(
+                    $squarePayment,
+                    $usuarioId,
+                    $producto,
+                    $cantidad,
+                    $tallaId,
+                    $billingData,
+                    $resultado['payment_id']
+                );
 
                 if ($ordenId) {
                     echo json_encode([
@@ -264,6 +272,66 @@ class PagoController
         } else {
             header('Location: /store');
         }
+    }
+
+   
+    private static function guardarOrdenProductoIndividual($pago, $usuarioId, $producto, $cantidad, $tallaId, $billingData, $paymentId)
+    {
+        $orden = new Orden([
+            'referencia' => 'ORD-' . uniqid(),
+            'estado' => 'pagado',
+            'creado' => date('Y-m-d'),
+            'actualizado' => date('Y-m-d'),
+            'usuarios_id' => $usuarioId
+        ]);
+
+        $resultado = $orden->guardar();
+        $orden_id = Orden::where('referencia', $orden->referencia);
+
+        if ($resultado) {
+            $ordenId = $orden_id->id;
+            $pago->ordenes_id = $ordenId;
+            $pago->referencia = $paymentId;
+            $pago->guardar();
+            if ($billingData) {
+                $billingData['ordenes_id'] = $ordenId;
+                $billingDetails = new BillingDetail($billingData);
+                $billingDetails->guardar();
+            }
+            $precio = $producto->precio;
+            if ($tallaId) {
+                $productoTalla = ProductoTalla::consultarSQL(
+                    "SELECT * FROM productos_tallas WHERE productos_id = {$producto->id} AND tallas_id = {$tallaId} AND activo = 1"
+                );
+
+                if ($productoTalla && !empty($productoTalla) && $productoTalla[0]->precio !== null) {
+                    $precio = $productoTalla[0]->precio;
+                }
+            }
+            $tallaDB = null;
+            if ($tallaId) {
+                $tallaDB = $tallaId;
+            }
+
+            
+            $articuloOrden = new ArticuloOrden([
+                'cantidad' => $cantidad,
+                'costo_por_unidad' => $precio,
+                'tallas_id' => $tallaDB,
+                'ordenes_id' => $ordenId,
+                'productos_id' => $producto->id
+            ]);
+            $articuloOrden->guardar();
+
+            // Actualizar el stock del producto
+            $producto->cantidad = max(0, $producto->cantidad - $cantidad);
+            $producto->recuento_ventas = $producto->recuento_ventas + $cantidad;
+            $producto->guardar();
+
+            return $ordenId;
+        }
+
+        return false;
     }
 
     public static function confirmarPago(Router $router)

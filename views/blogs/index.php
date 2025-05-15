@@ -8,7 +8,7 @@
         <div class="category-tag">Blog</div>
       </div>
       <div class="post-content">
-        <h1><a href="/blog/<?php echo urlencode($blogUnico->slug); ?>?token=<?php echo hash_hmac('sha1', $blogUnico->slug, KEY_TOKEN); ?>"><?php echo $blogUnico->titulo ?></a></h1>
+        <h1><a href="/blog/<?php echo urlencode($blogUnico->slug); ?>"><?php echo $blogUnico->titulo ?></a></h1>
         <div class="post-meta">
           <div class="author">
             <picture>
@@ -35,7 +35,7 @@
             <div class="category-tag">Blog</div>
           </div>
           <div class="post-content">
-            <a href="/blog/<?php echo urlencode($blog->slug); ?>?token=<?php echo hash_hmac('sha1', $blog->slug, KEY_TOKEN); ?>">
+            <a href="/blog/<?php echo urlencode($blog->slug); ?>">
               <h2><?php echo $blog->titulo ?></h2>
             </a>
             <div class="post-meta">

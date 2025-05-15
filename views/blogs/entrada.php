@@ -36,7 +36,7 @@
         <div>
             <h3>Blog</h3>
             <?php foreach ($publicaciones as $publicacion): ?>
-                <a href=""><?php echo $publicacion->titulo ?></a>
+                <a href="/blog/<?php echo urlencode($publicacion->slug); ?>"><?php echo $publicacion->titulo ?></a>
             <?php endforeach; ?>
         </div>
     </div>

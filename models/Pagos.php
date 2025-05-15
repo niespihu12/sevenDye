@@ -89,26 +89,37 @@ class pagos extends ActiveRecord
                 }
             }
 
-            $totalCentavos = round($precioUnitario * $cantidad * 100);
+            // Calcular precio final con envío si aplica
+            $subtotal = $precioUnitario * $cantidad;
+            $totalConEnvio = $subtotal;
+            
+            // Agregar costo de envío si es menor a $200
+            if ($subtotal <= 200) {
+                $totalConEnvio += 7.00;
+            }
+            
+            $totalCentavos = round($totalConEnvio * 100);
+            
             $money = new Money();
             $money->setAmount($totalCentavos);
             $money->setCurrency(SQUARE_CURRENCY);
+            
             $request = new CreatePaymentRequest($sourceId, $idempotencyKey);
             $request->setAmountMoney($money);
             $request->setReferenceId("producto-{$producto->id}");
-            $request->setNote("Compra de {$cantidad} unidad(es) de {$producto->nombre}");
+            $request->setNote("Compra individual de {$cantidad} unidad(es) de {$producto->nombre}");
             $response = $this->client->getPaymentsApi()->createPayment($request);
 
             if ($response->isSuccess()) {
                 $payment = $response->getResult()->getPayment();
                 $this->referencia = $payment->getId();
-                $this->monto = $precioUnitario * $cantidad;
+                $this->monto = $totalConEnvio;
                 $this->estado = 'completado';
 
                 return [
                     'success' => true,
                     'payment_id' => $payment->getId(),
-                    'amount' => $totalCentavos / 100 // Convertir de centavos a unidad monetaria
+                    'amount' => $totalConEnvio // Monto en unidad monetaria
                 ];
             } else {
                 $errors = $response->getErrors();

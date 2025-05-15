@@ -1,7 +1,7 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     updateCartCounter();
     updateWishlistCounter();
-    document.addEventListener('click', function(e) {
+    document.addEventListener('click', function (e) {
         const wishlistBtn = e.target.closest('.wishlist-btn');
         if (wishlistBtn) {
             const productId = wishlistBtn.dataset.id;
@@ -10,11 +10,11 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     });
-    document.addEventListener('cartUpdated', function() {
+    document.addEventListener('cartUpdated', function () {
         updateCartCounter();
     });
 
-    document.addEventListener('wishlistUpdated', function() {
+    document.addEventListener('wishlistUpdated', function () {
         updateWishlistCounter();
     });
     const KEY_TOKEN = "APR.wqc-354*";
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const searchResults = document.getElementById(resultsId);
 
         if (searchInput && searchResults) {
-            searchInput.addEventListener('input', debounce(function(e) {
+            searchInput.addEventListener('input', debounce(function (e) {
                 const searchTerm = e.target.value.trim();
 
                 if (searchTerm.length >= 2) {
@@ -37,13 +37,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }, 300));
 
-            document.addEventListener('click', function(event) {
+            document.addEventListener('click', function (event) {
                 if (!searchInput.contains(event.target) && !searchResults.contains(event.target)) {
                     searchResults.classList.remove('show');
                 }
             });
 
-            searchInput.addEventListener('focus', function() {
+            searchInput.addEventListener('focus', function () {
                 if (this.value.trim().length >= 2) {
                     fetchSearchResults(this.value.trim(), searchResults);
                 }
@@ -111,9 +111,9 @@ ${imageHtml}
             const key = await crypto.subtle.importKey(
                 "raw",
                 encoder.encode(KEY_TOKEN), {
-                    name: "HMAC",
-                    hash: "SHA-1"
-                },
+                name: "HMAC",
+                hash: "SHA-1"
+            },
                 false,
                 ["sign"]
             );
@@ -126,7 +126,7 @@ ${imageHtml}
                 .map(b => b.toString(16).padStart(2, '0'))
                 .join('');
 
-            return `/detalles/${encodeURIComponent(slug)}?token=${hexSignature}`;
+            return `/details/${encodeURIComponent(slug)}?token=${hexSignature}`;
 
         } catch (error) {
             console.error('Error generando enlace:', error);
@@ -136,7 +136,7 @@ ${imageHtml}
 
     function debounce(func, wait) {
         let timeout;
-        return function(...args) {
+        return function (...args) {
             const context = this;
             clearTimeout(timeout);
             timeout = setTimeout(() => func.apply(context, args), wait);
@@ -146,11 +146,11 @@ ${imageHtml}
 
 function updateCartCounter() {
     fetch('/cart/count', {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json'
-            }
-        })
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json'
+        }
+    })
         .then(response => response.json())
         .then(data => {
             if (data.count) {
@@ -166,11 +166,11 @@ function updateCartCounter() {
 
 function updateWishlistCounter() {
     fetch('/wishlist/count', {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json'
-            }
-        })
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json'
+        }
+    })
         .then(response => response.json())
         .then(data => {
             if (data.count) {
@@ -206,26 +206,26 @@ function updateCounter(element, count) {
 
 function toggleWishlist(productId) {
     fetch(`/wishlist/verify?producto=${productId}`, {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json'
-            }
-        })
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json'
+        }
+    })
         .then(response => response.json())
         .then(data => {
             const isInWishlist = data.enLista;
             const url = '/wishlist/' + (isInWishlist ? 'delete' : 'save');
 
             fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-Requested-With': 'XMLHttpRequest'
-                    },
-                    body: JSON.stringify({
-                        producto: productId
-                    })
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify({
+                    producto: productId
                 })
+            })
                 .then(response => response.json())
                 .then(data => {
                     if (data.resultado) {
@@ -294,9 +294,9 @@ function addToCart(productId, cantidad = 1, talla = null) {
     }
 
     fetch('/cart/add', {
-            method: 'POST',
-            body: formData
-        })
+        method: 'POST',
+        body: formData
+    })
         .then(response => response.json())
         .then(data => {
             if (data.ok) {
