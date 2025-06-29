@@ -79,7 +79,7 @@
             background: linear-gradient(145deg, v.$violeta);
             color: v.$blanco;
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 1.6rem;
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
@@ -151,9 +151,10 @@
             margin: 2.5rem auto 0;
         }
         
-        a {
+        p {
             color: v.$blanco;
             text-decoration: none;
+            margin: 0;
         }
         
         &:hover {

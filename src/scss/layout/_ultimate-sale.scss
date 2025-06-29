@@ -40,9 +40,9 @@
     @include m.tablet {
       display: block;
       flex: 1;
-      background-image: url("../../build/img/modelo-arcoiris.png");
+      background-image: url("../../build/img/chica_pared.jpg");
       background-repeat: no-repeat;
-      background-position: center center;
+      background-position: left top;
       background-size: cover;
     }
   }

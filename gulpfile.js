@@ -33,28 +33,34 @@ export async function crop(done) {
     const outputFolder = 'src/img/gallery/thumb';
     const width = 250;
     const height = 180;
+
     if (!fs.existsSync(outputFolder)) {
-        fs.mkdirSync(outputFolder, { recursive: true })
+        fs.mkdirSync(outputFolder, { recursive: true });
     }
+
     const images = fs.readdirSync(inputFolder).filter(file => {
         return /\.(jpg)$/i.test(path.extname(file));
     });
+
     try {
         images.forEach(file => {
-            const inputFile = path.join(inputFolder, file)
-            const outputFile = path.join(outputFolder, file)
-            sharp(inputFile) 
+            const inputFile = path.join(inputFolder, file);
+            const outputFile = path.join(outputFolder, file);
+            sharp(inputFile)
+                .rotate() // Aplica orientación EXIF
                 .resize(width, height, {
                     position: 'centre'
                 })
-                .toFile(outputFile)
+                .toFile(outputFile);
         });
 
-        done()
+        done();
     } catch (error) {
-        console.log(error)
+        console.log(error);
+        done(error);
     }
 }
+
 
 export async function imagenes(done) {
     const srcDir = './src/img';
@@ -71,19 +77,22 @@ export async function imagenes(done) {
 
 function procesarImagenes(file, outputSubDir) {
     if (!fs.existsSync(outputSubDir)) {
-        fs.mkdirSync(outputSubDir, { recursive: true })
+        fs.mkdirSync(outputSubDir, { recursive: true });
     }
-    const baseName = path.basename(file, path.extname(file))
-    const extName = path.extname(file)
-    const outputFile = path.join(outputSubDir, `${baseName}${extName}`)
-    const outputFileWebp = path.join(outputSubDir, `${baseName}.webp`)
-    const outputFileAvif = path.join(outputSubDir, `${baseName}.avif`)
 
-    const options = { quality: 80 }
-    sharp(file).jpeg(options).toFile(outputFile)
-    sharp(file).webp(options).toFile(outputFileWebp)
-    sharp(file).avif().toFile(outputFileAvif)
+    const baseName = path.basename(file, path.extname(file));
+    const extName = path.extname(file);
+    const outputFile = path.join(outputSubDir, `${baseName}${extName}`);
+    const outputFileWebp = path.join(outputSubDir, `${baseName}.webp`);
+    const outputFileAvif = path.join(outputSubDir, `${baseName}.avif`);
+
+    const options = { quality: 80 };
+
+    sharp(file).rotate().jpeg(options).toFile(outputFile);      
+    sharp(file).rotate().webp(options).toFile(outputFileWebp);   
+    sharp(file).rotate().avif().toFile(outputFileAvif);          
 }
+
 
 export function dev() {
     watch('src/scss/**/*.scss', css)

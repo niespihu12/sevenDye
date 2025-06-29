@@ -75,9 +75,9 @@
     <div class="servicio">
       <div class="servicio__imagen">
         <picture>
-          <source srcset="/build/img/calidad-del-producto.avif" type="image/avif">
-          <source srcset="/build/img/calidad-del-producto.webp" type="image/webp">
-          <img loading="lazy" width="100" height="100" src="/build/img/calidad-del-producto.png" alt="">
+          <source srcset="build/img/camion-de-reparto.avif" type="image/avif">
+          <source srcset="build/img/camion-de-reparto.webp" type="image/webp">
+          <img loading="lazy" width="100" height="100" src="build/img/camion-de-reparto.jpg" alt="">
         </picture>
       </div>
       <p>Free Delivery<span>From $199.00</span></p>

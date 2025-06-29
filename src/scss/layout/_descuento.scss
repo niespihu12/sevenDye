@@ -337,6 +337,7 @@
     display: flex;
     align-items: center;
     gap: 1rem;
+    justify-content: center;
     transition: transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
   }
 
@@ -569,7 +570,7 @@
     }
 
     .boton-primario {
-      width: 18rem;
+      width: 30rem;
       padding: 1.3rem;
       font-size: 1.6rem;
     }

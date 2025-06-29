@@ -25,5 +25,16 @@
     },
     "config": {
         "process-timeout": 3600
+    },
+    "autoload-dev": 
+    {
+        "psr-4": {
+            "Tests\\": "./tests"
+        }
+
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^12.1",
+        "mockery/mockery": "^1.6"
     }
 }

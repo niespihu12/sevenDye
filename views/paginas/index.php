@@ -16,10 +16,11 @@
 
         <div class="sale-text">
             <h2 class="sale-title">
-                <span class="ultimate">ULTIMATE</span>
-                <span class="sale">SALE</span>
+                <span class="ultimate">COLLECTION</span>
+                <span class="sale">NEW</span>
             </h2>
-            <p class="collection-text centrar-texto">NEW COLLECTION</p>
+            <p class="collection-text centrar-texto">Feels like summer
+            </p>
             <a class="shop-button" href="/store">SHOP NOW</a>
         </div>
 
@@ -48,7 +49,7 @@
 </div>
 
 <section class="weekly-categories">
-    <h2 class="title">Weekly Categories</h2>
+    <h2 class="title">Categories</h2>
 
     <div class="categories-container">
         <div class="categories-slider">
@@ -78,9 +79,9 @@
     <div class="servicio">
         <div class="servicio__imagen">
             <picture>
-                <source srcset="build/img/calidad-del-producto.avif" type="image/avif">
-                <source srcset="build/img/calidad-del-producto.webp" type="image/webp">
-                <img loading="lazy" width="100" height="100" src="build/img/calidad-del-producto.png" alt="">
+                <source srcset="build/img/camion-de-reparto.avif" type="image/avif">
+                <source srcset="build/img/camion-de-reparto.webp" type="image/webp">
+                <img loading="lazy" width="100" height="100" src="build/img/camion-de-reparto.jpg" alt="">
             </picture>
         </div>
         <p>Free Delivery<span>From $199.00</span></p>
@@ -133,15 +134,15 @@
     </div>
 
     <div class="promo-text">
-        <h1>GET A 20% DISCOUNT</h1>
-        <p>In denim jackets with code <span class="discount-code">DENIMWEB20</span><br>
-            Explore the Seven Dye collection, where timeless classics and innovative designs combine perfectly. Upgrade your
-            style today!</p>
+        <h1>20% OFF on Denim Jackets — Your Style, Your Statement</h1>
+
+        <p>Express yourself boldly. Our denim jackets are designed to stand out — just like you.</p>
+        <p>Use code <span class="discount-code">DENIMWEB20</span>— only available <strong>for 5 days!</strong></p>
         <div class="cta">
-            <button class="boton-primario">Buy Now</button>
+            <button class="boton-primario">Claim Your Jacket Now</button>
         </div>
         <div class="promo-timer">
-            <span class="timer-label">Hurry, Before It's Too Late!</span>
+            <span class="timer-label">Hurry — time's running out:</span>
             <div class="temporizador">
                 <div class="temporizador__valor">
                     <p id="days">05</p>
@@ -167,9 +168,9 @@
         <div class="dynamic-gallery-slider">
             <div class="dynamic-gallery-slide dynamic-gallery-slide--featured">
                 <picture>
-                    <source srcset="/build/img/chaquetahombre.avif" type="image/avif">
-                    <source srcset="build/img/image1.webp" type="image/webp">
-                    <img loading="lazy" width="100" height="100" src="build/img/image1.jpg" alt="Image 1">
+                    <source srcset="/build/img/hombre_descuento.avif" type="image/avif">
+                    <source srcset="build/img/hombre_descuento.webp" type="image/webp">
+                    <img loading="lazy" width="100" height="100" src="build/img/hombre_descuento.jpg" alt="Image 1">
                 </picture>
             </div>
             <div class="dynamic-gallery-slide">
@@ -214,7 +215,7 @@
                                 <button class="favorite" aria-label="Add to favorites" data-producto="<?php echo $producto->id; ?>">
                                     <i class="far fa-heart"></i>
                                 </button>
-                                
+
                             </div>
                         </div>
                         <div class="producto-info">
@@ -239,16 +240,16 @@
         <?php endforeach; ?>
     </div>
 
-    <div class="arrival__contenido--mas">
-        <a href="/store">SEE MORE</a>
-    </div>
+    <a href="/store" class="arrival__contenido--mas">
+        <p >SEE MORE</p>
+    </a>
 
 
 </section>
 
 <!-- apartado del video y fotos de influencer -->
 <section class="community-section">
-    
+
 
     <div class="featured-video">
         <video muted preload="none">
@@ -366,7 +367,7 @@
                                 <button class="favorite" aria-label="Add to favorites" data-producto="<?php echo $producto->id; ?>">
                                     <i class="far fa-heart"></i>
                                 </button>
-                                
+
                             </div>
                         </div>
                         <div class="product-info">
